@@ -4,6 +4,11 @@
 
 class Application
 {
+private:
+    bool running;
+    //
+    SDL_Surface *surfDisplay;
+    //
 public:
     Application();
     int OnExecute();
