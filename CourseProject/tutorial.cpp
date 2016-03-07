@@ -10,8 +10,6 @@ bool init();
 bool load();
 void close();
 
-SDL_Surface* loadSurface(FILE_PATH path);//
-
 SDL_Window *window = nullptr;
 SDL_Renderer *renderer = nullptr;
 
@@ -19,27 +17,10 @@ const int ANIMATION_FRAMES = 4;
 Texture SpriteSheetTexture;
 SDL_Rect spriteClips[ANIMATION_FRAMES];
 
-SDL_Surface *windowSurface = nullptr;//
+Texture text;
+TTF_Font *font = nullptr;
 
-SDL_Surface* loadSurface(FILE_PATH path)
-{
-    SDL_Surface *loadedSurface = nullptr;
-    SDL_Surface *optimizedSurface = nullptr;
-
-    loadedSurface = IMG_Load(path);
-    if (loadedSurface == nullptr) {
-        return nullptr;
-    }
-
-    optimizedSurface = SDL_ConvertSurface(loadedSurface, windowSurface->format, NULL);
-    if (optimizedSurface == nullptr) {
-        return nullptr;
-    }
-
-    SDL_FreeSurface(loadedSurface);
-    
-    return optimizedSurface;
-}
+SDL_Color textColor = { 0, 0, 0 };
 
 bool init()
 {
@@ -51,6 +32,11 @@ bool init()
     int imgFlags = IMG_INIT_PNG;
     if (!(IMG_Init(imgFlags) & imgFlags)) {
         printf("Error IMG initialization. %s", IMG_GetError());
+        return false;
+    }
+
+    if (TTF_Init() != 0) {
+        printf("Error TTF initialization. %s", TTF_GetError());
         return false;
     }
 
@@ -66,8 +52,7 @@ bool init()
         return false;
     }
     SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-
-    windowSurface = SDL_GetWindowSurface(window);
+    
     return true;
 }
 
@@ -85,12 +70,25 @@ bool load()
         spriteClips[i].y = 0;
         spriteClips[i].x = i * 64;
     }
+
+    font = TTF_OpenFont("arial.ttf", 28);
+    if (font == nullptr) {
+        printf("Error. Couldn't load font. %s", TTF_GetError());
+        return false;
+    }
+
+    if (!text.loadFromText(renderer, "Hello world!", font, textColor)) {
+        printf("Error. Couldn't create texture");
+        return false;
+    }
     
     return true;
 }
 
 void close()
 {
+    text.free();
+    TTF_CloseFont(font);
     SpriteSheetTexture.free();
 
     SDL_DestroyRenderer(renderer);
@@ -98,6 +96,7 @@ void close()
     SDL_DestroyWindow(window);
     window = nullptr;
 
+    TTF_Quit();
     IMG_Quit();
     SDL_Quit();
 
@@ -128,7 +127,7 @@ int main(int argc, char* argv[])
                 switch (e.key.keysym.sym)
                 {
                 case SDLK_UP:
-                 
+                  
                     break;
                 case SDLK_DOWN:
                    
@@ -148,6 +147,9 @@ int main(int argc, char* argv[])
 
         SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
         SDL_RenderClear(renderer);
+
+        
+        text.render(renderer, 100, 100);
 
         SDL_Rect* currentClip = &spriteClips[frame / 4];
 

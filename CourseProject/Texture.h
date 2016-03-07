@@ -10,6 +10,8 @@ public:
     bool loadTexture(SDL_Renderer *renderer, FILE_PATH path);
     bool loadTexture(SDL_Renderer *renderer, FILE_PATH path, SDL_Color *colorKey);
 
+    bool loadFromText(SDL_Renderer *renderer, Text textureText, TTF_Font *textFont, SDL_Color textColor);
+
     void setColor(byte red, byte green, byte blue);
 
     void setBlendMode(SDL_BlendMode blending);

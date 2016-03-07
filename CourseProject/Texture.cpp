@@ -87,6 +87,32 @@ bool Texture::loadTexture(SDL_Renderer *renderer, FILE_PATH path, SDL_Color *col
     return true;
 }
 
+bool Texture::loadFromText(SDL_Renderer *renderer, Text textureText, TTF_Font *textFont, SDL_Color textColor)
+{
+    free();
+
+    SDL_Texture *newTexture = nullptr;
+    SDL_Surface *textSurface = nullptr;
+
+    textSurface = TTF_RenderText_Solid(textFont, textureText, textColor);
+    if (textSurface == nullptr) {
+        return false;
+    }
+
+    newTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+    if (newTexture == nullptr) {
+        return false;
+    }
+
+    width = textSurface->w;
+    height = textSurface->h;
+    texture = newTexture;
+
+    SDL_FreeSurface(textSurface);
+
+    return true;
+}
+
 void Texture::setColor(byte red, byte green, byte blue)
 {
     SDL_SetTextureColorMod(texture, red, green, blue);
