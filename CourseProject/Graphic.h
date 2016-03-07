@@ -7,3 +7,4 @@
 typedef unsigned char byte;
 typedef const char* FILE_PATH;
 typedef const char* Text;
+typedef unsigned int Time;

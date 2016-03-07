@@ -1,10 +1,15 @@
 #include <stdio.h>
 
 #include "Texture.h"
+#include "Timer.h"
+
+#include <string>
 
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGTH = 600;
 const char* TITLE = "SDL Lessons";
+const int SCREEN_FPS = 60;
+const int SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
 
 bool init();
 bool load();
@@ -16,9 +21,16 @@ SDL_Renderer *renderer = nullptr;
 const int ANIMATION_FRAMES = 4;
 Texture SpriteSheetTexture;
 SDL_Rect spriteClips[ANIMATION_FRAMES];
+SDL_Rect* currentClip;
 
 Texture text;
 TTF_Font *font = nullptr;
+Timer fpsTimer;
+Timer capTimer;
+char str[20] = "";
+int countedFrames = 0;
+int frameTicks = 0;
+float averageFPS = 0;
 
 SDL_Color textColor = { 0, 0, 0 };
 
@@ -112,13 +124,17 @@ int main(int argc, char* argv[])
         printf("\nLoading error!\n");
         return 1;
     }
-    printf("%d", sizeof(Texture));
+    
+
     bool running = true;
     SDL_Event e;    
     //
     int frame = 0;
+    fpsTimer.start();
 
     while (running) {
+        capTimer.start();
+
         while (SDL_PollEvent(&e)) {
             if (e.type == SDL_QUIT) {
                 running = false;
@@ -127,7 +143,7 @@ int main(int argc, char* argv[])
                 switch (e.key.keysym.sym)
                 {
                 case SDLK_UP:
-                  
+                   
                     break;
                 case SDLK_DOWN:
                    
@@ -148,10 +164,11 @@ int main(int argc, char* argv[])
         SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
         SDL_RenderClear(renderer);
 
-        
+        itoa(averageFPS, str, 10);
+        text.loadFromText(renderer, str, font, textColor);
         text.render(renderer, 100, 100);
 
-        SDL_Rect* currentClip = &spriteClips[frame / 4];
+        currentClip = &spriteClips[frame / 4];
 
         SpriteSheetTexture.render(renderer, WINDOW_WIDTH / 2 - currentClip->w / 2, WINDOW_HEIGTH / 2 - currentClip->h / 2, currentClip, 20);
 
@@ -159,9 +176,18 @@ int main(int argc, char* argv[])
         if (frame / 4 >= ANIMATION_FRAMES) {
             frame = 0;
         }
-      
-        // temporaly
-        SDL_Delay(30);
+
+        averageFPS = countedFrames / (fpsTimer.getTicks() / 1000.0);
+        if (averageFPS > 200000) {
+            averageFPS = 0;
+        }
+        countedFrames++;
+
+        frameTicks = capTimer.getTicks();
+        if (frameTicks <  SCREEN_TICKS_PER_FRAME) {
+            SDL_Delay(SCREEN_TICKS_PER_FRAME - frameTicks);
+        }
+
         SDL_RenderPresent(renderer);
     }
    
