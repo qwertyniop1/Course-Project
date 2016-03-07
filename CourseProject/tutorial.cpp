@@ -14,8 +14,10 @@ SDL_Surface* loadSurface(FILE_PATH path);//
 
 SDL_Window *window = nullptr;
 SDL_Renderer *renderer = nullptr;
-Texture background;
-Texture object;
+
+const int ANIMATION_FRAMES = 4;
+Texture SpriteSheetTexture;
+SDL_Rect spriteClips[ANIMATION_FRAMES];
 
 SDL_Surface *windowSurface = nullptr;//
 
@@ -58,7 +60,7 @@ bool init()
         return false;
     }
 
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if (renderer == nullptr) {
         printf("Error. Couldn't create renderer. %s", SDL_GetError());
         return false;
@@ -71,24 +73,25 @@ bool init()
 
 bool load()
 {
-    if (!background.loadTexture(renderer, "background.png")) {
+    SDL_Color color = { 0, 0xFF, 0xFF, 0xFF };
+    if (!SpriteSheetTexture.loadTexture(renderer, "foo.png", &color)) {
         printf("Error. Couldn't load image. %s", SDL_GetError());
         return false;
     }
 
-    SDL_Color color = { 0, 0xFF, 0xFF, 0xFF };
-    if (!object.loadTexture(renderer, "foo.png", &color)) {
-        printf("Error. Couldn't load image. %s", SDL_GetError());
-        return false;
+    for (int i = 0; i < ANIMATION_FRAMES; i++) {
+        spriteClips[i].h = 205;
+        spriteClips[i].w = 64;
+        spriteClips[i].y = 0;
+        spriteClips[i].x = i * 64;
     }
-   
+    
     return true;
 }
 
 void close()
 {
-    object.free();
-    background.free();
+    SpriteSheetTexture.free();
 
     SDL_DestroyRenderer(renderer);
     renderer = nullptr;
@@ -110,24 +113,26 @@ int main(int argc, char* argv[])
         printf("\nLoading error!\n");
         return 1;
     }
-    //printf("%d", sizeof(SDL_Color));
+    printf("%d", sizeof(Texture));
     bool running = true;
     SDL_Event e;    
+    //
+    int frame = 0;
 
     while (running) {
         while (SDL_PollEvent(&e)) {
             if (e.type == SDL_QUIT) {
                 running = false;
             }
-            /*else if (e.type == SDL_KEYDOWN) {
+            else if (e.type == SDL_KEYDOWN) {
                 switch (e.key.keysym.sym)
                 {
                 case SDLK_UP:
-                    currentSurface = surfacesList[KEY_PRESS_SURFACE_UP];
+                 
                     break;
                 case SDLK_DOWN:
-                    currentSurface = surfacesList[KEY_PRESS_SURFACE_DOWN];
-                    break;
+                   
+                    break;/*
                 case SDLK_LEFT:
                     currentSurface = surfacesList[KEY_PRESS_SURFACE_LEFT];
                     break;
@@ -136,18 +141,25 @@ int main(int argc, char* argv[])
                     break;
                 default:
                     currentSurface = surfacesList[KEY_PRESS_SURFACE_DEFAULT];
-                    break;
+                    break;*/
                 }
-            }*/
+            }
         }
 
         SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
         SDL_RenderClear(renderer);
 
-        background.render(renderer, 0, 0);
-        object.render(renderer, 100, 200);
+        SDL_Rect* currentClip = &spriteClips[frame / 4];
+
+        SpriteSheetTexture.render(renderer, WINDOW_WIDTH / 2 - currentClip->w / 2, WINDOW_HEIGTH / 2 - currentClip->h / 2, currentClip, 20);
+
+        frame++;
+        if (frame / 4 >= ANIMATION_FRAMES) {
+            frame = 0;
+        }
+      
         // temporaly
-        SDL_Delay(50);
+        SDL_Delay(30);
         SDL_RenderPresent(renderer);
     }
    

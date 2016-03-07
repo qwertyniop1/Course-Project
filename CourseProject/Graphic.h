@@ -3,5 +3,5 @@
 #include <SDL.h>
 #include <SDL_image.h>
 
-#define FILE_PATH const char*
-#define byte unsigned char
+typedef unsigned char byte;
+typedef const char* FILE_PATH;
