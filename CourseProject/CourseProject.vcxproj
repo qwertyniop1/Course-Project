@@ -89,6 +89,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>G:\soft\c++\CourseProject\SDL\SDL2_ttf-2.0.14\include;G:\soft\c++\CourseProject\SDL\SDL2_image-2.0.0\include;G:\soft\c++\CourseProject\SDL\SDL2-2.0.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -96,6 +97,9 @@
       <AdditionalLibraryDirectories>G:\soft\c++\CourseProject\SDL\SDL2_ttf-2.0.14\lib\x86;G:\soft\c++\CourseProject\SDL\SDL2_image-2.0.0\lib\x86;G:\soft\c++\CourseProject\SDL\SDL2-2.0.3\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -150,17 +154,22 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Application_OnCleanup.cpp" />
-    <ClCompile Include="Application_OnEvent.cpp" />
     <ClCompile Include="Application_OnInit.cpp" />
-    <ClCompile Include="Application_OnLoop.cpp" />
-    <ClCompile Include="Application_OnRender.cpp" />
+    <ClCompile Include="GameStateManager.cpp" />
+    <ClCompile Include="ImageManager.cpp" />
+    <ClCompile Include="StateIntro.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="tutorial.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
+    <ClInclude Include="GameState.h" />
+    <ClInclude Include="GameStateManager.h" />
     <ClInclude Include="Graphic.h" />
+    <ClInclude Include="ImageManager.h" />
+    <ClInclude Include="StateMainMenu.h" />
+    <ClInclude Include="StateIntro.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>

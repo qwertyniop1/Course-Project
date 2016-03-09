@@ -1,22 +1,17 @@
-#include <stdio.h>
+/*#include <stdio.h>
 
-#include "Texture.h"
 #include "Timer.h"
+#include "Texture.h"
 
 #include <string>
 
-const int WINDOW_WIDTH = 800;
-const int WINDOW_HEIGTH = 600;
-const char* TITLE = "SDL Lessons";
-const int SCREEN_FPS = 60;
-const int SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
+
+
 
 bool init();
 bool load();
 void close();
 
-SDL_Window *window = nullptr;
-SDL_Renderer *renderer = nullptr;
 
 const int ANIMATION_FRAMES = 4;
 Texture SpriteSheetTexture;
@@ -156,7 +151,7 @@ int main(int argc, char* argv[])
                     break;
                 default:
                     currentSurface = surfacesList[KEY_PRESS_SURFACE_DEFAULT];
-                    break;*/
+                    break;*//*
                 }
             }
         }
@@ -195,3 +190,4 @@ int main(int argc, char* argv[])
 
     return 0;
 }
+*/

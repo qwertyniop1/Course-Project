@@ -1,23 +1,32 @@
 #pragma once
 
-#include <SDL.h>
+#include "Graphic.h"
+//#include "GameStateManager.h"
+
+#include "StateIntro.h"
+
 
 class Application
 {
 private:
     bool running;
-    //
-    SDL_Surface *surfDisplay;
-    //
+
+    SDL_Window *window = nullptr;
+    SDL_Renderer *renderer = nullptr;
+
+    GameStateManager *stateManager;
+   
+  
 public:
     Application();
-    int OnExecute();
+    int onExecute();
 
-    bool OnInit();
-    void OnEvent(SDL_Event* _event);
-    void OnLoop();
-    void OnRender();
-    void OnCleanup();
+    bool onInit();   
+    void onCleanup();
+
+    void quit() { running = false; };
+
+    SDL_Renderer* getRenderer() { return renderer; }
 
 };
 

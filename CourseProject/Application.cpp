@@ -3,33 +3,35 @@
 Application::Application()
 {
     running = true;
+    stateManager = new GameStateManager(this);
 }
 
-int Application::OnExecute()
+int Application::onExecute()
 {
-    if (OnInit() == false) {
+    if (onInit() == false) {
         return -1;
     }
 
     SDL_Event Event;
+       
+    stateManager->changeState(Intro::getInstance(stateManager));
 
     while (running) {
-        while (SDL_PollEvent(&Event)) {
-            OnEvent(&Event);
+       while (SDL_PollEvent(&Event)) {
+            stateManager->onEvent(&Event);
         }
-        OnLoop();
-        OnRender();
+        stateManager->onLoop();
+        stateManager->onRender();
     }
 
-    OnCleanup();
+    onCleanup();
 
     return 0;
 }
-/*
+
 int main(int argc, char* argv[])
 {
     Application application;
 
-    return application.OnExecute();
+    return application.onExecute();
 }
-*/
