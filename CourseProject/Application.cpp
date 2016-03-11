@@ -14,7 +14,8 @@ int Application::onExecute()
 
     SDL_Event Event;
        
-    stateManager->changeState(Intro::getInstance(stateManager));
+    //stateManager->changeState(Intro::getInstance(stateManager));
+    stateManager->changeState(MainMenu::getInstance(stateManager));
 
     while (running) {
        while (SDL_PollEvent(&Event)) {

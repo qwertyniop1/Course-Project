@@ -8,14 +8,15 @@ private:
     int frameInc;
     int frameRate;
     long oldTime;
-
-public:
     int maxFrames;
+
+public:    
     bool oscillate;
 
     Animation();
     void onAnimate();
     void setFrameRate(int rate);
     void setCurrentFrame(int frame);
+    void setFramesQuantity(int frames);
     int getCurrentFrame();
 };

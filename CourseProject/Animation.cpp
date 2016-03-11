@@ -46,6 +46,11 @@ void Animation::setCurrentFrame(int frame) {
     currentFrame = frame;
 }
 
+void Animation::setFramesQuantity(int frames)
+{
+    maxFrames = frames;
+}
+
 int Animation::getCurrentFrame() {
     return currentFrame;
 }

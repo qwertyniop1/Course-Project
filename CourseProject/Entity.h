@@ -11,18 +11,24 @@ protected:
 
     int x;
     int y;
-    int weigth;
+    int width;
     int height;
 
     SDL_Rect textureRect;
 
+    int animState;
+
 public:
     virtual bool load(FILE_PATH path, SDL_Renderer *renderer);
-    virtual void move();
+    virtual void move(int dx, int dy); //tmp
     virtual void animate();
     virtual void render(SDL_Renderer *renderer);
     virtual void cleanup();
 
-    void setTextureRect(int x, int y, int height, int weigth);
+    void setTextureRect(int x, int y, int width, int height);
+    void setPosition(int x, int y);
 
+    void setMaxFrame(int frames); //???
+    void setAnimState(int state);
+        
 };

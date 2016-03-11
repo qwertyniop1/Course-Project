@@ -4,6 +4,7 @@
 //#include "GameStateManager.h"
 
 #include "StateIntro.h"
+#include "StateMainMenu.h" //tmp
 
 
 class Application

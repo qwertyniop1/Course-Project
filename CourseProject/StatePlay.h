@@ -11,6 +11,7 @@ protected:
 
 private:
     std::vector<Entity*> entityList;
+    Entity *player = nullptr;
     
 public:
     static PlayState* getInstance(GameStateManager *manager)
@@ -26,6 +27,8 @@ public:
     void onCleanup();
 
     void onExit();
+
+    void onKeyDown(SDL_Keycode sym, Uint16 mod);
 
     
 };
