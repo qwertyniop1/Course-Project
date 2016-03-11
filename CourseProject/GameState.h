@@ -1,11 +1,11 @@
 #pragma once
 
-
+#include "Event.h"
 #include "GameStateManager.h"
 
 //class GameStateManager;
 
-class GameState
+class GameState : public Event
 {
 protected:
     GameState() {};
@@ -24,4 +24,6 @@ public:
         manager->changeState(nextState);
     }
 };
+
+
 

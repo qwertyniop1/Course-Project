@@ -19,17 +19,25 @@ void GameStateManager::changeState(GameState * state)
 
 void GameStateManager::onEvent(SDL_Event * _event)
 {
-    states.top()->onEvent(_event);
+    if (!states.empty()) {
+        states.top()->onEvent(_event);
+    }
 }
 
 void GameStateManager::onLoop()
 {
-    states.top()->onLoop();
+    if (!states.empty()) {
+        states.top()->onLoop();
+    }
 }
 
 void GameStateManager::onRender()
 {
-    states.top()->onRender();
+    if (!states.empty()) {
+        SDL_RenderClear(game->getRenderer());
+        states.top()->onRender();
+        SDL_RenderPresent(game->getRenderer());       
+    }
 }
 
 void GameStateManager::quit() // delete

@@ -2,6 +2,7 @@
 
 #include "GameState.h"
 #include "Texture.h"
+#include "Timer.h"
 
 class Intro : public GameState
 {
@@ -9,7 +10,12 @@ protected:
     Intro(GameStateManager *manager) { stateManager = manager; };
 
 private:
+    Timer timer;
+    int time;
+
     Texture textureLogo;
+    Texture textureLoading;
+    Texture *currentTexture = nullptr;
     byte alpha;
 
 public:

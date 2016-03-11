@@ -1,5 +1,5 @@
 #include "Application.h"
-
+#include <stack>
 Application::Application()
 {
     running = true;
@@ -33,5 +33,5 @@ int main(int argc, char* argv[])
 {
     Application application;
 
-    return application.onExecute();
+    return application.onExecute();    
 }

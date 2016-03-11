@@ -1,18 +1,20 @@
 #pragma once
 
 #include "GameState.h"
+#include "Texture.h"
 
 class MainMenu : public GameState
 {
 protected:
-    MainMenu();
+    MainMenu(GameStateManager *manager) { stateManager = manager; };
 
-private:
-    static MainMenu self;
+private:    
+    Texture background;
 
 public:
-    static MainMenu* getInstance()
+    static MainMenu* getInstance(GameStateManager *manager)
     {
+        static MainMenu self(manager);
         return &self;
     }
 
@@ -22,5 +24,9 @@ public:
     void onRender();
     void onCleanup();
 
-    ~MainMenu();
+    void onExit();
+
+    void onKeyDown(SDL_Keycode sym, Uint16 mod);
+
+    //~MainMenu();
 };

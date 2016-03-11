@@ -1,13 +1,24 @@
 #include "StateIntro.h"
 #include "Application.h"
+#include "StateMainMenu.h"
 bool Intro::onInit()
 {
-    if (!textureLogo.loadTexture(stateManager->game->getRenderer(), "img.png")) {
+    if (!textureLogo.loadTexture(stateManager->game->getRenderer(), "res/img.png")) {
         return false;
     }
     textureLogo.setBlendMode(SDL_BLENDMODE_BLEND);
 
+    if (!textureLoading.loadTexture(stateManager->game->getRenderer(), "res/loading.png")) {
+        return false;
+    }
+    textureLoading.setBlendMode(SDL_BLENDMODE_BLEND);
+
+    SDL_SetRenderDrawColor(stateManager->game->getRenderer(), 0xFF, 0xFF, 0xFF, 0xFF);
+
     alpha = 0;
+    currentTexture = &textureLogo;
+    timer.start();
+
     return true;
 }
 
@@ -20,20 +31,28 @@ void Intro::onEvent(SDL_Event * _event)
 
 void Intro::onLoop()
 {
-    alpha++;
+    if (alpha < 255) {
+        alpha++;
+    }
+    else {
+        time = timer.getTicks();
+        if (time > 12000) {
+            stateManager->changeState(MainMenu::getInstance(stateManager));
+        }
+        currentTexture = &textureLoading;
+    }
 }
 
 void Intro::onRender()
 {
-    SDL_SetRenderDrawColor(stateManager->game->getRenderer(), 0xFF, 0xFF, 0xFF, 0xFF);
-    SDL_RenderClear(stateManager->game->getRenderer());
-    textureLogo.setAlpha(alpha);
-    textureLogo.render(stateManager->game->getRenderer(), 0, 0);
-    SDL_RenderPresent(stateManager->game->getRenderer());
+    currentTexture->setAlpha(alpha);
+    currentTexture->render(stateManager->game->getRenderer(), 0, 0);
+  
 }
 
 void Intro::onCleanup()
 {
+    timer.stop();
     textureLogo.free();
-    //printf("FFFFFFFFFFFFFFFF");
+    textureLoading.free();   
 }

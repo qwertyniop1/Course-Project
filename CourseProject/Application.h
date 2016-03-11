@@ -14,7 +14,7 @@ private:
     SDL_Window *window = nullptr;
     SDL_Renderer *renderer = nullptr;
 
-    GameStateManager *stateManager;
+    GameStateManager *stateManager = nullptr;
    
   
 public:
@@ -26,7 +26,7 @@ public:
 
     void quit() { running = false; };
 
-    SDL_Renderer* getRenderer() { return renderer; }
+    SDL_Renderer* getRenderer() { return renderer; } // tmp
 
 };
 
