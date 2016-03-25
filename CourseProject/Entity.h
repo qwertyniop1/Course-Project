@@ -3,6 +3,12 @@
 #include "Animation.h"
 #include "Texture.h"
 
+enum Direction
+{
+    LEFT,
+    RIGTH
+};
+
 class Entity
 {
 protected:
@@ -14,12 +20,19 @@ protected:
     int width;
     int height;
 
-    SDL_Rect textureRect;
+    int dx;
+    int dy;
 
-    int animState;
+    SDL_Rect textureRect;
+    int startX, startY;
+
+    byte animState;
+    Direction orientation; //
+
 
 public:
-    virtual bool load(FILE_PATH path, SDL_Renderer *renderer);
+    virtual bool load(FILE_PATH path, SDL_Renderer *renderer, SDL_Color *colorKey = NULL);
+    virtual void move();
     virtual void move(int dx, int dy); //tmp
     virtual void animate();
     virtual void render(SDL_Renderer *renderer);
@@ -30,5 +43,7 @@ public:
 
     void setMaxFrame(int frames); //???
     void setAnimState(int state);
+    void setOrientation(Direction dir); //////
         
 };
+

@@ -3,6 +3,7 @@
 #include "GameState.h"
 #include <vector>
 #include "Entity.h"
+#include "Player.h"
 
 class PlayState : public GameState
 {
@@ -11,7 +12,7 @@ protected:
 
 private:
     std::vector<Entity*> entityList;
-    Entity *player = nullptr;
+    Player *player = nullptr;
     
 public:
     static PlayState* getInstance(GameStateManager *manager)
@@ -29,6 +30,7 @@ public:
     void onExit();
 
     void onKeyDown(SDL_Keycode sym, Uint16 mod);
+    void onKeyUp(SDL_Keycode sym, Uint16 mod);
 
     
 };
