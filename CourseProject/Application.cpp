@@ -6,6 +6,16 @@ Application::Application()
     stateManager = new GameStateManager(this);
 }
 
+void Application::quit()
+{
+    running = false;
+}
+
+SDL_Renderer * Application::getRenderer()
+{
+    return renderer;
+}
+
 int Application::onExecute()
 {
     if (onInit() == false) {

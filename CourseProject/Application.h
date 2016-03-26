@@ -25,9 +25,9 @@ public:
     bool onInit();   
     void onCleanup();
 
-    void quit() { running = false; };
+    void quit();
 
-    SDL_Renderer* getRenderer() { return renderer; } // tmp
+    SDL_Renderer* getRenderer();  // tmp
 
 };
 

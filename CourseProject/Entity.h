@@ -38,6 +38,8 @@ public:
     virtual void render(SDL_Renderer *renderer);
     virtual void cleanup();
 
+   //void checkCollision();
+
     void setTextureRect(int x, int y, int width, int height);
     void setPosition(int x, int y);
 

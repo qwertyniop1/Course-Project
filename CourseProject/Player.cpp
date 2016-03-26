@@ -13,14 +13,12 @@ void Player::move()
 
     y += this->dy;
 
-    //onGround = false;
-
     if (!onGround) {
         this->dy += 1;
     }
 
-    if (y > WINDOW_HEIGTH - 80) {
-        y = WINDOW_HEIGTH - 80;
+    if (y > WINDOW_HEIGTH - 80) { //
+        y = WINDOW_HEIGTH - 80; //
         this->dy = 0;
         onGround = true;
     }

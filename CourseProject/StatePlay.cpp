@@ -37,6 +37,7 @@ void PlayState::onLoop()
 
 void PlayState::onRender()
 {
+    level.drawLevel(stateManager->game->getRenderer()); //tmp
     for (std::vector<Entity*>::iterator it = entityList.begin(); it != entityList.end(); ++it) {
         (*it)->render(stateManager->game->getRenderer());
     }

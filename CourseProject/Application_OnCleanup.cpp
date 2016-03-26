@@ -11,3 +11,5 @@ void Application::onCleanup()
     IMG_Quit();
     SDL_Quit();
 }
+
+

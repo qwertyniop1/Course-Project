@@ -52,6 +52,11 @@ void Entity::cleanup()
 {
     sprite->free();
 }
+/*
+void Entity::checkCollision()
+{
+
+}*/
 
 void Entity::setTextureRect(int x, int y, int width, int height)
 {
