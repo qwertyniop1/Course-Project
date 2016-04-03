@@ -11,9 +11,9 @@ class GameStateManager
 public:
     GameStateManager(Application *app);
 
-    void pushState(GameState* state);
+    void pushState(GameState *state);
     void popState();
-    void changeState(GameState* state);
+    void changeState(GameState *state);
 
     void onEvent(SDL_Event *_event);
     void onLoop();

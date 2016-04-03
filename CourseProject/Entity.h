@@ -23,6 +23,8 @@ protected:
     int dx;
     int dy;
 
+    bool onGround;
+
     SDL_Rect textureRect;
     int startX, startY;
 
@@ -35,10 +37,16 @@ public:
     virtual void move();
     virtual void move(int dx, int dy); //tmp
     virtual void animate();
-    virtual void render(SDL_Renderer *renderer);
+    virtual void render(SDL_Renderer *renderer, int offsetX, int offsetY);
     virtual void cleanup();
 
-   //void checkCollision();
+    SDL_Rect getRect();
+    int getDX();
+    int getDY();
+    void setDX(int value);
+    void setDY(int value);
+    //void setDX(int value);
+   
 
     void setTextureRect(int x, int y, int width, int height);
     void setPosition(int x, int y);
@@ -46,6 +54,11 @@ public:
     void setMaxFrame(int frames); //???
     void setAnimState(int state);
     void setOrientation(Direction dir); //////
+
+    void setOnGround(bool flag);
+
+    virtual void moveX();
+    virtual void moveY();
         
 };
 

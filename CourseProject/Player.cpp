@@ -2,17 +2,16 @@
 
 Player::Player()
 {
-    onGround = true;
     dx = 0;
     dy = 0;
 }
 
 void Player::move()
-{
+{/*
     x += this->dx;
-
+   
     y += this->dy;
-
+   
     if (!onGround) {
         this->dy += 1;
     }
@@ -21,11 +20,35 @@ void Player::move()
         y = WINDOW_HEIGTH - 80; //
         this->dy = 0;
         onGround = true;
+    }*/
+}
+
+void Player::moveX()
+{
+    x += this->dx;
+}
+
+void Player::moveY()
+{
+    if (!onGround) {
+        this->dy += 1;
     }
+    y += this->dy;
+    
+    if (dx != 0) onGround = false;
+
+   /*if (y > WINDOW_HEIGTH - 80) { //
+        y = WINDOW_HEIGTH - 80; //
+        this->dy = 0;
+        onGround = true;
+    }*/
+    //dx = 0;
+    
 }
 
 void Player::move(int dx, int dy)
 {
+    //if (dx != 0)
     this->dx = dx;
     this->dy += dy;
        
@@ -36,7 +59,6 @@ void Player::move(int dx, int dy)
         orientation = LEFT;
     }
 
-   
 }
 
 bool Player::isOnSurface()
@@ -44,7 +66,3 @@ bool Player::isOnSurface()
     return onGround;
 }
 
-void Player::setOnGround(bool flag)
-{
-    onGround = flag;
-}

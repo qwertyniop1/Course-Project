@@ -5,7 +5,7 @@
 class Player : public Entity
 {
 private:
-    bool onGround;
+    
 
 public:
     Player();
@@ -13,6 +13,11 @@ public:
     void move();
     void move(int dx, int dy);
 
+    //
+    void moveX();
+    void moveY();
+    //
+
     bool isOnSurface();
-    void setOnGround(bool flag);
+    
 };

@@ -3,19 +3,21 @@
 
 bool PlayState::onInit()
 {
-    player = new Player(); //check
+    levelManager.currentLevel = new Level(stateManager->game->getRenderer());
+    levelManager.player = new Player(); //check
     SDL_Color color = { 28, 74, 151 }; //
-    if (!player->load("res/hero.png", stateManager->game->getRenderer(), &color)) {
+    if (!levelManager.player->load("res/hero.png", stateManager->game->getRenderer(), &color)) {
         return false;
     }
 
-    player->setTextureRect(15, 5, 60, 85);  //
-    player->setPosition(50, WINDOW_HEIGTH - 100);  //
-    player->setMaxFrame(6);
-    player->setAnimState(1);
+    //levelManager.player->setTextureRect(15, 5, 60, 85);  //
+    levelManager.player->setTextureRect(15, 95, 60, 65);  //
+    levelManager.player->setPosition(80, 128);  //
+    levelManager.player->setMaxFrame(6);
+    levelManager.player->setAnimState(0);
 
-    entityList.push_back(player);
-
+    levelManager.entityList.push_back(levelManager.player);
+    //levelManager.player->move(10, 0);
     return true;
 }
 
@@ -26,26 +28,30 @@ void PlayState::onEvent(SDL_Event * _event)
 
 void PlayState::onLoop()
 {
-    for (std::vector<Entity*>::iterator it = entityList.begin(); it != entityList.end(); ++it) {
-        (*it)->move();
+    for (std::vector<Entity*>::iterator it = levelManager.entityList.begin(); it != levelManager.entityList.end(); ++it) {
+    //    (*it)->move();
+        (*it)->moveX();
+        levelManager.checkCollisionX(*it);
+        (*it)->moveY();
+        levelManager.checkCollisionY(*it);
     }
 
-    for (std::vector<Entity*>::iterator it = entityList.begin(); it != entityList.end(); ++it) {
+    for (std::vector<Entity*>::iterator it = levelManager.entityList.begin(); it != levelManager.entityList.end(); ++it) {
         (*it)->animate();
     }
 }
 
 void PlayState::onRender()
 {
-    level.drawLevel(stateManager->game->getRenderer()); //tmp
-    for (std::vector<Entity*>::iterator it = entityList.begin(); it != entityList.end(); ++it) {
-        (*it)->render(stateManager->game->getRenderer());
+    levelManager.drawLevel(stateManager->game->getRenderer()); //tmp
+    for (std::vector<Entity*>::iterator it = levelManager.entityList.begin(); it != levelManager.entityList.end(); ++it) {
+        (*it)->render(stateManager->game->getRenderer(), levelManager.getCameraOffsetX(), levelManager.getCameraOffsetY());
     }
 }
 
 void PlayState::onCleanup()
 {
-    for each (Entity *entity in entityList) {
+    for each (Entity *entity in levelManager.entityList) {
         entity->cleanup();
     }
 }
@@ -60,15 +66,15 @@ void PlayState::onKeyDown(SDL_Keycode sym, Uint16 mod)
     switch (sym)
     {
     case SDLK_LEFT:
-        player->move(-10, 0); //
+        levelManager.player->move(-10, 0); //
         break;
     case SDLK_RIGHT:
-        player->move(10, 0);  //     
+        levelManager.player->move(10, 0);  //     
         break;
     case SDLK_UP:
-        if (player->isOnSurface()) {
-            player->move(0, -30);
-            player->setOnGround(false);
+        if (levelManager.player->isOnSurface()) {
+            levelManager.player->move(0, -20);
+            levelManager.player->setOnGround(false);
         }
         //     
         break;
@@ -85,10 +91,10 @@ void PlayState::onKeyUp(SDL_Keycode sym, Uint16 mod)
     switch (sym)
     {
     case SDLK_LEFT:
-        player->move(0, 0); //
+        levelManager.player->move(0, 0); //
         break;
     case SDLK_RIGHT:
-        player->move(0, 0);  //     
+        levelManager.player->move(0, 0);  //     
         break;
     /*case SDLK_UP:
         player->move(0, -30); //     

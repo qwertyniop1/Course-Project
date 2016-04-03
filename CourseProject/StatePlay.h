@@ -4,7 +4,7 @@
 #include <vector>
 #include "Entity.h"
 #include "Player.h"
-#include "Level.h"
+#include "LevelManager.h"
 
 class PlayState : public GameState
 {
@@ -12,9 +12,8 @@ protected:
     PlayState(GameStateManager *manager) { stateManager = manager; };
 
 private:
-    std::vector<Entity*> entityList;
-    Player *player = nullptr;
-    Level level; //tmp
+    
+    LevelManager levelManager; //tmp
     
 public:
     static PlayState* getInstance(GameStateManager *manager)
