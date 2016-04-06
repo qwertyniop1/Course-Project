@@ -2,12 +2,12 @@
 #include "GameState.h"
 #include "Application.h"
 
-GameStateManager::GameStateManager(Application * app)
+GameStateManager::GameStateManager(Application *app)
 {
     game = app;
 }
 
-void GameStateManager::changeState(GameState * state)
+void GameStateManager::changeState(GameState *state)
 {
     if (!states.empty()) {
         states.top()->onCleanup();
@@ -17,7 +17,7 @@ void GameStateManager::changeState(GameState * state)
     states.top()->onInit();
 }
 
-void GameStateManager::onEvent(SDL_Event * _event)
+void GameStateManager::onEvent(SDL_Event *_event)
 {
     if (!states.empty()) {
         states.top()->onEvent(_event);
@@ -40,7 +40,7 @@ void GameStateManager::onRender()
     }
 }
 
-void GameStateManager::quit() // delete
+void GameStateManager::quit() 
 {
     while (!states.empty())
     {

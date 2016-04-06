@@ -54,6 +54,9 @@ void PlayState::onCleanup()
     for each (Entity *entity in levelManager.entityList) {
         entity->cleanup();
     }
+
+    delete levelManager.player;
+    delete levelManager.currentLevel;
 }
 
 void PlayState::onExit()

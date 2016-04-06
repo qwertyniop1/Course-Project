@@ -1,5 +1,5 @@
 #include "Application.h"
-#include <stack>
+
 Application::Application()
 {
     running = true;
@@ -11,7 +11,7 @@ void Application::quit()
     running = false;
 }
 
-SDL_Renderer * Application::getRenderer()
+SDL_Renderer* Application::getRenderer()
 {
     return renderer;
 }

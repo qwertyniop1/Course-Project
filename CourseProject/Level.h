@@ -41,6 +41,7 @@ private:
 
 public:
     Level(SDL_Renderer *renderer);
+    ~Level();
     
     std::string* getMap();
     int getHeigth();

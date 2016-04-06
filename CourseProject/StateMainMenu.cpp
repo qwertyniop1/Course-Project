@@ -39,5 +39,11 @@ void MainMenu::onExit()
 
 void MainMenu::onKeyDown(SDL_Keycode sym, Uint16 mod)
 {
-    stateManager->changeState(PlayState::getInstance(stateManager));
+    switch (sym)
+    {
+    case SDLK_SPACE:
+        stateManager->changeState(PlayState::getInstance(stateManager));
+    default:
+        break;
+    }
 }

@@ -9,6 +9,12 @@ Level::Level(SDL_Renderer * renderer)
     tile_2.loadTexture(renderer, "res/tile2.png");
 }
 
+Level::~Level()
+{
+    /*tile.free();
+    tile_2.free();*/
+}
+
 std::string * Level::getMap()
 {
     return tileMap;

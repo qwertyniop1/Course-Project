@@ -17,7 +17,7 @@ public:
 
 public:
     LevelManager();
-    
+       
     void drawLevel(SDL_Renderer *renderer);
 
     void checkCollisionX(Entity *entity);

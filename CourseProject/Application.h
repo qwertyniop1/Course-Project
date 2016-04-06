@@ -1,11 +1,11 @@
 #pragma once
 
 #include "Graphic.h"
-//#include "GameStateManager.h"
 
 #include "StateIntro.h"
 #include "StateMainMenu.h" //tmp
 
+#include <vld.h>
 
 class Application
 {

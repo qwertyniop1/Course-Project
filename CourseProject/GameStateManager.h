@@ -2,7 +2,7 @@
 
 #include <stack>
 #include "Graphic.h"
-//#include "Application.h"
+
 class Application;
 class GameState;
 
