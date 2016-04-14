@@ -11,7 +11,7 @@ public:
     Player();
 
     void move();
-    void move(int dx, int dy);
+    void move(int dx);
 
     //
     void moveX();

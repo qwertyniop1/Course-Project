@@ -10,7 +10,7 @@ bool PlayState::onInit()
         return false;
     }
 
-    //levelManager.player->setTextureRect(15, 5, 60, 85);  //
+    //levelManager.player->setTextureRect(15, 5, 60, 65);  //
     levelManager.player->setTextureRect(15, 95, 60, 65);  //
     levelManager.player->setPosition(80, 128);  //
     levelManager.player->setMaxFrame(6);
@@ -69,14 +69,14 @@ void PlayState::onKeyDown(SDL_Keycode sym, Uint16 mod)
     switch (sym)
     {
     case SDLK_LEFT:
-        levelManager.player->move(-10, 0); //
+        levelManager.player->move(-10); //
         break;
     case SDLK_RIGHT:
-        levelManager.player->move(10, 0);  //     
+        levelManager.player->move(10);  //     
         break;
     case SDLK_UP:
         if (levelManager.player->isOnSurface()) {
-            levelManager.player->move(0, -20);
+            levelManager.player->setDY(-20);
             levelManager.player->setOnGround(false);
         }
         //     
@@ -94,10 +94,10 @@ void PlayState::onKeyUp(SDL_Keycode sym, Uint16 mod)
     switch (sym)
     {
     case SDLK_LEFT:
-        levelManager.player->move(0, 0); //
+        levelManager.player->move(0); //
         break;
     case SDLK_RIGHT:
-        levelManager.player->move(0, 0);  //     
+        levelManager.player->move(0);  //     
         break;
     /*case SDLK_UP:
         player->move(0, -30); //     

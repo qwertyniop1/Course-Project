@@ -7,20 +7,8 @@ Player::Player()
 }
 
 void Player::move()
-{/*
-    x += this->dx;
-   
-    y += this->dy;
-   
-    if (!onGround) {
-        this->dy += 1;
-    }
+{
 
-    if (y > WINDOW_HEIGTH - 80) { //
-        y = WINDOW_HEIGTH - 80; //
-        this->dy = 0;
-        onGround = true;
-    }*/
 }
 
 void Player::moveX()
@@ -34,24 +22,15 @@ void Player::moveY()
         this->dy += 1;
     }
     y += this->dy;
-    
-    if (dx != 0) onGround = false;
 
-   /*if (y > WINDOW_HEIGTH - 80) { //
-        y = WINDOW_HEIGTH - 80; //
-        this->dy = 0;
-        onGround = true;
-    }*/
-    //dx = 0;
-    
+    if (dx != 0) onGround = false;    
 }
 
-void Player::move(int dx, int dy)
+void Player::move(int dx)
 {
-    //if (dx != 0)
+    
     this->dx = dx;
-    this->dy += dy;
-       
+           
     if (dx > 0) {
         orientation = RIGTH;
     }
