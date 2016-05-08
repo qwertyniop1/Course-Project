@@ -7,7 +7,7 @@ LevelManager::LevelManager()
 
 void LevelManager::checkCollisionX(Entity * entity)
 {
-    for (int i = entity->getRect().y / TILE_SIZE; i < (entity->getRect().y + entity->getRect().h /**/-1) / TILE_SIZE + 1; ++i) {
+    for (int i = entity->getRect().y / TILE_SIZE; i < (entity->getRect().y + entity->getRect().h - 1) / TILE_SIZE + 1; ++i) {
         for (int j = entity->getRect().x / TILE_SIZE; j < (entity->getRect().x + entity->getRect().w) / TILE_SIZE + 1; ++j) {
             if (currentLevel->getMap()[i][j] == 'S') {                  
                 if (entity->getDX() > 0) 
@@ -21,7 +21,7 @@ void LevelManager::checkCollisionX(Entity * entity)
 
 void LevelManager::checkCollisionY(Entity * entity)
 {
-    for (int i = entity->getRect().y / TILE_SIZE; i < (entity->getRect().y + entity->getRect().h) / TILE_SIZE + 1; ++i) {
+    for (int i = entity->getRect().y / TILE_SIZE; i < (entity->getRect().y + entity->getRect().h/**/-1) / TILE_SIZE + 1; ++i) {
         for (int j = entity->getRect().x / TILE_SIZE; j < (entity->getRect().x + entity->getRect().w) / TILE_SIZE + 1; ++j) {
             if (currentLevel->getMap()[i][j] == 'S') {
                 if (entity->getDY() > 0) {
@@ -37,8 +37,8 @@ void LevelManager::checkCollisionY(Entity * entity)
         }
     }
 
-    if (entity->getRect().x >  WINDOW_WIDTH / 2) camera.x = entity->getRect().x - WINDOW_WIDTH / 2;
-    if (entity->getRect().y <  WINDOW_HEIGTH / 2 + 50) camera.y = entity->getRect().y - WINDOW_HEIGTH / 2;
+   /* if (entity->getRect().x >  WINDOW_WIDTH / 2) camera.x = entity->getRect().x - WINDOW_WIDTH / 2;
+    if (entity->getRect().y <  WINDOW_HEIGTH / 2 + 50) camera.y = entity->getRect().y - WINDOW_HEIGTH / 2;*/
 }
 
 int LevelManager::getCameraOffsetX()

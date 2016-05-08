@@ -4,6 +4,7 @@
 #include <vector>
 #include "Entity.h"
 #include "Player.h"
+#include "Enemy.h"
 #include "LevelManager.h"
 
 class PlayState : public GameState
@@ -12,8 +13,9 @@ protected:
     PlayState(GameStateManager *manager) { stateManager = manager; };
 
 private:
-    
+    const Uint8* keys = SDL_GetKeyboardState(NULL);
     LevelManager levelManager; //tmp
+    Enemy *enemy;
     
 public:
     static PlayState* getInstance(GameStateManager *manager)
@@ -30,8 +32,8 @@ public:
 
     void onExit();
 
-    void onKeyDown(SDL_Keycode sym, Uint16 mod);
-    void onKeyUp(SDL_Keycode sym, Uint16 mod);
+    //void onKeyDown(SDL_Keycode sym, Uint16 mod);
+   // void onKeyUp(SDL_Keycode sym, Uint16 mod);
 
     
 };

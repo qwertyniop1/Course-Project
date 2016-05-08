@@ -10,13 +10,36 @@ bool PlayState::onInit()
         return false;
     }
 
-    //levelManager.player->setTextureRect(15, 5, 60, 65);  //
+    //levelManager.player->setTextureRect(10, 15, 55, 70);  //
     levelManager.player->setTextureRect(15, 95, 60, 65);  //
     levelManager.player->setPosition(80, 128);  //
     levelManager.player->setMaxFrame(6);
     levelManager.player->setAnimState(0);
 
+    enemy = new Enemy();
+    enemy->load("res/1.png", stateManager->game->getRenderer()); //tmp
+    enemy->setTextureRect(0, 0, 50, 50);
+    enemy->setPosition(600, 128);  //
+    enemy->setDX(1);
+
+    levelManager.entityList.push_back(enemy);
+
+    enemy = new Enemy();
+    enemy->load("res/1.png", stateManager->game->getRenderer()); //tmp
+    enemy->setTextureRect(0, 0, 50, 50);
+    enemy->setPosition(800, 128);  //
+    enemy->setDX(1);
+
+    levelManager.entityList.push_back(enemy);
+
+    enemy = new Enemy();
+    enemy->load("res/1.png", stateManager->game->getRenderer()); //tmp
+    enemy->setTextureRect(0, 0, 50, 50);
+    enemy->setPosition(1000, 128);  //
+    enemy->setDX(1);
+
     levelManager.entityList.push_back(levelManager.player);
+    levelManager.entityList.push_back(enemy);
     //levelManager.player->move(10, 0);
     return true;
 }
@@ -24,6 +47,21 @@ bool PlayState::onInit()
 void PlayState::onEvent(SDL_Event * _event)
 {
     Event::onEvent(_event);
+
+    if (keys[SDL_SCANCODE_LEFT]) {
+        levelManager.player->move(-10); //
+    } else if (keys[SDL_SCANCODE_RIGHT]) {
+        levelManager.player->move(10); //
+    }
+    else {
+        levelManager.player->move(0);
+    }
+    if (keys[SDL_SCANCODE_UP]) {
+        if (levelManager.player->isOnSurface()) {
+            levelManager.player->setDY(-20);
+            levelManager.player->setOnGround(false);
+        }
+    }
 }
 
 void PlayState::onLoop()
@@ -39,6 +77,10 @@ void PlayState::onLoop()
     for (std::vector<Entity*>::iterator it = levelManager.entityList.begin(); it != levelManager.entityList.end(); ++it) {
         (*it)->animate();
     }
+
+    //
+    if (levelManager.player->getRect().x >  WINDOW_WIDTH / 2) levelManager.camera.x = levelManager.player->getRect().x - WINDOW_WIDTH / 2;
+    if (levelManager.player->getRect().y <  WINDOW_HEIGTH / 2 + 50) levelManager.camera.y = levelManager.player->getRect().y - WINDOW_HEIGTH / 2;
 }
 
 void PlayState::onRender()
@@ -55,6 +97,7 @@ void PlayState::onCleanup()
         entity->cleanup();
     }
 
+    delete enemy;
     delete levelManager.player;
     delete levelManager.currentLevel;
 }
@@ -63,7 +106,7 @@ void PlayState::onExit()
 {
     stateManager->quit();
 }
-
+#if 0
 void PlayState::onKeyDown(SDL_Keycode sym, Uint16 mod)
 {
     switch (sym)
@@ -109,3 +152,4 @@ void PlayState::onKeyUp(SDL_Keycode sym, Uint16 mod)
         break;
     }
 }
+#endif
