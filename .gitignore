@@ -5,7 +5,7 @@
 *.filters
 *.ttf
 
-SDL/
+SFML-2.3.2/
 res/
 
 ## Ignore Visual Studio temporary files, build results, and
