@@ -3,24 +3,6 @@
 
 using namespace sf;
 
-const int HEIGHT = 12;
-const int WIDTH = 40;
-String tileMap[HEIGHT] = {
-
-    "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
-    "B                                B     B",
-    "B                                B     B",
-    "B                                B     B",
-    "B                                B     B",
-    "B         0000                BBBB     B",
-    "B                                B     B",
-    "BBB                              B     B",
-    "B              BB                BB    B",
-    "B              BB                      B",
-    "B    B         BB         BB           B",
-    "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
-
-};
 RectangleShape tile(Vector2f(32, 32));
 
 int main()
