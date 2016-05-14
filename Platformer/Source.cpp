@@ -1,6 +1,7 @@
 #include "Global.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "AnimationManager.h"
 
 using namespace sf;
 
@@ -15,13 +16,18 @@ int main()
     Texture texture;
     texture.loadFromFile("res/fang.png");
 
-    Player player(texture);
-    Enemy enemy(texture, 32 * 27, 302);
-
+    AnimationManager animationManager;
+    animationManager.create("walk", texture, 0, 244, 40, 50, 6, 0.005, 40);
+    animationManager.create("jump", texture, 0, 528, 29, 30, 4, 0.005, 38);
+    animationManager.create("duck", texture, 0, 436, 80, 20, 1, 0.005, 0);
+    animationManager.create("stay", texture, 0, 187, 42, 52, 3, 0.002, 42);
+    animationManager.create("shoot", texture, 0, 572, 45, 52, 5, 0.005, 45);
+   
+    //Player player(texture);
+    //Enemy enemy(texture, 32 * 27, 302);
+ 
     Clock clock;
     double time;
-
-    double currentFrame = 0;
     
     while (window.isOpen()) {
         Event event;
@@ -36,23 +42,36 @@ int main()
             }
         }
 
+        animationManager.set("stay");
+
         if (Keyboard::isKeyPressed(Keyboard::Left)) {
-            player.dx = -0.1;
+           // player.dx = -0.1;
+            animationManager.set("walk");
         }
         if (Keyboard::isKeyPressed(Keyboard::Right)) {
-            player.dx = 0.1;
+          //  player.dx = 0.1;
+            animationManager.set("walk");
         }
         if (Keyboard::isKeyPressed(Keyboard::Up)) {
-            if (player.onSurface) {
+          /*  if (player.onSurface) {
                 player.dy = -0.4;
-                player.onSurface = false;
-            }
+                player.onSurface = false;*/
+                animationManager.set("jump");
+            //}
+        }
+        if (Keyboard::isKeyPressed(Keyboard::Down)) {
+            animationManager.set("duck");
+        }
+        if (Keyboard::isKeyPressed(Keyboard::Space)) {
+            animationManager.set("shoot");
         }
 
-        player.update(time);
-        enemy.update(time);
+        animationManager.tick(time);
 
-        if (player.rect.intersects(enemy.rect)) {
+        /*player.update(time);*/
+        //enemy.update(time);
+
+        /*if (player.rect.intersects(enemy.rect)) {
             if (enemy.isAlive) {
                 if (player.dy > 0) {
                     enemy.dx = 0;
@@ -63,18 +82,18 @@ int main()
                     player.sprite.setColor(Color::Red);
                 }
             }
-        }
+        }*/
 
-        if (player.rect.left > 300) {
+        /*if (player.rect.left > 300) {
             offsetX = player.rect.left - 300;
         }
         if (player.rect.top < 200) {
             offsetY = player.rect.top - 200;
-        }
+        }*/
         
         window.clear(Color::White);
 
-        for (size_t i = 0; i < HEIGHT; ++i) {
+        /*for (size_t i = 0; i < HEIGHT; ++i) {
             for (size_t j = 0; j < WIDTH; ++j) {
                 if (tileMap[i][j] == 'B') {
                     tile.setFillColor(Color::Black);
@@ -89,9 +108,11 @@ int main()
                 tile.setPosition(j * 32 - offsetX, i * 32 - offsetY);
                 window.draw(tile);
             }
-        }
-        window.draw(player.sprite);
-        window.draw(enemy.sprite);
+        }*/
+        
+        animationManager.draw(window, 50, 100);
+
+       /* window.draw(enemy.sprite);*/
 
         window.display();
     }

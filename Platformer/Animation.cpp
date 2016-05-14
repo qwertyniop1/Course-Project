@@ -1,6 +1,6 @@
 #include "Animation.h"
 
-Animation::Animation(sf::Texture & texture, int x, int y, int width, int height, int count, float speed, int step)
+Animation::Animation(sf::Texture & texture, int x, int y, int width, int height, int count, double speed, int step)
 {
     this->speed = speed;
     sprite.setTexture(texture);
@@ -25,7 +25,7 @@ void Animation::tick(double time)
         currentFrame = 0;
     }
 
-    int frame = (int) currentFrame;
+    int frame = /*(int)*/ currentFrame;
     if (isFlip) {
         sprite.setTextureRect(framesFlip[frame]);
     } 

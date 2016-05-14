@@ -1,8 +1,9 @@
 #include "AnimationManager.h"
 
-void AnimationManager::create(sf::String name, sf::Texture texture, int x, int y, int width, int height, int count, double speed, int step)
+void AnimationManager::create(sf::String name, sf::Texture &texture, int x, int y, int width, int height, int count, double speed, int step)
 {
-    animationsList[name] = Animation(texture, x, y, width, height, count, speed, step);
+    Animation a(texture, x, y, width, height, count, speed, step);
+    animationsList[name] = a;
     currentAnimation = name;
 }
 
