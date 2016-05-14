@@ -1,16 +1,13 @@
 #pragma once
-#include "Global.h"
-class Enemy {
-public:
-    double dx, dy;
-    sf::FloatRect rect;
-    bool onSurface;
-    sf::Sprite sprite;
-    double currentFrame;
-    //
-    bool isAlive;
 
-    Enemy(sf::Texture &image, int x, int y);
+#include "Global.h"
+#include "AnimationManager.h"
+#include "Entity.h"
+
+class Enemy : public Entity {
+public:   
+
+    Enemy(AnimationManager &manager, int x, int y);
 
     void update(double time);
     void collision(CollisionDirection dir);

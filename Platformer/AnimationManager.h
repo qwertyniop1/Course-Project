@@ -23,6 +23,10 @@ public:
 
     void pause();
 
+    double getHeight();
+
+    double getWidth();
+
     AnimationManager() {};
 
 private:

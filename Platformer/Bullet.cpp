@@ -2,6 +2,7 @@
 
 Bullet::Bullet(AnimationManager &manager, int x, int y, Direction dir) : Entity(manager, x, y)
 {
+    name = "Bullet";
     animationManager = manager;
     animationManager.set("move");
     this->x = x;

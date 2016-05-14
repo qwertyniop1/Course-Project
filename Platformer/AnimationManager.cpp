@@ -36,3 +36,13 @@ void AnimationManager::pause()
 {
     animationsList[currentAnimation].isPlaying = false;
 }
+
+double AnimationManager::getHeight()
+{
+    return animationsList[currentAnimation].frames[animationsList[currentAnimation].currentFrame].height;
+}
+
+double AnimationManager::getWidth()
+{
+    return animationsList[currentAnimation].frames[animationsList[currentAnimation].currentFrame].width;
+}

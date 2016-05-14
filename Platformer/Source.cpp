@@ -26,6 +26,7 @@ int main()
     animationManager.create("duck", texture, 0, 436, 80, 20, 1, 0.005, 0);
     animationManager.create("stay", texture, 0, 187, 42, 52, 3, 0.002, 42);
     animationManager.create("shoot", texture, 0, 572, 45, 52, 5, 0.005, 45);
+    animationManager.set("stay");
 
     Texture bulletTexture;
     bulletTexture.loadFromFile("res/bullet.png");
@@ -37,6 +38,8 @@ int main()
     Player player(animationManager);
     
     std::list<Entity*> entities;
+
+    entities.push_back(new Enemy(animationManager, 27 * 32, 302));
      
     Clock clock;
     double time;
@@ -60,8 +63,7 @@ int main()
             }
         }
 
-        animationManager.set("stay");
-
+        
         if (Keyboard::isKeyPressed(Keyboard::Left)) {
             player.keys[Player::Key::Left] = true;
         }
@@ -98,18 +100,24 @@ int main()
             (*it)->update(time);
         }
 
-        /*if (player.rect.intersects(enemy.rect)) {
-            if (enemy.isAlive) {
-                if (player.dy > 0) {
-                    enemy.dx = 0;
-                    enemy.isAlive = false;
-                    player.dy = -0.2;
+        for (std::list<Entity*>::iterator it = entities.begin(); it != entities.end(); ++it) {
+            if ((*it)->name == "Enemy") {
+                Entity *enemy = *it;
+                if (!enemy->isAlive) {
+                    continue;
                 }
-                else {
-                    player.sprite.setColor(Color::Red);
+                if (player.rect.intersects(enemy->getRect())) {
+                    if (player.dy > 0) {
+                        enemy->dx = 0;
+                        player.dy = -0.2;
+                        enemy->isAlive = false;
+                    } 
+                    else {
+                        // kill player
+                    }
                 }
             }
-        }*/
+        }
 
         if (player.rect.left > 300) {
             offsetX = player.rect.left - 300;
