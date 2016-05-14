@@ -12,11 +12,7 @@ public:
 
     enum Key {
         Left, Right, Up, Down, Space
-    };
-
-    enum Direction {
-        Normal, Flip
-    };
+    };   
 
     Direction direction;
 

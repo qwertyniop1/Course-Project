@@ -2,6 +2,9 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "AnimationManager.h"
+#include "Bullet.h"
+
+#include <list>
 
 using namespace sf;
 
@@ -22,10 +25,18 @@ int main()
     animationManager.create("duck", texture, 0, 436, 80, 20, 1, 0.005, 0);
     animationManager.create("stay", texture, 0, 187, 42, 52, 3, 0.002, 42);
     animationManager.create("shoot", texture, 0, 572, 45, 52, 5, 0.005, 45);
+
+    Texture bulletTexture;
+    bulletTexture.loadFromFile("res/bullet.png");
+
+    AnimationManager bulletAnimation;
+    bulletAnimation.create("move", bulletTexture, 7, 10, 8, 8, 1, 0, 0);
+    bulletAnimation.create("explode", bulletTexture, 27, 7, 18, 18, 4, 0.01, 29);
    
     Player player(animationManager);
-    //Enemy enemy(texture, 32 * 27, 302);
- 
+    
+    std::list<Bullet*> bullets;
+     
     Clock clock;
     double time;
     
@@ -39,6 +50,12 @@ int main()
         while (window.pollEvent(event)) {
             if (event.type == Event::Closed) {
                 window.close();
+            }
+
+            if (event.type == Event::KeyPressed) {
+                if (event.key.code == Keyboard::Space) {
+                    bullets.push_back(new Bullet(bulletAnimation, player.rect.left, player.rect.top, player.direction));
+                }
             }
         }
 
@@ -63,7 +80,22 @@ int main()
         animationManager.tick(time);
 
         player.update(time);
-        //enemy.update(time);
+
+        for (std::list<Bullet*>::iterator it = bullets.begin(); it != bullets.end(); ) {
+            Bullet *bullet = *it;
+
+            if (!bullet->isAlive) {
+                it = bullets.erase(it);
+                delete bullet;
+            }
+            else {
+                it++;
+            }
+        }
+
+        for (std::list<Bullet*>::iterator it = bullets.begin(); it != bullets.end(); ++it) {
+            (*it)->update(time);
+        }
 
         /*if (player.rect.intersects(enemy.rect)) {
             if (enemy.isAlive) {
@@ -102,6 +134,10 @@ int main()
                 tile.setPosition(j * 32 - offsetX, i * 32 - offsetY);
                 window.draw(tile);
             }
+        }
+
+        for (std::list<Bullet*>::iterator it = bullets.begin(); it != bullets.end(); ++it) {
+            (*it)->draw(window);
         }
 
         player.draw(window);

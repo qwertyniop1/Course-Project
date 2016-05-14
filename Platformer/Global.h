@@ -20,8 +20,8 @@ const sf::String tileMap[HEIGHT] = {
     "B                                B     B",
     "B         0000                BBBB     B",
     "B              BB                B     B",
-    "BBB            BB                B     B",
-    "B              BB                BB    B",
+    "BBB                              B     B",
+    "B                                BB    B",
     "B              BB                      B",
     "B    B   BBB   BB                      B",
     "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
@@ -30,5 +30,8 @@ const sf::String tileMap[HEIGHT] = {
 
 extern double offsetX, offsetY;
 
+enum Direction {
+    Normal, Flip
+};
 
 
