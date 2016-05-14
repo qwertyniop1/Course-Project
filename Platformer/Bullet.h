@@ -1,14 +1,10 @@
 #pragma once
 
 #include "AnimationManager.h"
+#include "Entity.h"
 
-class Bullet {
+class Bullet : public Entity {
 public:
-    double dx, dy;
-    double x, y, width, height;
-    AnimationManager animationManager;
-    bool isAlive;
-
     Bullet(AnimationManager &manager, int x, int y, Direction dir);
 
     void update(double time);

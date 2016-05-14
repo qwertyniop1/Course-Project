@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "AnimationManager.h"
+#include "Entity.h"
 #include "Bullet.h"
 
 #include <list>
@@ -35,7 +36,7 @@ int main()
    
     Player player(animationManager);
     
-    std::list<Bullet*> bullets;
+    std::list<Entity*> entities;
      
     Clock clock;
     double time;
@@ -54,7 +55,7 @@ int main()
 
             if (event.type == Event::KeyPressed) {
                 if (event.key.code == Keyboard::Space) {
-                    bullets.push_back(new Bullet(bulletAnimation, player.rect.left, player.rect.top, player.direction));
+                    entities.push_back(new Bullet(bulletAnimation, player.rect.left, player.rect.top, player.direction));
                 }
             }
         }
@@ -81,11 +82,11 @@ int main()
 
         player.update(time);
 
-        for (std::list<Bullet*>::iterator it = bullets.begin(); it != bullets.end(); ) {
-            Bullet *bullet = *it;
+        for (std::list<Entity*>::iterator it = entities.begin(); it != entities.end(); ) {
+            Entity *bullet = *it;
 
             if (!bullet->isAlive) {
-                it = bullets.erase(it);
+                it = entities.erase(it);
                 delete bullet;
             }
             else {
@@ -93,7 +94,7 @@ int main()
             }
         }
 
-        for (std::list<Bullet*>::iterator it = bullets.begin(); it != bullets.end(); ++it) {
+        for (std::list<Entity*>::iterator it = entities.begin(); it != entities.end(); ++it) {
             (*it)->update(time);
         }
 
@@ -136,7 +137,7 @@ int main()
             }
         }
 
-        for (std::list<Bullet*>::iterator it = bullets.begin(); it != bullets.end(); ++it) {
+        for (std::list<Entity*>::iterator it = entities.begin(); it != entities.end(); ++it) {
             (*it)->draw(window);
         }
 
