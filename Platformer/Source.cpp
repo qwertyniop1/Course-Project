@@ -4,18 +4,17 @@
 #include "AnimationManager.h"
 #include "Entity.h"
 #include "Bullet.h"
+#include "Level.h"
 
 #include <list>
 
 using namespace sf;
 
-RectangleShape tile(Vector2f(32, 32));
-
-double offsetX = 0, offsetY = 0;
-
 int main()
 {
     RenderWindow window(VideoMode(600, 400), "Test");
+
+    View view(FloatRect(0, 0, 600, 400));
 
     Texture texture;
     texture.loadFromFile("res/fang.png");
@@ -34,12 +33,20 @@ int main()
     AnimationManager bulletAnimation;
     bulletAnimation.create("move", bulletTexture, 7, 10, 8, 8, 1, 0, 0);
     bulletAnimation.create("explode", bulletTexture, 27, 7, 18, 18, 4, 0.01, 29);
-   
-    Player player(animationManager);
     
     std::list<Entity*> entities;
 
-    entities.push_back(new Enemy(animationManager, 27 * 32, 302));
+    Level level;
+    level.loadFromFile("res/level.tmx");
+
+    std::vector<Object> enemies = level.getObjects("enemy");
+    for (size_t i = 0; i < enemies.size(); ++i) {
+        entities.push_back(new Enemy(animationManager, enemies[i].rect.left, enemies[i].rect.top));
+    }
+
+    Object playerObject = level.getObject("player");
+    Player player(animationManager, playerObject.rect.left, playerObject.rect.top, level);
+
      
     Clock clock;
     double time;
@@ -58,7 +65,7 @@ int main()
 
             if (event.type == Event::KeyPressed) {
                 if (event.key.code == Keyboard::Space) {
-                    entities.push_back(new Bullet(bulletAnimation, player.rect.left, player.rect.top + 10/**/, player.direction));
+                    entities.push_back(new Bullet(bulletAnimation, player.x, player.y + 10/**/, player.direction));
                 }
             }
         }
@@ -106,7 +113,7 @@ int main()
                 if (!enemy->isAlive) {
                     continue;
                 }
-                if (player.rect.intersects(enemy->getRect())) {
+                if (player.getRect().intersects(enemy->getRect())) {
                     if (player.dy > 0) {
                         enemy->dx = 0;
                         player.dy = -0.2;
@@ -130,32 +137,13 @@ int main()
                 }
             }
         }
-
-        if (player.rect.left > 300) {
-            offsetX = player.rect.left - 300;
-        }
-        if (player.rect.top < 200) {
-            offsetY = player.rect.top - 200;
-        }
-        
+            
         window.clear(Color::White);
 
-        for (size_t i = 0; i < HEIGHT; ++i) {
-            for (size_t j = 0; j < WIDTH; ++j) {
-                if (tileMap[i][j] == 'B') {
-                    tile.setFillColor(Color::Black);
-                }
-                if (tileMap[i][j] == '0') {
-                    tile.setFillColor(Color::Green);
-                }
-                if (tileMap[i][j] == ' ') {
-                    continue;
-                }
+        view.setCenter(player.x, player.y);
+        window.setView(view);
 
-                tile.setPosition(j * 32 - offsetX, i * 32 - offsetY);
-                window.draw(tile);
-            }
-        }
+        level.draw(window);
 
         for (std::list<Entity*>::iterator it = entities.begin(); it != entities.end(); ++it) {
             (*it)->draw(window);

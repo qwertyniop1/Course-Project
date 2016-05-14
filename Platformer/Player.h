@@ -1,14 +1,13 @@
 #pragma once
 #include "Global.h"
+#include "Entity.h"
 #include "AnimationManager.h"
+#include "Level.h"
 
-class Player {
+class Player : public Entity{
 public:
-    double dx, dy;
-    sf::FloatRect rect;
-    AnimationManager animationManager;
     bool isShooting, isOnLadder, isHit;
-    //bool onSurface;   
+    Level level;
 
     enum Key {
         Left, Right, Up, Down, Space
@@ -24,12 +23,10 @@ public:
 
     State currentState;
 
-    Player(AnimationManager &manager);
+    Player(AnimationManager &manager, int x, int y, Level &level);
 
     void handleKeys();
 
     void update(double time);
     void collision(CollisionDirection dir);
-    void draw(sf::RenderWindow &window);
-
 };

@@ -15,20 +15,5 @@ void Enemy::update(double time)
 
 void Enemy::collision(CollisionDirection dir)
 {
-    for (size_t i = y / 32; i < (y + height) / 32; ++i) {
-        for (size_t j = x / 32; j < (x + width) / 32; ++j) {
-            if (tileMap[i][j] == 'B') {
-                if (dir == X) {
-                    if (dx > 0) {
-                        x = j * 32 - width;
-                        dx *= -1;
-                    }
-                    else if (dx < 0) {
-                        x = j * 32 + 32;
-                        dx *= -1;
-                    }
-                }
-            }
-        }
-    }
+    // collision detection
 }

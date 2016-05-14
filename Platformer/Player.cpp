@@ -1,14 +1,9 @@
 #include "Player.h"
 
-Player::Player(AnimationManager &manager)
+Player::Player(AnimationManager &manager, int x, int y, Level &level) : Entity(manager, x, y)
 {
-    animationManager = manager;
     currentState = State::Stay;
-
-    rect.left = 50;
-    rect.top = 100;
-    rect.height = 50;
-    rect.width = 40;
+    this->level = level;
 }
 
 void Player::handleKeys()
@@ -119,11 +114,11 @@ void Player::update(double time)
         animationManager.flip(false);
     }
 
-    rect.left += dx * time;
+    x += dx * time;
     collision(X);
 
     dy += 0.0005 * time;
-    rect.top += dy * time;
+    y += dy * time;
     collision(Y);   
 
     animationManager.tick(time);
@@ -135,25 +130,26 @@ void Player::update(double time)
 
 void Player::collision(CollisionDirection dir)
 {
-    for (size_t i = rect.top / 32; i < (rect.top + rect.height) / 32; ++i) {
-        for (size_t j = rect.left / 32; j < (rect.left + rect.width) / 32; ++j) {
-            if (tileMap[i][j] == 'B') {
-                if (dir == X) {
+    std::vector<Object> objects = level.getAllObjects();
+    for (size_t i = 0; i < objects.size(); ++i) {
+        if (getRect().intersects(objects[i].rect)) {
+            if (objects[i].name == "solid") {
+                if (dir == CollisionDirection::X) {
                     if (dx > 0) {
-                        rect.left = j * 32 - rect.width;
+                        x = objects[i].rect.left - width;
                     }
                     if (dx < 0) {
-                        rect.left = j * 32 + 32;
+                        x = objects[i].rect.left + objects[i].rect.width;
                     }
                 }
-                if (dir == Y) {
+                if (dir == CollisionDirection::Y) {
                     if (dy > 0) {
-                        rect.top = i * 32 - rect.height;
+                        y = objects[i].rect.top - height;
                         dy = 0;
                         currentState = State::Stay;
                     }
                     if (dy < 0) {
-                        rect.top = i * 32 + 32;
+                        y = objects[i].rect.top + objects[i].rect.height;
                         dy = 0;
                     }
                 }
@@ -162,7 +158,3 @@ void Player::collision(CollisionDirection dir)
     }
 }
 
-void Player::draw(sf::RenderWindow &window)
-{
-    animationManager.draw(window, rect.left - offsetX, rect.top - offsetY /*+ he*/);
-}

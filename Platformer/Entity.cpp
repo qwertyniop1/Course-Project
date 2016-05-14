@@ -14,10 +14,10 @@ Entity::Entity(AnimationManager & manager, int x, int y)
 
 void Entity::draw(sf::RenderWindow & window)
 {
-    animationManager.draw(window, x - offsetX, y - offsetY);
+    animationManager.draw(window, x, y);
 }
 
-sf::FloatRect Entity::getRect()
+sf::IntRect Entity::getRect()
 {
-    return sf::FloatRect(x, y, width, height);
+    return sf::IntRect(x, y, width, height);
 }
