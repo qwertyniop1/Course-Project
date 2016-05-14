@@ -58,7 +58,7 @@ int main()
 
             if (event.type == Event::KeyPressed) {
                 if (event.key.code == Keyboard::Space) {
-                    entities.push_back(new Bullet(bulletAnimation, player.rect.left, player.rect.top, player.direction));
+                    entities.push_back(new Bullet(bulletAnimation, player.rect.left, player.rect.top + 10/**/, player.direction));
                 }
             }
         }
@@ -111,9 +111,21 @@ int main()
                         enemy->dx = 0;
                         player.dy = -0.2;
                         enemy->isAlive = false;
-                    } 
+                    }
                     else {
                         // kill player
+                    }
+                }
+
+                for (std::list<Entity*>::iterator _it = entities.begin(); _it != entities.end(); ++_it) {
+                    if ((*_it)->name == "Bullet") {
+                        Entity *bullet = *_it;
+                        if (bullet->isAlive) {
+                            if (bullet->getRect().intersects(enemy->getRect())) {
+                                bullet->isAlive = false;
+                                enemy->isAlive = false;
+                            }
+                        }
                     }
                 }
             }
