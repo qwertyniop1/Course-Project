@@ -2,7 +2,7 @@
 
 #include <SFML\Graphics.hpp>
 
-enum Direction
+enum CollisionDirection
 {
     X, Y
 };

@@ -23,7 +23,7 @@ int main()
     animationManager.create("stay", texture, 0, 187, 42, 52, 3, 0.002, 42);
     animationManager.create("shoot", texture, 0, 572, 45, 52, 5, 0.005, 45);
    
-    //Player player(texture);
+    Player player(animationManager);
     //Enemy enemy(texture, 32 * 27, 302);
  
     Clock clock;
@@ -45,30 +45,24 @@ int main()
         animationManager.set("stay");
 
         if (Keyboard::isKeyPressed(Keyboard::Left)) {
-           // player.dx = -0.1;
-            animationManager.set("walk");
+            player.keys[Player::Key::Left] = true;
         }
         if (Keyboard::isKeyPressed(Keyboard::Right)) {
-          //  player.dx = 0.1;
-            animationManager.set("walk");
+            player.keys[Player::Key::Right] = true;
         }
         if (Keyboard::isKeyPressed(Keyboard::Up)) {
-          /*  if (player.onSurface) {
-                player.dy = -0.4;
-                player.onSurface = false;*/
-                animationManager.set("jump");
-            //}
+            player.keys[Player::Key::Up] = true;
         }
         if (Keyboard::isKeyPressed(Keyboard::Down)) {
-            animationManager.set("duck");
+            player.keys[Player::Key::Down] = true;
         }
         if (Keyboard::isKeyPressed(Keyboard::Space)) {
-            animationManager.set("shoot");
+            player.keys[Player::Key::Space] = true;
         }
 
         animationManager.tick(time);
 
-        /*player.update(time);*/
+        player.update(time);
         //enemy.update(time);
 
         /*if (player.rect.intersects(enemy.rect)) {
@@ -84,16 +78,16 @@ int main()
             }
         }*/
 
-        /*if (player.rect.left > 300) {
+        if (player.rect.left > 300) {
             offsetX = player.rect.left - 300;
         }
         if (player.rect.top < 200) {
             offsetY = player.rect.top - 200;
-        }*/
+        }
         
         window.clear(Color::White);
 
-        /*for (size_t i = 0; i < HEIGHT; ++i) {
+        for (size_t i = 0; i < HEIGHT; ++i) {
             for (size_t j = 0; j < WIDTH; ++j) {
                 if (tileMap[i][j] == 'B') {
                     tile.setFillColor(Color::Black);
@@ -108,11 +102,9 @@ int main()
                 tile.setPosition(j * 32 - offsetX, i * 32 - offsetY);
                 window.draw(tile);
             }
-        }*/
-        
-        animationManager.draw(window, 50, 100);
+        }
 
-       /* window.draw(enemy.sprite);*/
+        player.draw(window);
 
         window.display();
     }

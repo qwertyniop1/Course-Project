@@ -13,5 +13,5 @@ public:
     Enemy(sf::Texture &image, int x, int y);
 
     void update(double time);
-    void collision(Direction dir);
+    void collision(CollisionDirection dir);
 };

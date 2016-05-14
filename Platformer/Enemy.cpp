@@ -32,7 +32,7 @@ void Enemy::update(double time)
     sprite.setPosition(rect.left - offsetX, rect.top - offsetY);
 }
 
-void Enemy::collision(Direction dir)
+void Enemy::collision(CollisionDirection dir)
 {
     for (size_t i = rect.top / 32; i < (rect.top + rect.height) / 32; ++i) {
         for (size_t j = rect.left / 32; j < (rect.left + rect.width) / 32; ++j) {

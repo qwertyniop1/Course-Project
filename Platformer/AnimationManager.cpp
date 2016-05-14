@@ -2,8 +2,7 @@
 
 void AnimationManager::create(sf::String name, sf::Texture &texture, int x, int y, int width, int height, int count, double speed, int step)
 {
-    Animation a(texture, x, y, width, height, count, speed, step);
-    animationsList[name] = a;
+    animationsList[name] = Animation(texture, x, y, width, height, count, speed, step);
     currentAnimation = name;
 }
 
