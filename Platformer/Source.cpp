@@ -1,63 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <math.h>
-
-const int N = 100;
-
-int main()
-{
-    char str[N];
-    fgets(str, N, stdin);
-
-    int length = strlen(str);
-    int a = sqrt(length);
-
-    char **matrix = (char**)malloc(a * sizeof(char*));
-    if (matrix == NULL) {
-        printf("Memory error");
-        exit(1);
-    }
-
-    int i, j;
-    for (i = 0; i < a; i++) {
-        matrix[i] = (char*)malloc(a * sizeof(char));
-        if (matrix[i] == NULL) {
-            printf("Memory error");
-            exit(1);
-        }
-    }
-      
-    i = 0;
-        int k, p = a / 2;
-    for (k = 1; k <= p; k++)/*Цикл по номеру витка*/
-    {  
-       
-        for (j = a - k - 1; j >= k; j++)
-            matrix[j][k - 1] = str[i++];/* --//-- по левому вертикальному столбцу*/
-        for (j = a - k - 1; j >= k - 1; ++j)
-            matrix[a - k][j] = str[i++];/* --//-- по нижнему горизонтальному столбцу*/
-        for (j = k; j<a - k + 1; j--)
-            matrix[j][a - k] = str[i++];/* --//-- По правому вертикальному столбцу*/
-        for (j = k - 1; j<a - k + 1; j--)
-            matrix[k - 1][j] = str[i++];/*Определение значений верхнего горизонтального столбца*/
-    }
-    if (a % 2 == 1)
-        matrix[p][p] = a * a;
-    for (i = 0; i<a; i++)
-        for (j = 0; j<a; j++)
-        {
-            printf(" %4c ", matrix[i][j]);
-            if (j == a - 1)
-                printf("\n");
-        }
-
-    getchar();
-    return 0;
-}
-
-double offsetX = 0, offsetY = 0;
-#if 0
 #include "Global.h"
 #include "Player.h"
 #include "Enemy.h"
@@ -76,7 +16,7 @@ int main()
     texture.loadFromFile("res/fang.png");
 
     Player player(texture);
-    Enemy enemy(texture, 32 * 27, 32 * 10 - 20);
+    Enemy enemy(texture, 32 * 27, 302);
 
     Clock clock;
     double time;
@@ -112,6 +52,19 @@ int main()
         player.update(time);
         enemy.update(time);
 
+        if (player.rect.intersects(enemy.rect)) {
+            if (enemy.isAlive) {
+                if (player.dy > 0) {
+                    enemy.dx = 0;
+                    enemy.isAlive = false;
+                    player.dy = -0.2;
+                }
+                else {
+                    player.sprite.setColor(Color::Red);
+                }
+            }
+        }
+
         if (player.rect.left > 300) {
             offsetX = player.rect.left - 300;
         }
@@ -145,4 +98,3 @@ int main()
 
     return 0;
 }
-#endif
