@@ -1,11 +1,11 @@
 #pragma once
 #include "Global.h"
-#include "Entity.h"
 #include "AnimationManager.h"
 #include "Level.h"
+#include "Entity.h"
 
 class Player : public Entity{
-public:
+public:    
     bool isShooting, isOnLadder, isHit;
     Level level;
 
@@ -29,4 +29,5 @@ public:
 
     void update(double time);
     void collision(CollisionDirection dir);
+
 };

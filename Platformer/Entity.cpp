@@ -17,7 +17,7 @@ void Entity::draw(sf::RenderWindow & window)
     animationManager.draw(window, x, y);
 }
 
-sf::IntRect Entity::getRect()
+sf::FloatRect Entity::getRect()
 {
-    return sf::IntRect(x, y, width, height);
+    return sf::FloatRect(x, y, width, height);
 }

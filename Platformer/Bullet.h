@@ -7,5 +7,5 @@ class Bullet : public Entity {
 public:
     Bullet(AnimationManager &manager, int x, int y, Direction dir);
 
-    void update(double time);   
+    void update(double time);
 };

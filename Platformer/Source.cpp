@@ -4,7 +4,6 @@
 #include "AnimationManager.h"
 #include "Entity.h"
 #include "Bullet.h"
-#include "Level.h"
 
 #include <list>
 
@@ -33,20 +32,16 @@ int main()
     AnimationManager bulletAnimation;
     bulletAnimation.create("move", bulletTexture, 7, 10, 8, 8, 1, 0, 0);
     bulletAnimation.create("explode", bulletTexture, 27, 7, 18, 18, 4, 0.01, 29);
-    
-    std::list<Entity*> entities;
 
     Level level;
     level.loadFromFile("res/level.tmx");
 
-    std::vector<Object> enemies = level.getObjects("enemy");
-    for (size_t i = 0; i < enemies.size(); ++i) {
-        entities.push_back(new Enemy(animationManager, enemies[i].rect.left, enemies[i].rect.top));
-    }
-
     Object playerObject = level.getObject("player");
     Player player(animationManager, playerObject.rect.left, playerObject.rect.top, level);
+    
+    std::list<Entity*> entities;
 
+    entities.push_back(new Enemy(animationManager, 27 * 32, 302));
      
     Clock clock;
     double time;
@@ -137,8 +132,8 @@ int main()
                 }
             }
         }
-            
-        window.clear(Color::White);
+
+        window.clear(Color::White);   
 
         view.setCenter(player.x, player.y);
         window.setView(view);

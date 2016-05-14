@@ -1,8 +1,9 @@
 #include "Player.h"
 
 Player::Player(AnimationManager &manager, int x, int y, Level &level) : Entity(manager, x, y)
-{
+{    
     currentState = State::Stay;
+
     this->level = level;
 }
 
@@ -132,8 +133,10 @@ void Player::collision(CollisionDirection dir)
 {
     std::vector<Object> objects = level.getAllObjects();
     for (size_t i = 0; i < objects.size(); ++i) {
-        if (getRect().intersects(objects[i].rect)) {
-            if (objects[i].name == "solid") {
+        if (getRect().intersects(objects[i].rect))
+        {
+            if (objects[i].name == "solid")
+            {
                 if (dir == CollisionDirection::X) {
                     if (dx > 0) {
                         x = objects[i].rect.left - width;
@@ -144,16 +147,18 @@ void Player::collision(CollisionDirection dir)
                 }
                 if (dir == CollisionDirection::Y) {
                     if (dy > 0) {
-                        y = objects[i].rect.top - height;
-                        dy = 0;
+                        y = objects[i].rect.top - height;  
+                        dy = 0;   
                         currentState = State::Stay;
                     }
                     if (dy < 0) {
-                        y = objects[i].rect.top + objects[i].rect.height;
+                        y = objects[i].rect.top + objects[i].rect.height; 
                         dy = 0;
                     }
-                }
-            }
+                }               
+                
+            }           
+
         }
     }
 }

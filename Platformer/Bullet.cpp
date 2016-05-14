@@ -22,7 +22,7 @@ void Bullet::update(double time)
 {
     x += dx * time;
 
-    // collision detection
+    //collision
 
     animationManager.tick(time);
 }

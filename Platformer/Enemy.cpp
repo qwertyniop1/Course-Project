@@ -15,5 +15,5 @@ void Enemy::update(double time)
 
 void Enemy::collision(CollisionDirection dir)
 {
-    // collision detection
+    //collision
 }

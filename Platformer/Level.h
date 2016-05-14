@@ -1,9 +1,11 @@
 #pragma once
 
+#include "TinyXML/tinyxml.h"
+
 #include <string>
 #include <vector>
 #include <map>
-#include <SFML/Graphics.hpp>
+#include "Global.h"
 
 struct Object {
     int getPropertyInt(std::string name);
@@ -12,7 +14,7 @@ struct Object {
 
     std::string name;
     std::string type;
-    sf::Rect<int> rect;
+    sf::Rect<float> rect;
     std::map<std::string, std::string> properties;
     sf::Sprite sprite;
 };

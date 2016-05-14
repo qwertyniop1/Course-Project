@@ -16,6 +16,6 @@ public:
 
     void draw(sf::RenderWindow &window);
 
-    sf::IntRect getRect();
+    sf::FloatRect getRect();
 
 };

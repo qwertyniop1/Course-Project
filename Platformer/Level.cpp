@@ -1,7 +1,7 @@
 #include "Level.h"
 
 #include <iostream>
-#include "TinyXML/tinyxml.h"
+
 
 int Object::getPropertyInt(std::string name)
 {
@@ -48,7 +48,7 @@ bool Level::loadFromFile(std::string filename)
     TiXmlElement *image;
     image = tilesetElement->FirstChildElement("image");
     std::string imagepath = image->Attribute("source");
-    imagepath = "res/" + imagepath; // ----
+    imagepath = "res/" + imagepath;
     // ѕытаемс€ загрузить тайлсет
     sf::Image img;
 
@@ -198,7 +198,7 @@ bool Level::loadFromFile(std::string filename)
                 object.type = objectType;
                 object.sprite = sprite;
 
-                sf::Rect <int> objectRect;
+                sf::Rect <float> objectRect;
                 objectRect.top = y;
                 objectRect.left = x;
                 objectRect.height = height;
