@@ -1,10 +1,8 @@
 #include "Player.h"
 
-Player::Player(AnimationManager &manager, int x, int y, Level &level) : Entity(manager, x, y)
+Player::Player(AnimationManager &manager, int x, int y, Level &level) : Entity(manager, x, y, level)
 {    
     currentState = State::Stay;
-
-    this->level = level;
 }
 
 void Player::handleKeys()
@@ -106,6 +104,7 @@ void Player::update(double time)
 
     if (isShooting) {
         animationManager.set("shoot");
+        if (currentState == State::Walk) animationManager.set("shootandwalk");
     }
 
     if (direction == Direction::Flip) {
@@ -114,6 +113,14 @@ void Player::update(double time)
     else {
         animationManager.flip(false);
     }
+
+    if (currentState == State::Climb) {
+        if (!isOnLadder) currentState = State::Stay;
+    }
+    else { 
+        //dy += 0.0005*time; 
+    }
+    isOnLadder = false;
 
     x += dx * time;
     collision(X);
@@ -133,10 +140,8 @@ void Player::collision(CollisionDirection dir)
 {
     std::vector<Object> objects = level.getAllObjects();
     for (size_t i = 0; i < objects.size(); ++i) {
-        if (getRect().intersects(objects[i].rect))
-        {
-            if (objects[i].name == "solid")
-            {
+        if (getRect().intersects(objects[i].rect)) {
+            if (objects[i].name == "solid") {
                 if (dir == CollisionDirection::X) {
                     if (dx > 0) {
                         x = objects[i].rect.left - width;
@@ -155,9 +160,16 @@ void Player::collision(CollisionDirection dir)
                         y = objects[i].rect.top + objects[i].rect.height; 
                         dy = 0;
                     }
-                }               
-                
-            }           
+                }                   
+            }       
+
+            if (objects[i].name == "ladder") {
+                isOnLadder = true;
+                if (currentState == State::Climb) {
+                    x = objects[i].rect.left - 10;
+                }
+
+            }
 
         }
     }

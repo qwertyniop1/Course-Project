@@ -15,32 +15,27 @@ int main()
 
     View view(FloatRect(0, 0, 600, 400));
 
-    Texture texture;
-    texture.loadFromFile("res/fang.png");
-
+    Texture playerTexture;
+    playerTexture.loadFromFile("res/fang.png");
+        
     AnimationManager animationManager;
-    animationManager.create("walk", texture, 0, 244, 40, 50, 6, 0.005, 40);
-    animationManager.create("jump", texture, 0, 528, 29, 30, 4, 0.005, 38);
-    animationManager.create("duck", texture, 0, 436, 80, 20, 1, 0.005, 0);
-    animationManager.create("stay", texture, 0, 187, 42, 52, 3, 0.002, 42);
-    animationManager.create("shoot", texture, 0, 572, 45, 52, 5, 0.005, 45);
-    animationManager.set("stay");
+    animationManager.loadFromXML("res/hero.xml", playerTexture);
 
     Texture bulletTexture;
     bulletTexture.loadFromFile("res/bullet.png");
 
-    AnimationManager bulletAnimation;
+    /*AnimationManager bulletAnimation;
     bulletAnimation.create("move", bulletTexture, 7, 10, 8, 8, 1, 0, 0);
-    bulletAnimation.create("explode", bulletTexture, 27, 7, 18, 18, 4, 0.01, 29);
+    bulletAnimation.create("explode", bulletTexture, 27, 7, 18, 18, 4, 0.01, 29);*/
 
     std::list<Entity*> entities;
 
     Level level;
-    level.loadFromFile("res/level.tmx");
+    level.loadFromFile("res/level2.tmx");
 
     std::vector<Object> enemies = level.getObjects("enemy");
     for (size_t i = 0; i < enemies.size(); ++i) {
-        entities.push_back(new Enemy(animationManager, enemies[i].rect.left, enemies[i].rect.top));
+        entities.push_back(new Enemy(animationManager, enemies[i].rect.left, enemies[i].rect.top, level));
     }
 
     Object playerObject = level.getObject("player");
@@ -63,7 +58,7 @@ int main()
 
             if (event.type == Event::KeyPressed) {
                 if (event.key.code == Keyboard::Space) {
-                    entities.push_back(new Bullet(bulletAnimation, player.x, player.y + 10/**/, player.direction));
+                    //entities.push_back(new Bullet(bulletAnimation, player.x, player.y + 10/**/, player.direction));
                 }
             }
         }

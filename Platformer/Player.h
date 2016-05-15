@@ -1,19 +1,15 @@
 #pragma once
 #include "Global.h"
 #include "AnimationManager.h"
-#include "Level.h"
 #include "Entity.h"
 
 class Player : public Entity{
 public:    
-    bool isShooting, isOnLadder, isHit;
-    Level level;
+    bool isShooting, isOnLadder, isHit;    
 
     enum Key {
         Left, Right, Up, Down, Space
     };   
-
-    Direction direction;
 
     std::map<Key, bool> keys;
        

@@ -1,6 +1,6 @@
 #include "Bullet.h"
 
-Bullet::Bullet(AnimationManager &manager, int x, int y, Direction dir) : Entity(manager, x, y)
+Bullet::Bullet(AnimationManager &manager, int x, int y, Direction dir, Level &level) : Entity(manager, x, y, level)
 {
     name = "Bullet";   
     animationManager.set("move");   

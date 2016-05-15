@@ -11,8 +11,8 @@ public:
     sf::Sprite sprite;
 
     Animation() {};
-    Animation(sf::Texture & texture, int x, int y, int width, int height, int count, double speed, int step);
-    
+    Animation(sf::Texture & texture, double speed);
+
     void tick(double time);
 
 private:

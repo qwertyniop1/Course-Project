@@ -2,6 +2,9 @@
 
 #include "Global.h"
 #include "Animation.h"
+#include "TinyXML\tinyxml.h"
+
+#include <string>
 
 class AnimationManager
 {
@@ -26,6 +29,8 @@ public:
     double getHeight();
 
     double getWidth();
+
+    void loadFromXML(std::string fileName, sf::Texture &texture);
 
     AnimationManager() {};
 

@@ -7,7 +7,7 @@
 class Enemy : public Entity {
 public:   
 
-    Enemy(AnimationManager &manager, int x, int y);
+    Enemy(AnimationManager &manager, int x, int y, Level &level);
 
     void update(double time);
     void collision(CollisionDirection dir);

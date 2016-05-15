@@ -1,15 +1,18 @@
 #include "Entity.h"
 
-Entity::Entity(AnimationManager & manager, int x, int y)
+Entity::Entity(AnimationManager & manager, int x, int y, Level &level)
 {
     animationManager = manager;
+    ///manager.set("stay"); // delete
     this->x = x;
     this->y = y;
-    width = animationManager.getWidth();
+    width = /*animationManager.getWidth();*/40;
     height = animationManager.getHeight();
-    dir = Direction::Normal;
+    direction = Direction::Normal;
     isAlive = true;
     dx = dy = 0;
+    this->level = level;
+
 }
 
 void Entity::draw(sf::RenderWindow & window)

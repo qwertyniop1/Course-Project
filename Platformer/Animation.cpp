@@ -1,17 +1,12 @@
 #include "Animation.h"
 
-Animation::Animation(sf::Texture & texture, int x, int y, int width, int height, int count, double speed, int step)
+Animation::Animation(sf::Texture & texture, double speed)
 {
     this->speed = speed;
     sprite.setTexture(texture);
     currentFrame = 0;
     isPlaying = true;
     isFlip = false;
-
-    for (size_t i = 0; i < count; ++i) {
-        frames.push_back(sf::IntRect(x + i * step, y, width, height));
-        framesFlip.push_back(sf::IntRect(x + i * step + width, y, -width, height));
-    }
 }
 
 void Animation::tick(double time)
@@ -33,3 +28,6 @@ void Animation::tick(double time)
         sprite.setTextureRect(frames[frame]);
     }
 }
+
+
+
