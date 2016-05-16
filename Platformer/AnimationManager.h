@@ -10,7 +10,7 @@ class AnimationManager
 {
 public:
     AnimationManager() {};
-    ~AnimationManager() {};
+    ~AnimationManager();
 
     void create(sf::String name, sf::Texture &texture, int x, int y, int width, int height, int count, double speed, int step);
 

@@ -1,5 +1,10 @@
 #include "AnimationManager.h"
 
+AnimationManager::~AnimationManager()
+{
+    //animationsList.clear();
+}
+
 void AnimationManager::create(sf::String name, sf::Texture &texture, int x, int y, int width, int height, int count, double speed, int step)
 {
     animationsList[name] = Animation(texture, speed);
