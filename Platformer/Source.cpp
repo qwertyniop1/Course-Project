@@ -87,7 +87,7 @@ int main()
         for (std::list<Entity*>::iterator it = entities.begin(); it != entities.end(); ) {
             Entity *bullet = *it;
 
-            if (!bullet->isAlive) {
+            if (!bullet->isAlive()) {
                 it = entities.erase(it);
                 delete bullet;
             }
@@ -101,16 +101,16 @@ int main()
         }
 
         for (std::list<Entity*>::iterator it = entities.begin(); it != entities.end(); ++it) {
-            if ((*it)->name == "Enemy") {
+            if ((*it)->getName() == "Enemy") {
                 Entity *enemy = *it;
-                if (!enemy->isAlive) {
+                if (!enemy->isAlive()) {
                     continue;
                 }
                 if (player.getRect().intersects(enemy->getRect())) {
                     if (player.dy > 0) {
                         enemy->dx = 0;
                         player.dy = -0.2;
-                        enemy->isAlive = false;
+                        enemy->eliminate();
                     }
                     else {
                         // kill player
@@ -118,12 +118,12 @@ int main()
                 }
 
                 for (std::list<Entity*>::iterator _it = entities.begin(); _it != entities.end(); ++_it) {
-                    if ((*_it)->name == "Bullet") {
+                    if ((*_it)->getName() == "Bullet") {
                         Entity *bullet = *_it;
-                        if (bullet->isAlive) {
+                        if (bullet->isAlive()) {
                             if (bullet->getRect().intersects(enemy->getRect())) {
-                                bullet->isAlive = false;
-                                enemy->isAlive = false;
+                                bullet->eliminate();
+                                enemy->eliminate();
                             }
                         }
                     }
@@ -133,7 +133,7 @@ int main()
 
         window.clear(Color::White);   
 
-        view.setCenter(player.x, player.y);
+        view.setCenter(player.getRect().left, player.getRect().top);
         window.setView(view);
 
         level.draw(window);

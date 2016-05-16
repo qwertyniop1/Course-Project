@@ -4,13 +4,6 @@
 
 class Entity {
 public:
-    double dx, dy;
-    double x, y, width, height;
-    AnimationManager animationManager;
-    Direction direction;
-    bool isAlive;
-    std::string name;
-
     Level level;
 
     Entity(AnimationManager &manager, int x, int y, Level &level);
@@ -21,4 +14,20 @@ public:
 
     sf::FloatRect getRect();
 
+    bool isAlive();
+
+    void eliminate();
+
+    std::string getName();
+
+protected:
+
+    double x, y, width, height;
+    AnimationManager animationManager;
+    Direction direction;
+    bool alive;
+    std::string name;
+
+public:
+    double dx, dy; /* tmp */
 };

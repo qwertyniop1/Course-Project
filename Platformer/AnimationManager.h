@@ -9,8 +9,8 @@
 class AnimationManager
 {
 public:
-    sf::String currentAnimation;
-    std::map<sf::String, Animation> animationsList;
+    AnimationManager() {};
+    ~AnimationManager() {};
 
     void create(sf::String name, sf::Texture &texture, int x, int y, int width, int height, int count, double speed, int step);
 
@@ -32,8 +32,8 @@ public:
 
     void loadFromXML(std::string fileName, sf::Texture &texture);
 
-    AnimationManager() {};
-
 private:
+    sf::String currentAnimation;
+    std::map<sf::String, Animation> animationsList;
 
 };

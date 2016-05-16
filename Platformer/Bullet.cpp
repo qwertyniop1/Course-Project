@@ -12,7 +12,7 @@ Bullet::Bullet(AnimationManager &manager, int x, int y, Direction dir, Level &le
         dx = 0.3;
     }
 
-    isAlive = true;
+    alive = true;
 
     width = height = 18;
 
