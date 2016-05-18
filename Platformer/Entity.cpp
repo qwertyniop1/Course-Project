@@ -39,3 +39,8 @@ std::string Entity::getName()
 {
     return name;
 }
+
+Direction Entity::getDirection()
+{
+    return direction;
+}

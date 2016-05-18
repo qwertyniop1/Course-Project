@@ -8,4 +8,6 @@ public:
     Bullet(AnimationManager &manager, int x, int y, Direction dir, Level &level);
 
     void update(double time);
+
+    void collision();
 };

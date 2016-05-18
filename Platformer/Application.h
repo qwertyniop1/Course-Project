@@ -8,6 +8,7 @@
 
 #include "Enemy.h"
 #include "Player.h"
+#include "Bullet.h"
 
 class Application
 {
@@ -24,7 +25,8 @@ private:
     sf::RenderWindow window;
     sf::View view;
 
-    AnimationManager animationManager;
+    AnimationManager playerAnimation;
+    AnimationManager bulletAnimation;
 
     sf::Texture playerTexture;
     sf::Texture bulletTexture;

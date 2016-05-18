@@ -23,7 +23,7 @@ int Application::onExecute()
 
             if (event.type == sf::Event::KeyPressed) {
                 if (event.key.code == sf::Keyboard::Space) {
-                    //entities.push_back(new Bullet(bulletAnimation, player.x, player.y + 10/**/, player.direction));
+                    entities.push_back(new Bullet(bulletAnimation, player->getRect().left, player->getRect().top + 10, player->getDirection(), level));
                 }
             }
         }
@@ -44,8 +44,6 @@ int Application::onExecute()
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
             player->keys[Player::Key::Space] = true;
         }
-
-        animationManager.tick(time);
 
         player->update(time);
 
@@ -127,7 +125,8 @@ bool Application::onInit()
         return false;
     }
 
-    animationManager.loadFromXML("res/hero.xml", playerTexture); // check
+    playerAnimation.loadFromXML("res/hero.xml", playerTexture); // check
+    bulletAnimation.loadFromXML("res/bullet.xml", bulletTexture);
 
     if (!bulletTexture.loadFromFile("res/bullet.png")) {
         std::cout << "Can't load texture from file" << std::endl;
@@ -142,7 +141,7 @@ bool Application::onInit()
     enemies = level.getObjects("enemy"); // check if necessary
     
     for (size_t i = 0; i < enemies.size(); ++i) {
-        entities.push_back(new Enemy(animationManager, enemies[i].rect.left, enemies[i].rect.top, level));
+        entities.push_back(new Enemy(playerAnimation, enemies[i].rect.left, enemies[i].rect.top, level));
     }
 
     Object playerObject;
@@ -153,10 +152,8 @@ bool Application::onInit()
         std::cout << "Incorrect level data" << std::endl;
         return false;
     }
-    //player = new Player(animationManager, playerObject.rect.left, playerObject.rect.top, level);
-    player = new Player(animationManager, 50, 50, level);
-
-
+    player = new Player(playerAnimation, playerObject.rect.left, playerObject.rect.top, level);
+    
     return true;
 }
 

@@ -20,6 +20,8 @@ public:
 
     std::string getName();
 
+    Direction getDirection();
+
 protected:
 
     double x, y, width, height;
