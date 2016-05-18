@@ -3,7 +3,6 @@
 Entity::Entity(AnimationManager & manager, int x, int y, Level &level)
 {
     animationManager = manager;
-    //manager.set("stay"); // delete
     this->x = x;
     this->y = y;
     width = /*animationManager.getWidth();*/40;

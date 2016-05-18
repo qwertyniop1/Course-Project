@@ -2,8 +2,7 @@
 #include "GameState.h"
 
 GameStateManager::GameStateManager()
-{
-   
+{   
 }
 
 void GameStateManager::changeState(GameState *state)
@@ -33,9 +32,7 @@ void GameStateManager::onLoop()
 void GameStateManager::onRender(sf::RenderWindow &window)
 {
     if (!states.empty()) {
-        //SDL_RenderClear(game->getRenderer());
         states.top()->onRender(window);
-        //SDL_RenderPresent(game->getRenderer());       
     }
 }
 
@@ -46,5 +43,4 @@ void GameStateManager::quit()
         states.top()->onCleanup();
         states.pop();
     }
-    //game->quit();
 }

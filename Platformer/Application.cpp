@@ -35,7 +35,7 @@ int Application::onExecute()
 
 bool Application::onInit()
 {
-    window.create(sf::VideoMode(600, 400), "Game");  // check    
+    window.create(sf::VideoMode(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT), "Game");  // check    
     
     return true;
 }

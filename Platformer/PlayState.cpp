@@ -2,7 +2,7 @@
 
 bool PlayState::onInit()
 {
-    view.reset(sf::FloatRect(0, 0, 600, 400));
+    view.reset(sf::FloatRect(0, 0, DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT));
 
     if (!playerTexture.loadFromFile("res/fang.png")) {
         std::cout << "Can't load texture from file" << std::endl;
