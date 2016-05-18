@@ -23,15 +23,11 @@ public:
 
 private:
     sf::Texture backgroundTexture;
-    sf::Texture pointPlayTexture;
-    sf::Texture pointHighscoresTexture;
-    sf::Texture pointSettingsTexture;
-    sf::Texture pointExitTexture;
-    sf::Sprite pointPlay;
-    sf::Sprite pointHighscores;
-    sf::Sprite pointSettings;
-    sf::Sprite pointExit;
     sf::Sprite background;
+
+    std::vector<sf::Texture*> menuPointTextures;
+    std::vector<sf::Sprite*> menuPoints;
+  
         
 
 };

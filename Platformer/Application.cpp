@@ -18,7 +18,7 @@ int Application::onExecute()
                 window.close();
             }
         }
-
+        
         stateManager.onLoop();
 
         window.clear(sf::Color::White);
