@@ -50,11 +50,11 @@ int Application::onExecute()
         player->update(time);
 
         for (std::list<Entity*>::iterator it = entities.begin(); it != entities.end(); ) {
-            Entity *bullet = *it;
+            Entity *entity = *it;
 
-            if (!bullet->isAlive()) {
+            if (!entity->isAlive()) {
                 it = entities.erase(it);
-                delete bullet;
+                delete entity;
             }
             else {
                 it++;
@@ -162,6 +162,8 @@ bool Application::onInit()
 
 void Application::onCleanup()
 {
-    //entities.clear();
+    for (std::list<Entity*>::iterator it = entities.begin(); it != entities.end(); ++it) {
+        delete *it;
+    }
     delete player;
 }

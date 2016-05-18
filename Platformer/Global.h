@@ -1,7 +1,7 @@
 #pragma once
 
 #include <SFML\Graphics.hpp>
-
+#include <vld.h>
 
 enum CollisionDirection
 {
