@@ -2,13 +2,9 @@
 #include <iostream>
 
 #include "Global.h"
-#include "AnimationManager.h"
-#include "Entity.h"
-#include <list>
+#include "GameStateManager.h"
 
-#include "Enemy.h"
-#include "Player.h"
-#include "Bullet.h"
+#include "PlayState.h"
 
 class Application
 {
@@ -23,19 +19,8 @@ public:
 
 private:
     sf::RenderWindow window;
-    sf::View view;
 
-    AnimationManager playerAnimation;
-    AnimationManager bulletAnimation;
-
-    sf::Texture playerTexture;
-    sf::Texture bulletTexture;
-
-    Level level;
-    std::list<Entity*> entities;
-
-    std::vector<Object> enemies;
-    Player *player;
+    GameStateManager stateManager;
 
 };
 
