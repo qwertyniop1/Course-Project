@@ -6,7 +6,7 @@ int Application::onExecute()
         return -1;
     }
 
-    stateManager.changeState(PlayState::getInstance(&stateManager));
+    stateManager.changeState(MenuState::getInstance(&stateManager));
 
     while (window.isOpen()) {
         sf::Event event;       
