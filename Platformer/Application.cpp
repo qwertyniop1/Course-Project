@@ -8,21 +8,7 @@ int Application::onExecute()
 
     sf::Clock clock;
     double time;
-#if 0
-    while (window.isOpen()) {
-        sf::Event event;
-        while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed) {
-                window.close();
-            }
-        }
-        window.clear();
-        
-        player->draw(window);
-        
-        window.display();
-    }
-#endif
+
     while (window.isOpen()) {
         sf::Event event;
 
@@ -134,7 +120,7 @@ int Application::onExecute()
 bool Application::onInit()
 {
     window.create(sf::VideoMode(600, 400), "Game");  // check
-    view.setViewport(sf::FloatRect(0, 0, 600, 400));
+    view.reset(sf::FloatRect(0, 0, 600, 400));
 
     if (!playerTexture.loadFromFile("res/fang.png")) {
         std::cout << "Can't load texture from file" << std::endl;
