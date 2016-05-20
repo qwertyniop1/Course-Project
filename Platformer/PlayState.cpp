@@ -9,13 +9,20 @@ bool PlayState::onInit()
         return false;
     }
 
-    playerAnimation.loadFromXML("res/hero.xml", playerTexture); // check
-    bulletAnimation.loadFromXML("res/bullet.xml", bulletTexture);
-
     if (!bulletTexture.loadFromFile("res/bullet.png")) {
         std::cout << "Can't load texture from file" << std::endl;
         return false;
     }
+
+    if (!coinTexture.loadFromFile("res/coins.png")) {
+        std::cout << "Can't load texture from file" << std::endl;
+        return false;
+    }
+
+    playerAnimation.loadFromXML("res/hero.xml", playerTexture); // check
+    bulletAnimation.loadFromXML("res/bullet.xml", bulletTexture);
+    coinAnimation.loadFromXML("res/coin.xml", coinTexture);
+    
     // extract to another class (level)
     if (!level.loadFromFile("res/level2.tmx")) {
         std::cout << "Can't load level data" << std::endl;
@@ -26,6 +33,12 @@ bool PlayState::onInit()
 
     for (size_t i = 0; i < enemies.size(); ++i) {
         entities.push_back(new Enemy(playerAnimation, enemies[i].rect.left, enemies[i].rect.top, level));
+    }
+
+    enemies = level.getObjects("coin"); // check if necessary
+
+    for (size_t i = 0; i < enemies.size(); ++i) {
+        entities.push_back(new Coin(coinAnimation, enemies[i].rect.left, enemies[i].rect.top, level));
     }
 
     Object playerObject;
@@ -121,6 +134,12 @@ void PlayState::onLoop()
                         }
                     }
                 }
+            }
+        }
+        if ((*it)->getName() == "Coin") {
+            if (player->getRect().intersects((*it)->getRect())) {
+                std::cout << "+1" << std::endl;
+                (*it)->eliminate();
             }
         }
     }

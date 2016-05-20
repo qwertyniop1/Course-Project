@@ -10,6 +10,7 @@
 #include "Enemy.h"
 #include "Player.h"
 #include "Bullet.h"
+#include "Coin.h"
 
 class PlayState : public GameState
 {
@@ -35,9 +36,11 @@ private:
     
     AnimationManager playerAnimation;
     AnimationManager bulletAnimation;
+    AnimationManager coinAnimation;
 
     sf::Texture playerTexture;
     sf::Texture bulletTexture;
+    sf::Texture coinTexture;
 
     Level level;
     std::list<Entity*> entities;

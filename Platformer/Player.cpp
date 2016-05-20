@@ -107,6 +107,10 @@ void Player::update(double time)
         if (currentState == State::Walk) animationManager.set("shootandwalk");
     }
 
+    if (isHit) {
+        //
+    }
+
     if (direction == Direction::Flip) {
         animationManager.flip(true);
     }

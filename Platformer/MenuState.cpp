@@ -17,8 +17,6 @@ bool MenuState::onInit()
    
     background.setTexture(backgroundTexture);
     
-    //pointPlay.setColor(sf::Color::Blue);
-
     return true;
 }
 
