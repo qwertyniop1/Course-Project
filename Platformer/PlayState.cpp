@@ -24,32 +24,33 @@ bool PlayState::onInit()
     coinAnimation.loadFromXML("res/coin.xml", coinTexture);
     
     // extract to another class (level)
-    if (!level.loadFromFile("res/level2.tmx")) {
+    level = new Level();
+    if (!level->loadFromFile("res/level2.tmx")) {
         std::cout << "Can't load level data" << std::endl;
         return false;
     }
 
-    enemies = level.getObjects("enemy"); // check if necessary
+    enemies = level->getObjects("enemy"); // check if necessary
 
     for (size_t i = 0; i < enemies.size(); ++i) {
-        entities.push_back(new Enemy(playerAnimation, enemies[i].rect.left, enemies[i].rect.top, level));
+        entities.push_back(new Enemy(playerAnimation, enemies[i].rect.left, enemies[i].rect.top, *level));
     }
 
-    enemies = level.getObjects("coin"); // check if necessary
+    enemies = level->getObjects("coin"); // check if necessary
 
     for (size_t i = 0; i < enemies.size(); ++i) {
-        entities.push_back(new Coin(coinAnimation, enemies[i].rect.left, enemies[i].rect.top, level));
+        entities.push_back(new Coin(coinAnimation, enemies[i].rect.left, enemies[i].rect.top, *level));
     }
 
     Object playerObject;
     try {
-        playerObject = level.getObject("player");
+        playerObject = level->getObject("player");
     }
     catch (std::runtime_error) {
         std::cout << "Incorrect level data" << std::endl;
         return false;
     }
-    player = new Player(playerAnimation, playerObject.rect.left, playerObject.rect.top, level);
+    player = new Player(playerAnimation, playerObject.rect.left, playerObject.rect.top, *level);
 
     return true;
 }
@@ -65,7 +66,7 @@ void PlayState::onEvent(sf::Event event)
             stateManager->changeState(MenuState::getInstance(stateManager));
         }
         if (event.key.code == sf::Keyboard::Space) {
-            entities.push_back(new Bullet(bulletAnimation, player->getRect().left, player->getRect().top + 10, player->getDirection(), level));
+            entities.push_back(new Bullet(bulletAnimation, player->getRect().left, player->getRect().top + 10, player->getDirection(), *level));
         }
     }
 }
@@ -156,7 +157,7 @@ void PlayState::onRender(sf::RenderWindow &window)
     view.setCenter(player->getRect().left, player->getRect().top);
     window.setView(view);
 
-    level.draw(window);
+    level->draw(window);
 
     for (std::list<Entity*>::iterator it = entities.begin(); it != entities.end(); ++it) {
         (*it)->draw(window);
@@ -173,4 +174,5 @@ void PlayState::onCleanup()
     }
     entities.clear();
     delete player;
+    delete level;
 }

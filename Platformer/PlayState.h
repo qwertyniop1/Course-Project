@@ -44,7 +44,7 @@ private:
     sf::Texture bulletTexture;
     sf::Texture coinTexture;
 
-    Level level;
+    Level *level;
     std::list<Entity*> entities;
 
     std::vector<Object> enemies;
