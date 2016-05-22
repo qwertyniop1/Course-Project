@@ -40,6 +40,7 @@ void MenuState::onLoop()
 
 void MenuState::onRender(sf::RenderWindow & window)
 {
+    window.setView(window.getDefaultView());
     window.draw(background);
 
     for each (sf::Sprite *sprite in menuPoints) {
@@ -50,7 +51,7 @@ void MenuState::onRender(sf::RenderWindow & window)
             sprite->setColor(sf::Color::White);
         }
 
-        window.draw(*sprite);
+        window.draw(*sprite); 
     }
 }
 
@@ -59,7 +60,9 @@ void MenuState::onCleanup()
     for each (sf::Sprite *sprite in menuPoints) {
         delete sprite;
     }
+    menuPoints.clear();
     for each (sf::Texture *texture in menuPointTextures) {
         delete texture;
     }
+    menuPointTextures.clear();
 }

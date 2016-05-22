@@ -61,6 +61,9 @@ void PlayState::onEvent(sf::Event event)
     }
 
     if (event.type == sf::Event::KeyPressed) {
+        if (event.key.code == sf::Keyboard::Escape) {
+            stateManager->changeState(MenuState::getInstance(stateManager));
+        }
         if (event.key.code == sf::Keyboard::Space) {
             entities.push_back(new Bullet(bulletAnimation, player->getRect().left, player->getRect().top + 10, player->getDirection(), level));
         }
@@ -72,6 +75,9 @@ void PlayState::onLoop()
     double time = clock.getElapsedTime().asMicroseconds();
     clock.restart();
     time /= 800;
+    if (time > 50) {
+        time = 50;
+    }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
         player->keys[Player::Key::Left] = true;
@@ -161,8 +167,10 @@ void PlayState::onRender(sf::RenderWindow &window)
 
 void PlayState::onCleanup()
 {
+    enemies.clear();
     for (std::list<Entity*>::iterator it = entities.begin(); it != entities.end(); ++it) {
         delete *it;
     }
+    entities.clear();
     delete player;
 }

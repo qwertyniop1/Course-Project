@@ -12,6 +12,8 @@
 #include "Bullet.h"
 #include "Coin.h"
 
+#include "MenuState.h"
+
 class PlayState : public GameState
 {
 protected:
