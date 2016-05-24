@@ -50,5 +50,7 @@ private:
     std::vector<Object> enemies;
     Player *player;
 
+    sf::Font font;
+    sf::Text score;
 };
 

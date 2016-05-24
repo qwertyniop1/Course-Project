@@ -27,6 +27,8 @@ private:
 
     std::vector<sf::Texture*> menuPointTextures;
     std::vector<sf::Sprite*> menuPoints;
+
+    size_t currentPoint;
   
         
 

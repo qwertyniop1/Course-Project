@@ -29,12 +29,10 @@ void Bullet::update(double time)
 
 void Bullet::collision()
 {
-    std::vector<Object> objects = level.getAllObjects();
+    std::vector<Object> objects = level.getObjects("solid");
     for (size_t i = 0; i < objects.size(); ++i) {
         if (getRect().intersects(objects[i].rect)) {
-            if (objects[i].name == "solid") {
-                alive = false;
-            }
+            alive = false;
         }
     }
 }

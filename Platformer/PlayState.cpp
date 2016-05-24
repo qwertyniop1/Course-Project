@@ -22,6 +22,17 @@ bool PlayState::onInit()
     playerAnimation.loadFromXML("res/hero.xml", playerTexture); // check
     bulletAnimation.loadFromXML("res/bullet.xml", bulletTexture);
     coinAnimation.loadFromXML("res/coin.xml", coinTexture);
+
+    if (!font.loadFromFile("arial.ttf")) {
+        std::cout << "Can't load fonts" << std::endl;
+        return false;
+    }
+
+    score.setFont(font);
+    score.setCharacterSize(24);
+    score.setColor(sf::Color::Black);
+    //score.setStyle(sf::Text::Bold);
+    score.setString("0");
     
     // extract to another class (level)
     level = new Level();
@@ -164,6 +175,8 @@ void PlayState::onRender(sf::RenderWindow &window)
     }
 
     player->draw(window);
+
+    window.draw(score);
 }
 
 void PlayState::onCleanup()

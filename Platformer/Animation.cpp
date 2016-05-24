@@ -16,7 +16,7 @@ void Animation::tick(double time)
     }
 
     currentFrame += speed * time;
-    if (currentFrame > frames.size()) {
+    if (currentFrame >= frames.size()) {
         currentFrame = 0;
     }
 

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <SFML\Graphics.hpp>
-#include <vld.h>
+//#include <vld.h>
 #include <iostream>
 
 const int DEFAULT_WINDOW_HEIGHT = 600;

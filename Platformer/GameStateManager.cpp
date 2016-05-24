@@ -12,7 +12,9 @@ void GameStateManager::changeState(GameState *state)
         states.pop();
     }
     states.push(state);
-    states.top()->onInit();
+    if (!states.top()->onInit()) {
+        throw std::runtime_error("Error during loading resourses");
+    }
 }
 
 void GameStateManager::onEvent(sf::Event event)

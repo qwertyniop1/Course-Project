@@ -16,6 +16,8 @@ bool MenuState::onInit()
     }
    
     background.setTexture(backgroundTexture);
+
+    currentPoint = 0;
     
     return true;
 }
@@ -28,14 +30,17 @@ void MenuState::onEvent(sf::Event event)
 
     if (event.type == sf::Event::KeyPressed) {
         if (event.key.code == sf::Keyboard::Space) {
-            stateManager->changeState(PlayState::getInstance(stateManager));
+            //stateManager->changeState(PlayState::getInstance(stateManager));
         }
     }
 }
 
 void MenuState::onLoop()
 {
-    
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+        if (currentPoint == 1) 
+            stateManager->changeState(PlayState::getInstance(stateManager));
+    }
 }
 
 void MenuState::onRender(sf::RenderWindow & window)
@@ -46,6 +51,7 @@ void MenuState::onRender(sf::RenderWindow & window)
     for each (sf::Sprite *sprite in menuPoints) {
         if (sf::IntRect(sprite->getGlobalBounds()).contains(sf::Mouse::getPosition(window))) {
             sprite->setColor(sf::Color::Blue);
+            currentPoint = sprite->getGlobalBounds().top / 120;
         }
         else {
             sprite->setColor(sf::Color::White);
