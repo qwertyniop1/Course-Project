@@ -51,6 +51,7 @@ private:
     Player *player;
 
     sf::Font font;
-    sf::Text score;
+    sf::Text scoreText;
+    size_t score;
 };
 

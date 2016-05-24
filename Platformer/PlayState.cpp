@@ -23,16 +23,17 @@ bool PlayState::onInit()
     bulletAnimation.loadFromXML("res/bullet.xml", bulletTexture);
     coinAnimation.loadFromXML("res/coin.xml", coinTexture);
 
-    if (!font.loadFromFile("arial.ttf")) {
+    if (!font.loadFromFile("res/font.ttf")) {
         std::cout << "Can't load fonts" << std::endl;
         return false;
     }
 
-    score.setFont(font);
-    score.setCharacterSize(24);
-    score.setColor(sf::Color::Black);
-    //score.setStyle(sf::Text::Bold);
-    score.setString("0");
+    score = 0;
+    scoreText.setFont(font);
+    scoreText.setCharacterSize(48);
+    scoreText.setColor(sf::Color::Black);
+    //scoreText.setStyle(sf::Text::Bold);
+    scoreText.setString(score);
     
     // extract to another class (level)
     level = new Level();
@@ -136,6 +137,7 @@ void PlayState::onLoop()
                     enemy->dx = 0;
                     player->dy = -0.2;
                     enemy->eliminate();
+                    score += 50;
                 }
                 else {
                     // kill player
@@ -156,7 +158,7 @@ void PlayState::onLoop()
         }
         if ((*it)->getName() == "Coin") {
             if (player->getRect().intersects((*it)->getRect())) {
-                std::cout << "+1" << std::endl;
+                score += 20;                
                 (*it)->eliminate();
             }
         }
@@ -176,7 +178,9 @@ void PlayState::onRender(sf::RenderWindow &window)
 
     player->draw(window);
 
-    window.draw(score);
+    scoreText.setString(std::to_string(score));
+    scoreText.setPosition(view.getCenter().x + DEFAULT_WINDOW_WIDTH / 2 - 100, view.getCenter().y - DEFAULT_WINDOW_HEIGHT / 2 + 10);
+    window.draw(scoreText);
 }
 
 void PlayState::onCleanup()
