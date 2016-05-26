@@ -16,7 +16,7 @@ Entity::Entity(AnimationManager & manager, int x, int y, Level &level)
 
 void Entity::draw(sf::RenderWindow & window)
 {
-    animationManager.draw(window, x, y);
+    animationManager.draw(window, x, y + height);
 }
 
 sf::FloatRect Entity::getRect()
@@ -42,4 +42,9 @@ std::string Entity::getName()
 Direction Entity::getDirection()
 {
     return direction;
+}
+
+void Entity::changeHealth(int value)
+{
+    health += value;
 }

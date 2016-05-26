@@ -22,13 +22,18 @@ public:
 
     Direction getDirection();
 
+    void changeHealth(int value);
+
 protected:
 
     double x, y, width, height;
     AnimationManager animationManager;
     Direction direction;
-    bool alive;
     std::string name;
+    bool alive;
+
+    int health;
+    double timer;
 
 public:
     double dx, dy; /* tmp */

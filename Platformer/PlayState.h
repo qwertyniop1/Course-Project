@@ -13,6 +13,7 @@
 #include "Coin.h"
 
 #include "MenuState.h"
+#include "GameOverState.h"
 
 class PlayState : public GameState
 {

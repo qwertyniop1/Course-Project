@@ -109,6 +109,10 @@ void PlayState::onLoop()
     }
 
     player->update(time);
+    if (!player->isAlive()) {
+        std::cout << "Death" << std::endl;
+        stateManager->changeState(GameOverState::getInstance(stateManager));
+    }
 
     for (std::list<Entity*>::iterator it = entities.begin(); it != entities.end(); ) {
         Entity *entity = *it;
@@ -139,8 +143,9 @@ void PlayState::onLoop()
                     enemy->eliminate();
                     score += 50;
                 }
-                else {
-                    // kill player
+                else if (!player->isHit()){
+                    player->changeHealth(-10); // animation hit
+                    player->setHit(true);
                 }
             }
 
@@ -179,7 +184,7 @@ void PlayState::onRender(sf::RenderWindow &window)
     player->draw(window);
 
     scoreText.setString(std::to_string(score));
-    scoreText.setPosition(view.getCenter().x + DEFAULT_WINDOW_WIDTH / 2 - 100, view.getCenter().y - DEFAULT_WINDOW_HEIGHT / 2 + 10);
+    scoreText.setPosition(view.getCenter().x - DEFAULT_WINDOW_WIDTH / 2 + 50, view.getCenter().y - DEFAULT_WINDOW_HEIGHT / 2 + 10);
     window.draw(scoreText);
 }
 

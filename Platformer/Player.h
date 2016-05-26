@@ -13,6 +13,10 @@ public:
 
     void collision(CollisionDirection dir);
 
+    void setHit(bool flag);
+
+    bool isHit();
+
     enum Key {
         Left, Right, Up, Down, Space
     };
@@ -22,7 +26,7 @@ public:
     };
 
 private:
-    bool isShooting, isOnLadder, isHit;   
+    bool isShooting, isOnLadder, hit;   
     State currentState;
 
 public:

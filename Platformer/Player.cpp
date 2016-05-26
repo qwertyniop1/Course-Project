@@ -3,6 +3,9 @@
 Player::Player(AnimationManager &manager, int x, int y, Level &level) : Entity(manager, x, y, level)
 {    
     currentState = State::Stay;
+    health = 30;
+    isShooting = false;
+    hit = false;
 }
 
 void Player::handleKeys()
@@ -107,8 +110,17 @@ void Player::update(double time)
         if (currentState == State::Walk) animationManager.set("shootandwalk");
     }
 
-    if (isHit) {
-        //
+    if (hit) {
+        timer += time;
+        if (timer > 1000) {
+            timer = 0;
+            hit = false;
+        }
+        animationManager.set("duck");
+    }
+
+    if (health <= 0) {
+        alive = false;
     }
 
     if (direction == Direction::Flip) {
@@ -177,5 +189,15 @@ void Player::collision(CollisionDirection dir)
 
         }
     }
+}
+
+void Player::setHit(bool flag)
+{
+    hit = flag;
+}
+
+bool Player::isHit()
+{
+    return hit;
 }
 
