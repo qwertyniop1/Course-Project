@@ -115,8 +115,7 @@ void PlayState::onLoop()
 
     player->update(time);
     if (!player->isAlive()) {
-        std::cout << "GAME OVER!!!!!!!!!    " << std::endl;
-        stateManager->changeState(GameOverState::getInstance(stateManager));
+        stateManager->changeState(GameOverState::getInstance(stateManager, score));
     }
 
     for (std::list<Entity*>::iterator it = entities.begin(); it != entities.end(); ) {
@@ -194,7 +193,7 @@ void PlayState::onRender(sf::RenderWindow &window)
 
     for (size_t i = 0; i < player->getHealth() / 10; ++i) {
         lifeScore.setPosition(view.getCenter().x + DEFAULT_WINDOW_WIDTH / 2 - 70 - i * 50, view.getCenter().y - DEFAULT_WINDOW_HEIGHT / 2 + 20);
-        window.draw(lifeScore);
+        window.draw(lifeScore); // TODO transparent texture
     }   
 }
 
