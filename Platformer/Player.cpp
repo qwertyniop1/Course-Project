@@ -201,3 +201,8 @@ bool Player::isHit()
     return hit;
 }
 
+int Player::getHealth()
+{
+    return health;
+}
+

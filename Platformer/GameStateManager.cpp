@@ -36,6 +36,9 @@ void GameStateManager::onRender(sf::RenderWindow &window)
     if (!states.empty()) {
         states.top()->onRender(window);
     }
+    else {
+        window.close(); // ???
+    }
 }
 
 void GameStateManager::quit() 

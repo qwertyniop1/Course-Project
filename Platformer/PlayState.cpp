@@ -32,8 +32,13 @@ bool PlayState::onInit()
     scoreText.setFont(font);
     scoreText.setCharacterSize(48);
     scoreText.setColor(sf::Color::Black);
-    //scoreText.setStyle(sf::Text::Bold);
     scoreText.setString(score);
+
+    if (!lifeScoreTexture.loadFromFile("res/life.png")) {
+        std::cout << "Can't load texture from file" << std::endl;
+        return false;
+    }
+    lifeScore.setTexture(lifeScoreTexture);
     
     // extract to another class (level)
     level = new Level();
@@ -110,7 +115,7 @@ void PlayState::onLoop()
 
     player->update(time);
     if (!player->isAlive()) {
-        std::cout << "Death" << std::endl;
+        std::cout << "GAME OVER!!!!!!!!!    " << std::endl;
         stateManager->changeState(GameOverState::getInstance(stateManager));
     }
 
@@ -186,6 +191,11 @@ void PlayState::onRender(sf::RenderWindow &window)
     scoreText.setString(std::to_string(score));
     scoreText.setPosition(view.getCenter().x - DEFAULT_WINDOW_WIDTH / 2 + 50, view.getCenter().y - DEFAULT_WINDOW_HEIGHT / 2 + 10);
     window.draw(scoreText);
+
+    for (size_t i = 0; i < player->getHealth() / 10; ++i) {
+        lifeScore.setPosition(view.getCenter().x + DEFAULT_WINDOW_WIDTH / 2 - 70 - i * 50, view.getCenter().y - DEFAULT_WINDOW_HEIGHT / 2 + 20);
+        window.draw(lifeScore);
+    }   
 }
 
 void PlayState::onCleanup()

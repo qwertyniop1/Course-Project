@@ -54,5 +54,7 @@ private:
     sf::Font font;
     sf::Text scoreText;
     size_t score;
+    sf::Texture lifeScoreTexture;
+    sf::Sprite lifeScore;
 };
 

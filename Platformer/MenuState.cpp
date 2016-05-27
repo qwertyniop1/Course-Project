@@ -38,8 +38,14 @@ void MenuState::onEvent(sf::Event event)
 void MenuState::onLoop()
 {
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-        if (currentPoint == 1) 
+        switch (currentPoint) {
+        case 1:
             stateManager->changeState(PlayState::getInstance(stateManager));
+            break;
+        case 4:
+            stateManager->quit();
+            break;
+        }
     }
 }
 
