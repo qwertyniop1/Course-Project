@@ -1,7 +1,8 @@
 #pragma once
 
 #include "GameState.h"
-#include "MenuState.h" // highsores state
+#include "HighscoresState.h" 
+#include "Interface.h"
 
 #include <fstream>
 
@@ -33,15 +34,7 @@ private:
 
     size_t score;
     sf::Font font;
-    sf::Text text;
-    sf::Text scoreText;
-
+    Label textLabel;
+    Label scoreLabel;
 };
 
-//const size_t MAX_NAME_LENGTH = 256;
-
-struct HighscoreNode {
-    std::string name;
-    size_t score;
-    //date
-};

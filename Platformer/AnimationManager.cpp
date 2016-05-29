@@ -61,14 +61,17 @@ void AnimationManager::loadFromXML(std::string fileName, sf::Texture &texture)
     TiXmlElement *head;
     head = animFile.FirstChildElement("sprites");
 
-    /*const char *color = head->Attribute("transparentColor");
-    unsigned int colorCode = std::stoi(color, 0, 16);
-    sf::Color alphaColor;
-    alphaColor.r = colorCode / 0x10000;;  // Extract the RR byte
-    alphaColor.g = (colorCode / 0x100) % 0x100;   // Extract the GG byte
-    alphaColor.b = colorCode % 0x100;        // Extract the BB byte
-    image.createMaskFromColor(sf::Color(alphaColor));
-    texture.loadFromImage(image); */   
+    sf::Image image = texture.copyToImage();
+    std::string color = head->Attribute("transparentColor");
+    if (color != "") {
+        unsigned int colorCode = std::stoi(color, 0, 16);
+        sf::Color alphaColor;
+        alphaColor.r = colorCode / 0x10000;;  // Extract the RR byte
+        alphaColor.g = (colorCode / 0x100) % 0x100;   // Extract the GG byte
+        alphaColor.b = colorCode % 0x100;        // Extract the BB byte
+        image.createMaskFromColor(sf::Color(alphaColor));
+        texture.loadFromImage(image);
+    }
 
     TiXmlElement *animElement;
     animElement = head->FirstChildElement("animation");

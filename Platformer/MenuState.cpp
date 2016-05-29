@@ -2,7 +2,7 @@
 
 bool MenuState::onInit()
 {    
-    if (!backgroundTexture.loadFromFile("res/background0.png")) {
+    if (!backgroundTexture.loadFromFile("res/background.jpg")) {
         std::cout << "Can't load texture from file" << std::endl;
         return false;
     }
@@ -15,7 +15,7 @@ bool MenuState::onInit()
         menuPoints.back()->setPosition((DEFAULT_WINDOW_WIDTH - menuPoints.back()->getTextureRect().width) / 2, (i++) * 120);
     }
    
-    background.setTexture(backgroundTexture);
+    setAndScale(background, backgroundTexture);
 
     currentPoint = 0;
     
@@ -77,4 +77,6 @@ void MenuState::onCleanup()
         delete texture;
     }
     menuPointTextures.clear();
+
+    background.setPosition(0, 0);
 }

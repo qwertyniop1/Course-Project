@@ -4,7 +4,7 @@ bool PlayState::onInit()
 {
     view.reset(sf::FloatRect(0, 0, DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT));
 
-    if (!playerTexture.loadFromFile("res/fang.png")) {
+    if (!playerTexture.loadFromFile("res/aladdin.png")) {
         std::cout << "Can't load texture from file" << std::endl;
         return false;
     }
@@ -19,7 +19,7 @@ bool PlayState::onInit()
         return false;
     }
 
-    playerAnimation.loadFromXML("res/hero.xml", playerTexture); // check
+    playerAnimation.loadFromXML("res/aladdin.xml", playerTexture); // check
     bulletAnimation.loadFromXML("res/bullet.xml", bulletTexture);
     coinAnimation.loadFromXML("res/coin.xml", coinTexture);
 
