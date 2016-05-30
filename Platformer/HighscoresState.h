@@ -45,7 +45,10 @@ private:
 struct HighscoreNode {
     std::string name;
     size_t score;
-    //date
+    
+    inline bool operator() (const HighscoreNode &first, const HighscoreNode &second) {
+        return (first.score > second.score);
+    }
 };
 
 const unsigned int SIDE_OFFSET = 50;

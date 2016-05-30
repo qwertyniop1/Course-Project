@@ -16,10 +16,14 @@ bool HighscoresState::onInit()
 
     isEmptyList = openFile("res/scores.dat");
 
-    for (size_t i = 0; i < 5; ++i) {
+    std::sort(highscores.begin(), highscores.end(), HighscoreNode());
+    for (size_t i = 0; (i < highscores.size()) && (i < 5); ++i) {
         nodes.push_back(new Label());
-        //nodes[i]->create(highscores.at(i).name + std::to_string(highscores.at(i).score), font, 50, i * 50 + 200);
-        nodes[i]->create(createNode(highscores.at(i).name, std::to_string(highscores.at(i).score)), font, 50, i * 50 + 200);
+        nodes[i]->create(createNode(highscores[i].name, std::to_string(highscores[i].score)), font, 50, i * 50 + 200);
+    }
+    for (size_t i = highscores.size(); i < 5; ++i) {
+        nodes.push_back(new Label());
+        nodes[i]->create(createNode("Noname", "0"), font, 50, i * 50 + 200);
     }
 
     textLabel.create("Highscores", font);
@@ -62,6 +66,8 @@ void HighscoresState::onCleanup() // memory leaks
     highscores.clear();
 
     background.setPosition(0, 0);
+    textLabel.create("", font);
+
 }
 
 bool HighscoresState::openFile(std::string path)

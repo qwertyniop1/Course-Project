@@ -2,6 +2,7 @@
 
 #include "GameState.h"
 #include "PlayState.h"
+#include "HighscoresState.h"
 
 class MenuState : public GameState
 {

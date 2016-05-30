@@ -42,6 +42,9 @@ void MenuState::onLoop()
         case 1:
             stateManager->changeState(PlayState::getInstance(stateManager));
             break;
+        case 2:
+            stateManager->changeState(HighscoresState::getInstance(stateManager));
+            break;
         case 4:
             stateManager->quit();
             break;
