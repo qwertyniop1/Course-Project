@@ -36,5 +36,8 @@ private:
     sf::Font font;
     Label textLabel;
     Label scoreLabel;
+    Input nameField;
+
+    sf::Vector2i mouse;
 };
 

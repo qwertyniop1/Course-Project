@@ -18,6 +18,7 @@ bool GameOverState::onInit()
     textLabel.setPosition((DEFAULT_WINDOW_WIDTH - textLabel.getBounds().width) / 2, DEFAULT_WINDOW_HEIGHT / 2 - 100);
     scoreLabel.create(std::to_string(score), font);
     scoreLabel.setPosition((DEFAULT_WINDOW_WIDTH - scoreLabel.getBounds().width) / 2, DEFAULT_WINDOW_HEIGHT / 2);
+    nameField.create(font, "Player", (DEFAULT_WINDOW_WIDTH - nameField.getBounds().width) / 2, DEFAULT_WINDOW_HEIGHT / 2 + 100);
 
     //text.setString("»гра закончена"); // TODO encoding
         
@@ -35,6 +36,18 @@ void GameOverState::onEvent(sf::Event event)
             stateManager->changeState(HighscoresState::getInstance(stateManager));
         }
     }
+
+    if (event.type == sf::Event::MouseButtonPressed) {
+        if (event.mouseButton.button == sf::Mouse::Left) {
+            nameField.select(mouse);			//поле ввода
+        }
+    }
+
+    if (event.type == sf::Event::TextEntered) {
+        if (nameField.select()) {
+            nameField.reText(event.text.unicode);
+        }
+    }
 }
 
 void GameOverState::onLoop()
@@ -43,11 +56,16 @@ void GameOverState::onLoop()
 
 void GameOverState::onRender(sf::RenderWindow & window)
 {
+    mouse = sf::Mouse::getPosition(window); // —читываем координаты мыши(если че обратитьс€ можно будет mouse.x mouse.y)
+
     window.setView(window.getDefaultView());
     window.draw(background);
 
     window.draw(textLabel.displayText());
     window.draw(scoreLabel.displayText());
+
+    window.draw(nameField.displayButton());
+    window.draw(nameField.displayText());
 }
 
 void GameOverState::onCleanup()
@@ -55,7 +73,7 @@ void GameOverState::onCleanup()
     std::ofstream outputFile;
     outputFile.open("res/scores.dat", std::ios::app);
 
-    outputFile << "Vitaly" << std::endl;
+    outputFile << nameField.readText() << std::endl;
     outputFile << score << std::endl;
 
     outputFile.close(); 
