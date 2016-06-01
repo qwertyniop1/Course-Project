@@ -46,7 +46,7 @@ bool PlayState::onInit()
     }
     lifeScore.setTexture(lifeScoreTexture);
 
-    levels = { /*"res/level2.tmx",*/ "res/level3.tmx" };
+    levels = { "res/level2.tmx", "res/level3.tmx" };
     loadLevel();
 
     return true;

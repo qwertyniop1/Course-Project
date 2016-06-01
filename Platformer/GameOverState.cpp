@@ -18,7 +18,8 @@ bool GameOverState::onInit()
     textLabel.setPosition((DEFAULT_WINDOW_WIDTH - textLabel.getBounds().width) / 2, DEFAULT_WINDOW_HEIGHT / 2 - 100);
     scoreLabel.create(std::to_string(score), font);
     scoreLabel.setPosition((DEFAULT_WINDOW_WIDTH - scoreLabel.getBounds().width) / 2, DEFAULT_WINDOW_HEIGHT / 2);
-    nameField.create(font, "Player", (DEFAULT_WINDOW_WIDTH - nameField.getBounds().width) / 2, DEFAULT_WINDOW_HEIGHT / 2 + 100);
+    nameField.create(font, "Player");
+    nameField.setPosition((DEFAULT_WINDOW_WIDTH - nameField.getBounds().width) / 2, DEFAULT_WINDOW_HEIGHT / 2 + 100);
 
     //text.setString("Игра закончена"); // TODO encoding
         

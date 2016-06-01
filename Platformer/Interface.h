@@ -41,4 +41,6 @@ public:
 
     //Для того, что бы считать текст с поля Ipnut необходимо пременить  readText() который возвращает string
     std::string readText();
+    sf::FloatRect getBounds();
+    void setPosition(int x, int y);
 };

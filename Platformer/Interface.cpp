@@ -129,3 +129,16 @@ std::string Input::readText()
     }
     return text;   
 }
+
+sf::FloatRect Input::getBounds()
+{
+    return box.getGlobalBounds();
+}
+
+void Input::setPosition(int x, int y)
+{
+    this->x = x;
+    this->y = y;
+    labelText.setPosition(x, y);
+    box.setPosition(x, y);
+}

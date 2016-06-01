@@ -30,12 +30,21 @@ void Player::handleKeys()
         }
     }
     if (keys[Key::Up]) {
-        if (currentState == State::Climb || currentState == State::Swim) {
+        if (isOnLadder) {
+            currentState = State::Climb;
+        }
+        if (currentState == State::Climb /*|| currentState == State::Swim*/) {
             dy = -0.05;
+            if (keys[Key::Left] || keys[Key::Right]) {
+                currentState = State::Stay;
+            }
         }
         if (currentState == State::Stay || currentState == State::Walk) {
             dy = -0.27;
             currentState = State::Jump;
+            /*
+			if (STATE==climb) if (key["L"] || key["R"]) STATE=stay;
+            */
         }
     }
     if (keys[Key::Down]) {
@@ -182,7 +191,7 @@ void Player::collision(CollisionDirection dir)
             if (objects[i].name == "ladder") {
                 isOnLadder = true;
                 if (currentState == State::Climb) {
-                    x = objects[i].rect.left - 10;
+                    //x = objects[i].rect.left - 10;
                 }
 
             }
