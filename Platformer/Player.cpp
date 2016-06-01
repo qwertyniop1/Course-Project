@@ -5,6 +5,7 @@ Player::Player(AnimationManager &manager, int x, int y, Level &level) : Entity(m
     currentState = State::Stay;
     health = 30;
     isShooting = false;
+    isOnLadder = false;
     hit = false;
 }
 
@@ -107,7 +108,7 @@ void Player::update(double time)
 
     if (isShooting) {
         animationManager.set("shoot");
-        if (currentState == State::Walk) animationManager.set("shootandwalk");
+        //if (currentState == State::Walk) animationManager.set("shootandwalk");
     }
 
     if (hit) {
@@ -116,7 +117,7 @@ void Player::update(double time)
             timer = 0;
             hit = false;
         }
-        animationManager.set("duck");
+        animationManager.set("die");
     }
 
     if (health <= 0) {
@@ -134,14 +135,13 @@ void Player::update(double time)
         if (!isOnLadder) currentState = State::Stay;
     }
     else { 
-        //dy += 0.0005*time; 
+        dy += 0.0005*time; 
     }
     isOnLadder = false;
 
     x += dx * time;
     collision(X);
 
-    dy += 0.0005 * time;
     y += dy * time;
     collision(Y);   
 
@@ -185,6 +185,10 @@ void Player::collision(CollisionDirection dir)
                     x = objects[i].rect.left - 10;
                 }
 
+            }
+
+            if (objects[i].name == "exit") {
+                alive = false;
             }
 
         }

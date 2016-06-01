@@ -38,10 +38,12 @@ private:
     sf::Clock clock;
     
     AnimationManager playerAnimation;
+    AnimationManager enemyAnimation;
     AnimationManager bulletAnimation;
     AnimationManager coinAnimation;
 
     sf::Texture playerTexture;
+    sf::Texture enemyTexture;
     sf::Texture bulletTexture;
     sf::Texture coinTexture;
 
@@ -56,5 +58,8 @@ private:
     size_t score;
     sf::Texture lifeScoreTexture;
     sf::Sprite lifeScore;
+
+    std::vector<std::string> levels;
+    bool loadLevel();
 };
 

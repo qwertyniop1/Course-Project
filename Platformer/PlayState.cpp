@@ -9,6 +9,11 @@ bool PlayState::onInit()
         return false;
     }
 
+    if (!enemyTexture.loadFromFile("res/enemy.png")) {
+        std::cout << "Can't load texture from file" << std::endl;
+        return false;
+    }
+
     if (!bulletTexture.loadFromFile("res/bullet.png")) {
         std::cout << "Can't load texture from file" << std::endl;
         return false;
@@ -20,6 +25,7 @@ bool PlayState::onInit()
     }
 
     playerAnimation.loadFromXML("res/aladdin.xml", playerTexture); // check
+    enemyAnimation.loadFromXML("res/enemy.xml", enemyTexture);
     bulletAnimation.loadFromXML("res/bullet.xml", bulletTexture);
     coinAnimation.loadFromXML("res/coin.xml", coinTexture);
 
@@ -39,35 +45,9 @@ bool PlayState::onInit()
         return false;
     }
     lifeScore.setTexture(lifeScoreTexture);
-    
-    // extract to another class (level)
-    level = new Level();
-    if (!level->loadFromFile("res/level2.tmx")) {
-        std::cout << "Can't load level data" << std::endl;
-        return false;
-    }
 
-    enemies = level->getObjects("enemy"); // check if necessary
-
-    for (size_t i = 0; i < enemies.size(); ++i) {
-        entities.push_back(new Enemy(playerAnimation, enemies[i].rect.left, enemies[i].rect.top, *level));
-    }
-
-    enemies = level->getObjects("coin"); // check if necessary
-
-    for (size_t i = 0; i < enemies.size(); ++i) {
-        entities.push_back(new Coin(coinAnimation, enemies[i].rect.left, enemies[i].rect.top, *level));
-    }
-
-    Object playerObject;
-    try {
-        playerObject = level->getObject("player");
-    }
-    catch (std::runtime_error) {
-        std::cout << "Incorrect level data" << std::endl;
-        return false;
-    }
-    player = new Player(playerAnimation, playerObject.rect.left, playerObject.rect.top, *level);
+    levels = { /*"res/level2.tmx",*/ "res/level3.tmx" };
+    loadLevel();
 
     return true;
 }
@@ -115,7 +95,9 @@ void PlayState::onLoop()
 
     player->update(time);
     if (!player->isAlive()) {
-        stateManager->changeState(GameOverState::getInstance(stateManager, score));
+        if (player->getHealth() <= 0 || !loadLevel()) {
+            stateManager->changeState(GameOverState::getInstance(stateManager, score));
+        }
     }
 
     for (std::list<Entity*>::iterator it = entities.begin(); it != entities.end(); ) {
@@ -206,4 +188,45 @@ void PlayState::onCleanup()
     entities.clear();
     delete player;
     delete level;
+}
+
+bool PlayState::loadLevel()
+{
+    if (levels.size() == 0) {
+        return false;
+    }
+    std::string path = *levels.begin();
+    levels.erase(levels.begin());
+    // extract to another class (level)
+    level = new Level();
+    if (!level->loadFromFile(path)) {
+        std::cout << "Can't load level data" << std::endl;
+        return false;
+    }
+
+    entities.clear();
+
+    enemies = level->getObjects("enemy"); // check if necessary
+
+    for (size_t i = 0; i < enemies.size(); ++i) {
+        entities.push_back(new Enemy(enemyAnimation, enemies[i].rect.left, enemies[i].rect.top, *level));
+    }
+
+    enemies = level->getObjects("coin"); // check if necessary
+
+    for (size_t i = 0; i < enemies.size(); ++i) {
+        entities.push_back(new Coin(coinAnimation, enemies[i].rect.left, enemies[i].rect.top, *level));
+    }
+
+    Object playerObject;
+    try {
+        playerObject = level->getObject("player");
+    }
+    catch (std::runtime_error) {
+        std::cout << "Incorrect level data" << std::endl;
+        return false;
+    }
+    player = new Player(playerAnimation, playerObject.rect.left, playerObject.rect.top, *level);
+    
+    return true;
 }
