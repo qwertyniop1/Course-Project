@@ -28,6 +28,11 @@ public:
     };
 
 private:
+    const int HEALTH = 30;
+    const double PLAYER_SPEED = 0.1;
+    const double LADDER_GRAVITY = 0.05;
+    const double GRAVITY = 0.27;
+
     bool isShooting, isOnLadder, hit;   
     State currentState;
 

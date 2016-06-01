@@ -6,15 +6,15 @@ Bullet::Bullet(AnimationManager &manager, int x, int y, Direction dir, Level &le
     animationManager.set("shoot");   
 
     if (dir == Direction::Flip) {
-        dx = -0.3;
+        dx = -BULLET_SPEED;
     }
     else {
-        dx = 0.3;
+        dx = BULLET_SPEED;
     }
 
     alive = true;
 
-    width = height = 5;
+    width = height = BULLET_SIZE;
 
 }
 

@@ -37,7 +37,7 @@ void GameStateManager::onRender(sf::RenderWindow &window)
         states.top()->onRender(window);
     }
     else {
-        window.close(); // ???
+        window.close();
     }
 }
 

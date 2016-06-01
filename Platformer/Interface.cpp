@@ -85,6 +85,7 @@ void Input::create(sf::Font &font, std::string _text, double _x, double _y, doub
 
 void Input::reText(char _tmp)
 {
+    if (text.length() > 10) return;
     text.erase(text.size() - 1);
 
     if (_tmp != 8) {

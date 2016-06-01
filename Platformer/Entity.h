@@ -25,6 +25,7 @@ public:
     void changeHealth(int value);
 
 protected:
+    const double ACCELERATION = 0.0005;
 
     double x, y, width, height;
     AnimationManager animationManager;

@@ -47,6 +47,9 @@ private:
     sf::Texture bulletTexture;
     sf::Texture coinTexture;
 
+    sf::Texture backgroundTexture;
+    sf::Sprite background;
+
     Level *level;
     std::list<Entity*> entities;
 

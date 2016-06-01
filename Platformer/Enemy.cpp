@@ -4,7 +4,7 @@ Enemy::Enemy(AnimationManager &manager, int x, int y, Level &level) : Entity(man
 {
     name = "Enemy";
     animationManager.set("walk");
-    dx = 0.05;
+    dx = ENEMY_SPEED;
 }
 
 void Enemy::update(double time)
@@ -19,7 +19,7 @@ void Enemy::update(double time)
     x += dx * time;
     collision(X);
 
-    dy += 0.0005 * time;
+    dy += ACCELERATION * time;
     y += dy * time;
     collision(Y);
     

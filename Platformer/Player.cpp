@@ -3,7 +3,7 @@
 Player::Player(AnimationManager &manager, int x, int y, Level &level) : Entity(manager, x, y, level)
 {    
     currentState = State::Stay;
-    health = 30;
+    health = HEALTH;
     isShooting = false;
     isOnLadder = false;
     hit = false;
@@ -14,7 +14,7 @@ void Player::handleKeys()
     if (keys[Key::Left]) {
         direction = Direction::Flip;
         if (currentState != State::Duck) {
-            dx = -0.1;
+            dx = -PLAYER_SPEED;
         }
         if (currentState == State::Stay) {
             currentState = State::Walk;
@@ -23,7 +23,7 @@ void Player::handleKeys()
     if (keys[Key::Right]) {
         direction = Direction::Normal;
         if (currentState != State::Duck) {
-            dx = 0.1;
+            dx = PLAYER_SPEED;
         }
         if (currentState == State::Stay) {
             currentState = State::Walk;
@@ -34,13 +34,13 @@ void Player::handleKeys()
             currentState = State::Climb;
         }
         if (currentState == State::Climb /*|| currentState == State::Swim*/) {
-            dy = -0.05;
+            dy = -LADDER_GRAVITY;
             if (keys[Key::Left] || keys[Key::Right]) {
                 currentState = State::Stay;
             }
         }
         if (currentState == State::Stay || currentState == State::Walk) {
-            dy = -0.27;
+            dy = -GRAVITY;
             currentState = State::Jump;
             /*
 			if (STATE==climb) if (key["L"] || key["R"]) STATE=stay;
@@ -49,7 +49,7 @@ void Player::handleKeys()
     }
     if (keys[Key::Down]) {
         if (currentState == State::Climb || currentState == State::Swim) {
-            dy = 0.05;
+            dy = LADDER_GRAVITY;
         }
         if (currentState == State::Stay || currentState == State::Walk) {
             dx = 0;
@@ -144,7 +144,7 @@ void Player::update(double time)
         if (!isOnLadder) currentState = State::Stay;
     }
     else { 
-        dy += 0.0005*time; 
+        dy += ACCELERATION * time; 
     }
     isOnLadder = false;
 

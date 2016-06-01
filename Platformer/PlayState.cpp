@@ -4,6 +4,11 @@ bool PlayState::onInit()
 {
     view.reset(sf::FloatRect(0, 0, DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT));
 
+    if (!backgroundTexture.loadFromFile("res/background_g.jpg")) {
+        std::cout << "Can't load texture from file" << std::endl;
+        return false;
+    }
+
     if (!playerTexture.loadFromFile("res/aladdin.png")) {
         std::cout << "Can't load texture from file" << std::endl;
         return false;
@@ -28,6 +33,9 @@ bool PlayState::onInit()
     enemyAnimation.loadFromXML("res/enemy.xml", enemyTexture);
     bulletAnimation.loadFromXML("res/bullet.xml", bulletTexture);
     coinAnimation.loadFromXML("res/coin.xml", coinTexture);
+
+    background.setTexture(backgroundTexture);
+    background.setOrigin(backgroundTexture.getSize().x / 2, backgroundTexture.getSize().y / 2);
 
     if (!font.loadFromFile("res/font.ttf")) {
         std::cout << "Can't load fonts" << std::endl;
@@ -161,6 +169,9 @@ void PlayState::onRender(sf::RenderWindow &window)
     view.setCenter(player->getRect().left, player->getRect().top);
     window.setView(view);
 
+    background.setPosition(view.getCenter());
+    window.draw(background);
+
     level->draw(window);
 
     for (std::list<Entity*>::iterator it = entities.begin(); it != entities.end(); ++it) {
@@ -175,7 +186,7 @@ void PlayState::onRender(sf::RenderWindow &window)
 
     for (size_t i = 0; i < player->getHealth() / 10; ++i) {
         lifeScore.setPosition(view.getCenter().x + DEFAULT_WINDOW_WIDTH / 2 - 70 - i * 50, view.getCenter().y - DEFAULT_WINDOW_HEIGHT / 2 + 20);
-        window.draw(lifeScore); // TODO transparent texture
+        window.draw(lifeScore); 
     }   
 }
 
@@ -197,7 +208,7 @@ bool PlayState::loadLevel()
     }
     std::string path = *levels.begin();
     levels.erase(levels.begin());
-    // extract to another class (level)
+    
     level = new Level();
     if (!level->loadFromFile(path)) {
         std::cout << "Can't load level data" << std::endl;

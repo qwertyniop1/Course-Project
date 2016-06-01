@@ -11,4 +11,7 @@ public:
     void update(double time);
 
     void collision(CollisionDirection dir);
+
+private:
+    const double ENEMY_SPEED = 0.05;
 };

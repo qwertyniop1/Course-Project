@@ -7,7 +7,7 @@ Coin::Coin(AnimationManager & manager, int x, int y, Level & level) : Entity(man
     
     alive = true;
 
-    width = height = 32;
+    width = height = COIN_SIZE;
 }
 
 void Coin::update(double time)

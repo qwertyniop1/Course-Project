@@ -9,4 +9,7 @@ public:
 
     void update(double time);
 
+private:
+    const int COIN_SIZE = 32;
+
 };
