@@ -19,14 +19,14 @@ bool HighscoresState::onInit()
     std::sort(highscores.begin(), highscores.end(), HighscoreNode());
     for (size_t i = 0; (i < highscores.size()) && (i < 5); ++i) {
         nodes.push_back(new Label());
-        nodes[i]->create(createNode(highscores[i].name, std::to_string(highscores[i].score)), font, 50, i * 50 + 200);
+        nodes[i]->create(createNode(highscores[i].name, std::to_wstring(highscores[i].score)), font, 50, i * 50 + 200);
     }
     for (size_t i = highscores.size(); i < 5; ++i) {
         nodes.push_back(new Label());
-        nodes[i]->create(createNode("Noname", "0"), font, 50, i * 50 + 200);
+        nodes[i]->create(createNode(L"Noname", L"0"), font, 50, i * 50 + 200);
     }
 
-    textLabel.create("Highscores", font);
+    textLabel.create(L"Рекорды", font);
     textLabel.setPosition((DEFAULT_WINDOW_WIDTH - textLabel.getBounds().width) / 2, 100);
     
     return true;
@@ -61,18 +61,22 @@ void HighscoresState::onRender(sf::RenderWindow & window)
     }
 }
 
-void HighscoresState::onCleanup() // memory leaks
+void HighscoresState::onCleanup() 
 {
+    for each (Label *label in nodes) {
+        delete label;
+    }
+    nodes.clear();
     highscores.clear();
 
     background.setPosition(0, 0);
-    textLabel.create("", font);
+    textLabel.create(L"", font);
 
 }
 
 bool HighscoresState::openFile(std::string path)
 {
-    std::ifstream inputFile;
+    std::wifstream inputFile;
     inputFile.open(path, std::ios::in);
     if (!inputFile.is_open() || inputFile.eof()) { //check
         return false;
@@ -94,9 +98,9 @@ bool HighscoresState::openFile(std::string path)
     return true;
 }
 
-std::string HighscoresState::createNode(std::string name, std::string score)
+std::wstring HighscoresState::createNode(std::wstring name, std::wstring score)
 {
-    std::string result;
+    std::wstring result;
 
     Label tmp;
     size_t width = 0;

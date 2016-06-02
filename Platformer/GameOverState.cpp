@@ -14,14 +14,13 @@ bool GameOverState::onInit()
         return false;
     }
 
-    textLabel.create("Game over", font);
+    textLabel.create(L"Игра закончена", font);
     textLabel.setPosition((DEFAULT_WINDOW_WIDTH - textLabel.getBounds().width) / 2, DEFAULT_WINDOW_HEIGHT / 2 - 100);
-    scoreLabel.create(std::to_string(score), font);
+    scoreLabel.create(std::to_wstring(score), font);
     scoreLabel.setPosition((DEFAULT_WINDOW_WIDTH - scoreLabel.getBounds().width) / 2, DEFAULT_WINDOW_HEIGHT / 2);
-    nameField.create(font, "Player");
+    nameField.create(font, L"Player");
     nameField.setPosition((DEFAULT_WINDOW_WIDTH - nameField.getBounds().width) / 2, DEFAULT_WINDOW_HEIGHT / 2 + 100);
 
-    //text.setString("Игра закончена"); // TODO encoding
         
     return true;
 }
@@ -71,7 +70,7 @@ void GameOverState::onRender(sf::RenderWindow & window)
 
 void GameOverState::onCleanup()
 {
-    std::ofstream outputFile;
+    std::wofstream outputFile;
     outputFile.open("res/scores.dat", std::ios::app);
 
     outputFile << nameField.readText() << std::endl;
@@ -80,6 +79,6 @@ void GameOverState::onCleanup()
     outputFile.close(); 
     
     background.setPosition(0, 0);
-    textLabel.create("", font);
-    scoreLabel.create("", font);
+    textLabel.create(L"", font);
+    scoreLabel.create(L"", font);
 }

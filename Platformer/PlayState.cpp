@@ -2,6 +2,9 @@
 
 bool PlayState::onInit()
 {
+    player = nullptr;
+    level = nullptr;
+
     view.reset(sf::FloatRect(0, 0, DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT));
 
     if (!backgroundTexture.loadFromFile("res/background_g.jpg")) {
@@ -209,12 +212,18 @@ bool PlayState::loadLevel()
     std::string path = *levels.begin();
     levels.erase(levels.begin());
     
+    if (level != nullptr) {
+        delete level;
+    }
     level = new Level();
     if (!level->loadFromFile(path)) {
         std::cout << "Can't load level data" << std::endl;
         return false;
     }
 
+    for each (Entity *entity in entities) {
+        delete entity;
+    }
     entities.clear();
 
     enemies = level->getObjects("enemy"); // check if necessary
@@ -236,6 +245,10 @@ bool PlayState::loadLevel()
     catch (std::runtime_error) {
         std::cout << "Incorrect level data" << std::endl;
         return false;
+    }
+    
+    if (player != nullptr) {
+        delete player;
     }
     player = new Player(playerAnimation, playerObject.rect.left, playerObject.rect.top, *level);
     

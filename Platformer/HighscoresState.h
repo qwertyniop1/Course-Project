@@ -38,12 +38,12 @@ private:
     Label textLabel;
     std::vector<Label*> nodes;
 
-    std::string createNode(std::string name, std::string score);
+    std::wstring createNode(std::wstring name, std::wstring score);
 
 };
 
 struct HighscoreNode {
-    std::string name;
+    std::wstring name;
     size_t score;
     
     inline bool operator() (const HighscoreNode &first, const HighscoreNode &second) {

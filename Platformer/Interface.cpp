@@ -1,6 +1,6 @@
 #include "Interface.h"
 
-void Label::create(std::string text, sf::Font &font, double x, double y)
+void Label::create(std::wstring text, sf::Font &font, double x, double y)
 {
     this->x = x;
     this->y = y;
@@ -30,7 +30,7 @@ void Label::setPosition(int x, int y)
     labelText.setPosition(x, y);
 }
 
-void Button::create(std::string text, sf::Font & font, double x, double y, double width, double height)
+void Button::create(std::wstring text, sf::Font & font, double x, double y, double width, double height)
 {
     this->x = x;
     this->y = y;
@@ -63,7 +63,7 @@ bool Button::select(sf::Vector2i mouse)
     return false;
 }
 
-void Input::create(sf::Font &font, std::string _text, double _x, double _y, double _width, double _height)
+void Input::create(sf::Font &font, std::wstring _text, double _x, double _y, double _width, double _height)
 {
     x = _x;
     y = _y;
@@ -83,12 +83,12 @@ void Input::create(sf::Font &font, std::string _text, double _x, double _y, doub
     box.setFillColor(sf::Color::White);	// цвет кнопки
 }
 
-void Input::reText(char _tmp)
+void Input::reText(wchar_t _tmp)
 {
-    if (text.length() > 10) return;
     text.erase(text.size() - 1);
 
     if (_tmp != 8) {
+        if (text.length() > 10) return;
         text += _tmp;
     }
     else {
@@ -97,7 +97,7 @@ void Input::reText(char _tmp)
         }
 
     }
-    text += "|";
+    text += L"|";
     labelText.setString(text);
 }
 
@@ -110,7 +110,7 @@ bool Input::select(sf::Vector2i _mouse)
 {
     if ((_mouse.x > x && _mouse.x < x + width) && (_mouse.y > y && _mouse.y < y + height)) { 	//Если нажат клаиша над объектом Input...
         focus = true;																	   	// Фокус true
-        text += "|";																		// В конец строки добаляем | (что бы понимать что input в фокусе)
+        text += L"|";																		// В конец строки добаляем | (что бы понимать что input в фокусе)
     }
     else {																				//...Иначе если нажатие произошло не над объектом, то...
         if (text.size() > 0) {																// проверка последнего символа(иначе вылетает)
@@ -123,7 +123,7 @@ bool Input::select(sf::Vector2i _mouse)
     return focus;
 }
 
-std::string Input::readText()
+std::wstring Input::readText()
 {    
     if (text.size() != 0 && text[text.size() - 1] == 124) { 	// удаляем (если есть) символ |
         text.erase(text.size() - 1);
