@@ -13,6 +13,7 @@ public:
     sf::Text displayText();
     sf::FloatRect getBounds();
     void setPosition(int x, int y);
+    void setText(std::wstring text);
 };
 
 class Button : public Label {
@@ -24,6 +25,8 @@ public:
     void create(std::wstring text, sf::Font &font, double x = 0, double y = 0, double width = 150, double height = 30);
     sf::RectangleShape displayButton();
     bool select(sf::Vector2i mouse);
+    sf::FloatRect getBounds();
+    void setPosition(int x, int y);
 };
 
 class Input : public Button {

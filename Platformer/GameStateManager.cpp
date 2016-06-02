@@ -19,6 +19,9 @@ void GameStateManager::changeState(GameState *state)
 
 void GameStateManager::onEvent(sf::Event event)
 {
+    if (event.type == sf::Event::Closed) {
+        quit();
+    }
     if (!states.empty()) {
         states.top()->onEvent(event);
     }

@@ -27,10 +27,6 @@ bool GameOverState::onInit()
 
 void GameOverState::onEvent(sf::Event event)
 {
-    if (event.type == sf::Event::Closed) {
-        stateManager->quit();
-    }
-
     if (event.type == sf::Event::KeyPressed) {
         if (event.key.code == sf::Keyboard::Space || event.key.code == sf::Keyboard::Return || event.key.code == sf::Keyboard::Escape) {
             stateManager->changeState(HighscoresState::getInstance(stateManager));

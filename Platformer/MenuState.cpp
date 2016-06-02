@@ -24,10 +24,6 @@ bool MenuState::onInit()
 
 void MenuState::onEvent(sf::Event event)
 {
-    if (event.type == sf::Event::Closed) {
-        stateManager->quit();
-    }
-
     if (event.type == sf::Event::KeyPressed) {
         if (event.key.code == sf::Keyboard::Space) {
             //stateManager->changeState(PlayState::getInstance(stateManager));
@@ -44,6 +40,9 @@ void MenuState::onLoop()
             break;
         case 2:
             stateManager->changeState(HighscoresState::getInstance(stateManager));
+            break;
+        case 3:
+            stateManager->changeState(SettingsState::getInstance(stateManager));
             break;
         case 4:
             stateManager->quit();

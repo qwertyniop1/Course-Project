@@ -65,10 +65,6 @@ bool PlayState::onInit()
 
 void PlayState::onEvent(sf::Event event)
 {
-    if (event.type == sf::Event::Closed) {
-        stateManager->quit();
-    }
-
     if (event.type == sf::Event::KeyPressed) {
         if (event.key.code == sf::Keyboard::Escape) {
             stateManager->changeState(MenuState::getInstance(stateManager));
@@ -169,7 +165,7 @@ void PlayState::onLoop()
 
 void PlayState::onRender(sf::RenderWindow &window)
 {
-    view.setCenter(player->getRect().left, player->getRect().top);
+    view.setCenter(player->getRect().left, player->getRect().top - DEFAULT_WINDOW_HEIGHT / 5);
     window.setView(view);
 
     background.setPosition(view.getCenter());

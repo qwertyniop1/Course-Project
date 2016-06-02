@@ -37,7 +37,8 @@ bool Application::onInit()
 {
     std::locale::global(std::locale("Russian_Russia"));
     window.create(sf::VideoMode(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT), APPLICATION_TITLE);    
-    
+    //window.create(sf::VideoMode(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT), APPLICATION_TITLE, sf::Style::Fullscreen);    
+
     return true;
 }
 

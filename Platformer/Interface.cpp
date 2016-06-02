@@ -30,6 +30,11 @@ void Label::setPosition(int x, int y)
     labelText.setPosition(x, y);
 }
 
+void Label::setText(std::wstring text)
+{
+    this->text = text;
+}
+
 void Button::create(std::wstring text, sf::Font & font, double x, double y, double width, double height)
 {
     this->x = x;
@@ -61,6 +66,19 @@ bool Button::select(sf::Vector2i mouse)
         return  true;
     }
     return false;
+}
+
+sf::FloatRect Button::getBounds()
+{
+    return box.getGlobalBounds();
+}
+
+void Button::setPosition(int x, int y)
+{
+    this->x = x;
+    this->y = y;
+    labelText.setPosition(x, y);
+    box.setPosition(x, y);
 }
 
 void Input::create(sf::Font &font, std::wstring _text, double _x, double _y, double _width, double _height)
