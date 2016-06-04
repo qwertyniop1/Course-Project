@@ -7,7 +7,7 @@ bool HighscoresState::onInit()
         return false;
     }
 
-    setAndScale(background, backgroundTexture);
+    setAndScale(background, backgroundTexture, stateManager->settings.getResolution().x, stateManager->settings.getResolution().y);
 
     if (!font.loadFromFile("res/comic.ttf")) {
         std::cout << "Can't load fonts" << std::endl;
@@ -26,8 +26,8 @@ bool HighscoresState::onInit()
         nodes[i]->create(createNode(L"Noname", L"0"), font, SIDE_OFFSET, i * 50 + 200);
     }
 
-    textLabel.create(L"Рекорды", font);
-    textLabel.setPosition((DEFAULT_WINDOW_WIDTH - textLabel.getBounds().width) / 2, 100);
+    textLabel.create(stateManager->settings.getLabel(Labels::HIGHSCORES), font);
+    textLabel.setPosition((stateManager->settings.getResolution().x - textLabel.getBounds().width) / 2, 100);
     
     return true;
 }
@@ -108,7 +108,7 @@ std::wstring HighscoresState::createNode(std::wstring name, std::wstring score)
     result = name;
     result.push_back(' ');
 
-    for (size_t i = 0; i < DEFAULT_WINDOW_WIDTH - SIDE_OFFSET * 2 - width; i += 15) {
+    for (size_t i = 0; i < stateManager->settings.getResolution().x - SIDE_OFFSET * 2 - width; i += 15) {
         result.push_back('.');
     }
 

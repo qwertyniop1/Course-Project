@@ -7,19 +7,19 @@ bool GameOverState::onInit()
         return false;
     }
 
-    setAndScale(background, backgroundTexture);
+    setAndScale(background, backgroundTexture, stateManager->settings.getResolution().x, stateManager->settings.getResolution().y);
 
     if (!font.loadFromFile("res/comic.ttf")) {
         std::cout << "Can't load fonts" << std::endl;
         return false;
     }
 
-    textLabel.create(L"Игра закончена", font);
-    textLabel.setPosition((DEFAULT_WINDOW_WIDTH - textLabel.getBounds().width) / 2, DEFAULT_WINDOW_HEIGHT / 2 - 100);
+    textLabel.create(stateManager->settings.getLabel(Labels::GAME_OVER), font);
+    textLabel.setPosition((stateManager->settings.getResolution().x - textLabel.getBounds().width) / 2, stateManager->settings.getResolution().y / 2 - 100);
     scoreLabel.create(std::to_wstring(score), font);
-    scoreLabel.setPosition((DEFAULT_WINDOW_WIDTH - scoreLabel.getBounds().width) / 2, DEFAULT_WINDOW_HEIGHT / 2);
+    scoreLabel.setPosition((stateManager->settings.getResolution().x - scoreLabel.getBounds().width) / 2, stateManager->settings.getResolution().y / 2);
     nameField.create(font, L"Player");
-    nameField.setPosition((DEFAULT_WINDOW_WIDTH - nameField.getBounds().width) / 2, DEFAULT_WINDOW_HEIGHT / 2 + 100);
+    nameField.setPosition((stateManager->settings.getResolution().x - nameField.getBounds().width) / 2, stateManager->settings.getResolution().y / 2 + 100);
 
         
     return true;

@@ -7,35 +7,34 @@ bool SettingsState::onInit()
         return false;
     }
 
-    setAndScale(background, backgroundTexture);
+    setAndScale(background, backgroundTexture, stateManager->settings.getResolution().x, stateManager->settings.getResolution().y);
 
     if (!font.loadFromFile("res/comic.ttf")) {
         std::cout << "Can't load fonts" << std::endl;
         return false;
     }
 
-    textLabel.create(L"Настройки", font);
-    textLabel.setPosition((DEFAULT_WINDOW_WIDTH - textLabel.getBounds().width) / 2, 100);
-    languageLabel.create(L"Язык", font);
+    textLabel.create(stateManager->settings.getLabel(Labels::SETTINGS), font);
+    textLabel.setPosition((stateManager->settings.getResolution().x - textLabel.getBounds().width) / 2, 100);
+    languageLabel.create(stateManager->settings.getLabel(Labels::LANGUAGE), font);
     languageLabel.setPosition(100, 100 + 100);
-    resolutionLabel.create(L"Разрешение экрана", font);
+    resolutionLabel.create(stateManager->settings.getLabel(Labels::RESOLUTION), font);
     resolutionLabel.setPosition(100, 100 + 150);
-    fullscreenLabel.create(L"Полный экран", font);
+    fullscreenLabel.create(stateManager->settings.getLabel(Labels::FULLSCREEN), font);
     fullscreenLabel.setPosition(100, 100 + 200);
 
-    languageButton.create(L" RUSSIAN", font);
-    languageButton.setPosition(DEFAULT_WINDOW_WIDTH - 100 - languageButton.getBounds().width, 220);
-    std::wstring label = std::to_wstring((*currentResolution).x) + L" x " + std::to_wstring((*currentResolution).y);
+    std::wstring label = L" " + stateManager->settings.getLanguage(); // UPPER CASE
+    languageButton.create(label, font);
+    languageButton.setPosition(stateManager->settings.getResolution().x - 100 - languageButton.getBounds().width, 220);
+    label = std::to_wstring(stateManager->settings.getResolution().x) + L" x " + std::to_wstring(stateManager->settings.getResolution().y);
     resolutionButton.create(label, font);
-    resolutionButton.setPosition(DEFAULT_WINDOW_WIDTH - 100 - resolutionButton.getBounds().width, 270);
+    resolutionButton.setPosition(stateManager->settings.getResolution().x - 100 - resolutionButton.getBounds().width, 270);
     if (isFullscreen)
         label = L" X ";
     else
         label = L" ";
     fullscreenButton.create(label, font, 0, 0, 30);
-    fullscreenButton.setPosition(DEFAULT_WINDOW_WIDTH - 100 - fullscreenButton.getBounds().width, 320);
-
-    changeFullscreen = changeResolution = false;
+    fullscreenButton.setPosition(stateManager->settings.getResolution().x - 100 - fullscreenButton.getBounds().width, 320);
 
     return true;
 }
@@ -50,14 +49,16 @@ void SettingsState::onEvent(sf::Event event)
 
     if (event.type == sf::Event::MouseButtonPressed) {
         if (event.mouseButton.button == sf::Mouse::Left) {
-            //if (languageButton.select(mouse)) {  }
+            if (languageButton.select(mouse)) { 
+                stateManager->settings.changeLanguage();
+                languageButton.setText(stateManager->settings.getLanguage());
+                stateManager->changeState(this);
+            }
             if (resolutionButton.select(mouse)) { 
                 changeResolution = true;
-                currentResolution++;
-                if (currentResolution == screenResolutions.end()) {
-                    currentResolution = screenResolutions.begin();
-                }
-                resolutionButton.setText(std::to_wstring((*currentResolution).x) + L" x " + std::to_wstring((*currentResolution).y));
+                stateManager->settings.changeResolution();
+                resolutionButton.setText(std::to_wstring(stateManager->settings.getResolution().x) + L" x " + std::to_wstring(stateManager->settings.getResolution().y));
+                stateManager->changeState(this);
             }
             if (fullscreenButton.select(mouse)) { 
                 changeFullscreen = true;
@@ -84,7 +85,7 @@ void SettingsState::onRender(sf::RenderWindow & window)
             style = sf::Style::Fullscreen;
         else
             style = sf::Style::Close;
-        window.create(sf::VideoMode((*currentResolution).x, (*currentResolution).y), APPLICATION_TITLE, style);
+        window.create(sf::VideoMode(stateManager->settings.getResolution().x, stateManager->settings.getResolution().y), APPLICATION_TITLE, style);
     }
     if (changeFullscreen) {
         changeFullscreen = false;
@@ -93,7 +94,7 @@ void SettingsState::onRender(sf::RenderWindow & window)
             style = sf::Style::Fullscreen;
         else
             style = sf::Style::Close;
-        window.create(sf::VideoMode((*currentResolution).x, (*currentResolution).y), APPLICATION_TITLE, style);
+        window.create(sf::VideoMode(stateManager->settings.getResolution().x, stateManager->settings.getResolution().y), APPLICATION_TITLE, style);
     }
     mouse = sf::Mouse::getPosition(window); 
     

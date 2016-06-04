@@ -5,7 +5,7 @@ bool PlayState::onInit()
     player = nullptr;
     level = nullptr;
 
-    view.reset(sf::FloatRect(0, 0, DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT));
+    view.reset(sf::FloatRect(0, 0, stateManager->settings.getResolution().x, stateManager->settings.getResolution().y));
 
     if (!backgroundTexture.loadFromFile("res/background_g.jpg")) {
         std::cout << "Can't load texture from file" << std::endl;
@@ -165,7 +165,7 @@ void PlayState::onLoop()
 
 void PlayState::onRender(sf::RenderWindow &window)
 {
-    view.setCenter(player->getRect().left, player->getRect().top - DEFAULT_WINDOW_HEIGHT / 5);
+    view.setCenter(player->getRect().left, player->getRect().top - stateManager->settings.getResolution().y / 5);
     window.setView(view);
 
     background.setPosition(view.getCenter());
@@ -180,11 +180,11 @@ void PlayState::onRender(sf::RenderWindow &window)
     player->draw(window);
 
     scoreText.setString(std::to_string(score));
-    scoreText.setPosition(view.getCenter().x - DEFAULT_WINDOW_WIDTH / 2 + 50, view.getCenter().y - DEFAULT_WINDOW_HEIGHT / 2 + 10);
+    scoreText.setPosition(view.getCenter().x - stateManager->settings.getResolution().x / 2 + 50, view.getCenter().y - stateManager->settings.getResolution().y / 2 + 10);
     window.draw(scoreText);
 
     for (size_t i = 0; i < player->getHealth() / 10; ++i) {
-        lifeScore.setPosition(view.getCenter().x + DEFAULT_WINDOW_WIDTH / 2 - 70 - i * 50, view.getCenter().y - DEFAULT_WINDOW_HEIGHT / 2 + 20);
+        lifeScore.setPosition(view.getCenter().x + stateManager->settings.getResolution().x / 2 - 70 - i * 50, view.getCenter().y - stateManager->settings.getResolution().y / 2 + 20);
         window.draw(lifeScore); 
     }   
 }

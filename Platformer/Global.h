@@ -19,7 +19,7 @@ enum Direction {
     Normal, Flip
 };
 
-void setAndScale(sf::Sprite &sprite, sf::Texture &texture);
+void setAndScale(sf::Sprite &sprite, sf::Texture &texture, int width, int height);
 
 
 

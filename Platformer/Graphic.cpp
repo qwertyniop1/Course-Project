@@ -1,10 +1,10 @@
 # include "Global.h"
 
-void setAndScale(sf::Sprite &sprite, sf::Texture &texture)
+void setAndScale(sf::Sprite &sprite, sf::Texture &texture, int width, int height)
 {
     sprite.setTexture(texture);
 
-    double coef = (double)DEFAULT_WINDOW_HEIGHT / texture.getSize().y;
+    double coef = (double)height / texture.getSize().y;
     sprite.setScale(coef, coef);
-    sprite.move((DEFAULT_WINDOW_WIDTH - texture.getSize().x * coef) / 2, 0);
+    sprite.move((width - texture.getSize().x * coef) / 2, 0);
 }

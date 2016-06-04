@@ -12,10 +12,10 @@ bool MenuState::onInit()
         menuPointTextures.push_back(new sf::Texture());
         menuPointTextures.back()->loadFromFile("res/menu/" + path);
         menuPoints.push_back(new sf::Sprite(*menuPointTextures.back()));
-        menuPoints.back()->setPosition((DEFAULT_WINDOW_WIDTH - menuPoints.back()->getTextureRect().width) / 2, (i++) * 120);
+        menuPoints.back()->setPosition((stateManager->settings.getResolution().x - menuPoints.back()->getTextureRect().width) / 2, (i++) * 120);
     }
    
-    setAndScale(background, backgroundTexture);
+    setAndScale(background, backgroundTexture, stateManager->settings.getResolution().x, stateManager->settings.getResolution().y);
 
     currentPoint = 0;
     

@@ -2,6 +2,7 @@
 
 #include <stack>
 #include "Global.h"
+#include "Settings.h"
 
 class GameState;
 
@@ -19,6 +20,8 @@ public:
     void onRender(sf::RenderWindow &window);
 
     void quit();
+
+    Settings settings;
 
 private:
     std::stack<GameState*> states;   
