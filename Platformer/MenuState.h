@@ -27,11 +27,10 @@ private:
     sf::Texture backgroundTexture;
     sf::Sprite background;
 
-    std::vector<sf::Texture*> menuPointTextures;
-    std::vector<sf::Sprite*> menuPoints;
+    sf::Font font;
 
-    size_t currentPoint;
-  
-        
+    sf::Vector2i mouse;
+
+    Button playButton, highscoresButton, settingsButton, exitButton;
 
 };

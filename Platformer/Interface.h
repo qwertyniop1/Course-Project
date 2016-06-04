@@ -26,7 +26,10 @@ public:
     sf::RectangleShape displayButton();
     bool select(sf::Vector2i mouse);
     sf::FloatRect getBounds();
+    sf::FloatRect getTextBounds();
     void setPosition(int x, int y);
+    void setSize(int width, int height);
+    void setCharacterSize(int size);
 };
 
 class Input : public Button {

@@ -6,19 +6,34 @@ bool MenuState::onInit()
         std::cout << "Can't load texture from file" << std::endl;
         return false;
     }
-
-    size_t i = 1;
-    for each (std::string path in menuTexturesPath) {
-        menuPointTextures.push_back(new sf::Texture());
-        menuPointTextures.back()->loadFromFile("res/menu/" + path);
-        menuPoints.push_back(new sf::Sprite(*menuPointTextures.back()));
-        menuPoints.back()->setPosition((stateManager->settings.getResolution().x - menuPoints.back()->getTextureRect().width) / 2, (i++) * 120);
-    }
    
     setAndScale(background, backgroundTexture, stateManager->settings.getResolution().x, stateManager->settings.getResolution().y);
 
-    currentPoint = 0;
+    if (!font.loadFromFile("res/comic.ttf")) {
+        std::cout << "Can't load fonts" << std::endl;
+        return false;
+    }
+
+    playButton.create(stateManager->settings.getLabel(Labels::START_GAME), font);
+    playButton.setCharacterSize(70);
+    playButton.setSize(playButton.getTextBounds().width + 50, 100);
+    playButton.setPosition((stateManager->settings.getResolution().x - playButton.getBounds().width) / 2, 100);
+
+    highscoresButton.create(stateManager->settings.getLabel(Labels::HIGHSCORES), font);
+    highscoresButton.setCharacterSize(70);
+    highscoresButton.setSize(highscoresButton.getTextBounds().width + 50, 100);
+    highscoresButton.setPosition((stateManager->settings.getResolution().x - highscoresButton.getBounds().width) / 2, 200);
     
+    settingsButton.create(stateManager->settings.getLabel(Labels::SETTINGS), font);
+    settingsButton.setCharacterSize(70);
+    settingsButton.setSize(settingsButton.getTextBounds().width + 50, 100);
+    settingsButton.setPosition((stateManager->settings.getResolution().x - settingsButton.getBounds().width) / 2, 300);
+
+    exitButton.create(stateManager->settings.getLabel(Labels::EXIT), font);
+    exitButton.setCharacterSize(70);
+    exitButton.setSize(exitButton.getTextBounds().width + 50, 100);
+    exitButton.setPosition((stateManager->settings.getResolution().x - exitButton.getBounds().width) / 2, 400);
+
     return true;
 }
 
@@ -29,56 +44,52 @@ void MenuState::onEvent(sf::Event event)
             //stateManager->changeState(PlayState::getInstance(stateManager));
         }
     }
+
+    if (event.type == sf::Event::MouseButtonPressed) {
+        if (event.mouseButton.button == sf::Mouse::Left) {
+            if (playButton.select(mouse)) {
+                stateManager->changeState(PlayState::getInstance(stateManager));
+            }
+            if (highscoresButton.select(mouse)) {
+                stateManager->changeState(HighscoresState::getInstance(stateManager));
+            }
+            if (settingsButton.select(mouse)) {
+                stateManager->changeState(SettingsState::getInstance(stateManager));
+            }
+            if (exitButton.select(mouse)) {
+                stateManager->quit();
+            }
+        }
+    }
 }
 
 void MenuState::onLoop()
 {
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-        switch (currentPoint) {
-        case 1:
-            stateManager->changeState(PlayState::getInstance(stateManager));
-            break;
-        case 2:
-            stateManager->changeState(HighscoresState::getInstance(stateManager));
-            break;
-        case 3:
-            stateManager->changeState(SettingsState::getInstance(stateManager));
-            break;
-        case 4:
-            stateManager->quit();
-            break;
-        }
-    }
+    
 }
 
 void MenuState::onRender(sf::RenderWindow & window)
 {
+    mouse = sf::Mouse::getPosition(window);
+
     window.setView(window.getDefaultView());
     window.draw(background);
 
-    for each (sf::Sprite *sprite in menuPoints) {
-        if (sf::IntRect(sprite->getGlobalBounds()).contains(sf::Mouse::getPosition(window))) {
-            sprite->setColor(sf::Color::Blue);
-            currentPoint = sprite->getGlobalBounds().top / 120;
-        }
-        else {
-            sprite->setColor(sf::Color::White);
-        }
+    window.draw(playButton.displayButton());
+    window.draw(playButton.displayText());
+    
+    window.draw(highscoresButton.displayButton());
+    window.draw(highscoresButton.displayText());
 
-        window.draw(*sprite); 
-    }
+    window.draw(settingsButton.displayButton());
+    window.draw(settingsButton.displayText());
+
+    window.draw(exitButton.displayButton());
+    window.draw(exitButton.displayText());
 }
 
 void MenuState::onCleanup()
 {
-    for each (sf::Sprite *sprite in menuPoints) {
-        delete sprite;
-    }
-    menuPoints.clear();
-    for each (sf::Texture *texture in menuPointTextures) {
-        delete texture;
-    }
-    menuPointTextures.clear();
 
     background.setPosition(0, 0);
 }

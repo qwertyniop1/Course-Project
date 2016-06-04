@@ -7,7 +7,6 @@
 const int DEFAULT_WINDOW_HEIGHT = 600; //600
 const int DEFAULT_WINDOW_WIDTH = 800; //800
 
-static const std::string menuTexturesPath[] = { "play.png", "highscores.png", "settings.png", "exit.png" };
 const std::string APPLICATION_TITLE = "Aladdin beta";
 
 enum CollisionDirection

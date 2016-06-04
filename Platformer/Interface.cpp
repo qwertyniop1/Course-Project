@@ -73,12 +73,29 @@ sf::FloatRect Button::getBounds()
     return box.getGlobalBounds();
 }
 
+sf::FloatRect Button::getTextBounds()
+{
+    return labelText.getGlobalBounds();
+}
+
 void Button::setPosition(int x, int y)
 {
     this->x = x;
     this->y = y;
     labelText.setPosition(x, y);
     box.setPosition(x, y);
+}
+
+void Button::setSize(int width, int height)
+{
+    this->width = width;
+    this->height = height;
+    box.setSize(sf::Vector2f(width, height));
+}
+
+void Button::setCharacterSize(int size)
+{
+    labelText.setCharacterSize(size);
 }
 
 void Input::create(sf::Font &font, std::wstring _text, double _x, double _y, double _width, double _height)
