@@ -25,12 +25,17 @@ bool SettingsState::onInit()
 
     languageButton.create(L" RUSSIAN", font);
     languageButton.setPosition(DEFAULT_WINDOW_WIDTH - 100 - languageButton.getBounds().width, 220);
-    resolutionButton.create(L"", font);
+    std::wstring label = std::to_wstring((*currentResolution).x) + L" x " + std::to_wstring((*currentResolution).y);
+    resolutionButton.create(label, font);
     resolutionButton.setPosition(DEFAULT_WINDOW_WIDTH - 100 - resolutionButton.getBounds().width, 270);
-    fullscreenButton.create(L" ", font, 0, 0, 30);
+    if (isFullscreen)
+        label = L" X ";
+    else
+        label = L" ";
+    fullscreenButton.create(label, font, 0, 0, 30);
     fullscreenButton.setPosition(DEFAULT_WINDOW_WIDTH - 100 - fullscreenButton.getBounds().width, 320);
 
-    isFullscreen = false;
+    changeFullscreen = changeResolution = false;
 
     return true;
 }
@@ -45,7 +50,23 @@ void SettingsState::onEvent(sf::Event event)
 
     if (event.type == sf::Event::MouseButtonPressed) {
         if (event.mouseButton.button == sf::Mouse::Left) {
-            if (fullscreenButton.select(mouse)) { isFullscreen = true; }
+            //if (languageButton.select(mouse)) {  }
+            if (resolutionButton.select(mouse)) { 
+                changeResolution = true;
+                currentResolution++;
+                if (currentResolution == screenResolutions.end()) {
+                    currentResolution = screenResolutions.begin();
+                }
+                resolutionButton.setText(std::to_wstring((*currentResolution).x) + L" x " + std::to_wstring((*currentResolution).y));
+            }
+            if (fullscreenButton.select(mouse)) { 
+                changeFullscreen = true;
+                isFullscreen = !isFullscreen;
+                if (isFullscreen) 
+                    fullscreenButton.setText(L" X ");
+                else
+                    fullscreenButton.setText(L" ");
+            }
         }
     }
 }
@@ -56,11 +77,25 @@ void SettingsState::onLoop()
 
 void SettingsState::onRender(sf::RenderWindow & window)
 {
-    if (isFullscreen) {
-        isFullscreen = false;
-        window.create(sf::VideoMode(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT), APPLICATION_TITLE, sf::Style::Fullscreen);
+    if (changeResolution) {
+        changeResolution = false;
+        unsigned int style;
+        if (isFullscreen)
+            style = sf::Style::Fullscreen;
+        else
+            style = sf::Style::Close;
+        window.create(sf::VideoMode((*currentResolution).x, (*currentResolution).y), APPLICATION_TITLE, style);
     }
-    mouse = sf::Mouse::getPosition(window); // Считываем координаты мыши(если че обратиться можно будет mouse.x mouse.y)
+    if (changeFullscreen) {
+        changeFullscreen = false;
+        unsigned int style;
+        if (isFullscreen) 
+            style = sf::Style::Fullscreen;
+        else
+            style = sf::Style::Close;
+        window.create(sf::VideoMode((*currentResolution).x, (*currentResolution).y), APPLICATION_TITLE, style);
+    }
+    mouse = sf::Mouse::getPosition(window); 
     
     window.setView(window.getDefaultView());
     window.draw(background);

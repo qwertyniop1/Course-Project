@@ -51,4 +51,4 @@ struct HighscoreNode {
     }
 };
 
-const unsigned int SIDE_OFFSET = 50;
+const unsigned int SIDE_OFFSET = 100;

@@ -9,7 +9,11 @@
 class SettingsState : public GameState
 {
 protected:
-    SettingsState(GameStateManager *manager) { stateManager = manager; };
+    SettingsState(GameStateManager *manager) { 
+        stateManager = manager; 
+        currentResolution = screenResolutions.begin();
+        isFullscreen = false;
+    };
 
 public:
     static SettingsState* getInstance(GameStateManager *manager)
@@ -41,7 +45,9 @@ private:
     Button resolutionButton;
     Button fullscreenButton;
 
-
+    std::vector<sf::Vector2i> screenResolutions{ {800, 600}, {1024, 768}, {1280, 720}, {1400, 1050}, {1600, 900} };
+    std::vector<sf::Vector2i>::iterator currentResolution;
+    bool changeResolution, changeFullscreen;
     bool isFullscreen;
     
 };

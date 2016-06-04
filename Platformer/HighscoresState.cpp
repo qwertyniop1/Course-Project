@@ -19,11 +19,11 @@ bool HighscoresState::onInit()
     std::sort(highscores.begin(), highscores.end(), HighscoreNode());
     for (size_t i = 0; (i < highscores.size()) && (i < 5); ++i) {
         nodes.push_back(new Label());
-        nodes[i]->create(createNode(highscores[i].name, std::to_wstring(highscores[i].score)), font, 50, i * 50 + 200);
+        nodes[i]->create(createNode(highscores[i].name, std::to_wstring(highscores[i].score)), font, SIDE_OFFSET, i * 50 + 200);
     }
     for (size_t i = highscores.size(); i < 5; ++i) {
         nodes.push_back(new Label());
-        nodes[i]->create(createNode(L"Noname", L"0"), font, 50, i * 50 + 200);
+        nodes[i]->create(createNode(L"Noname", L"0"), font, SIDE_OFFSET, i * 50 + 200);
     }
 
     textLabel.create(L"Рекорды", font);
