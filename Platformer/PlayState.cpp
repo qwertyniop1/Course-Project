@@ -1,4 +1,5 @@
 #include "PlayState.h"
+#include "LoadState.h"
 
 bool PlayState::onInit()
 {
@@ -45,7 +46,6 @@ bool PlayState::onInit()
         return false;
     }
 
-    score = 0;
     scoreText.setFont(font);
     scoreText.setCharacterSize(48);
     scoreText.setColor(sf::Color::Black);
@@ -57,7 +57,6 @@ bool PlayState::onInit()
     }
     lifeScore.setTexture(lifeScoreTexture);
 
-    levels = { "res/level2.tmx", "res/level3.tmx" };
     loadLevel();
 
     return true;
@@ -67,11 +66,12 @@ void PlayState::onEvent(sf::Event event)
 {
     if (event.type == sf::Event::KeyPressed) {
         if (event.key.code == sf::Keyboard::Escape) {
+            levels.assign(levelsPath, levelsPath + LEVELS_QUANTITY);
             stateManager->changeState(MenuState::getInstance(stateManager));
         }
-        if (event.key.code == sf::Keyboard::Space) {
+        /*if (event.key.code == sf::Keyboard::Space) {
             entities.push_back(new Bullet(bulletAnimation, player->getRect().left, player->getRect().top + 10, player->getDirection(), *level));
-        }
+        }*/
     }
 }
 
@@ -102,9 +102,24 @@ void PlayState::onLoop()
 
     player->update(time);
     if (!player->isAlive()) {
-        if (player->getHealth() <= 0 || !loadLevel()) {
+        if (player->getHealth() <= 0) {
+            levels.assign(levelsPath, levelsPath + LEVELS_QUANTITY);
             stateManager->changeState(GameOverState::getInstance(stateManager, score));
+            score = 0;
+            return;
         }
+        if (levels.size() == 0) {
+            levels.assign(levelsPath, levelsPath + LEVELS_QUANTITY);
+            stateManager->changeState(GameOverState::getInstance(stateManager, score));
+            score = 0;
+        }
+        else {
+            stateManager->changeState(LoadState::getInstance(stateManager, 3));
+        }
+
+        /*if (player->getHealth() <= 0 || !loadLevel()) {
+            stateManager->changeState(GameOverState::getInstance(stateManager, score));
+        }*/
     }
 
     for (std::list<Entity*>::iterator it = entities.begin(); it != entities.end(); ) {
@@ -164,7 +179,7 @@ void PlayState::onLoop()
 }
 
 void PlayState::onRender(sf::RenderWindow &window)
-{
+{ 
     view.setCenter(player->getRect().left, player->getRect().top - stateManager->settings.getResolution().y / 5);
     window.setView(view);
 
@@ -208,19 +223,19 @@ bool PlayState::loadLevel()
     std::string path = *levels.begin();
     levels.erase(levels.begin());
     
-    if (level != nullptr) {
-        delete level;
-    }
+    //if (level != nullptr) {
+    //    delete level;
+    //}
     level = new Level();
     if (!level->loadFromFile(path)) {
         std::cout << "Can't load level data" << std::endl;
         return false;
     }
 
-    for each (Entity *entity in entities) {
-        delete entity;
-    }
-    entities.clear();
+    //for each (Entity *entity in entities) {
+    //    delete entity;
+    //}
+    //entities.clear();
 
     enemies = level->getObjects("enemy"); // check if necessary
 
@@ -243,9 +258,9 @@ bool PlayState::loadLevel()
         return false;
     }
     
-    if (player != nullptr) {
-        delete player;
-    }
+    //if (player != nullptr) {
+    //    delete player;
+    //}
     player = new Player(playerAnimation, playerObject.rect.left, playerObject.rect.top, *level);
     
     return true;

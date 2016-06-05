@@ -6,7 +6,7 @@ int Application::onExecute()
         return -1;
     }
 
-    stateManager.changeState(LoadState::getInstance(&stateManager));
+    stateManager.changeState(LoadState::getInstance(&stateManager, 5));
 
     while (window.isOpen()) {
         sf::Event event;       

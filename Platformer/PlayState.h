@@ -12,13 +12,19 @@
 #include "Bullet.h"
 #include "Coin.h"
 
-#include "MenuState.h"
+//#include "MenuState.h"
 #include "GameOverState.h"
+
+const size_t LEVELS_QUANTITY = 2;
 
 class PlayState : public GameState
 {
 protected:
-    PlayState(GameStateManager *manager) { stateManager = manager; };
+    PlayState(GameStateManager *manager) { 
+        stateManager = manager;
+        levels.assign(levelsPath, levelsPath + LEVELS_QUANTITY);
+        score = 0;
+    };
 
 public:
     static PlayState* getInstance(GameStateManager *manager)
@@ -62,7 +68,10 @@ private:
     sf::Texture lifeScoreTexture;
     sf::Sprite lifeScore;
 
+    const std::string levelsPath[LEVELS_QUANTITY] = { "res/level2.tmx", "res/level3.tmx" };
     std::vector<std::string> levels;
     bool loadLevel();
 };
+
+
 

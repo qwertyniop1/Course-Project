@@ -8,9 +8,10 @@ protected:
     LoadState(GameStateManager *manager) { stateManager = manager; };
 
 public:
-    static LoadState* getInstance(GameStateManager *manager)
+    static LoadState* getInstance(GameStateManager *manager, double duration)
     {
         static LoadState self(manager);
+        self.duration = duration;
         return &self;
     }
 
@@ -31,5 +32,5 @@ private:
     sf::Texture playerTexture;
     AnimationManager playerAnimation;
     sf::Clock clock, timer;
-
+    double duration;
 };

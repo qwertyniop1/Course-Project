@@ -14,6 +14,7 @@ void Label::create(std::wstring text, sf::Font &font, double x, double y)
 
 sf::Text Label::displayText()
 {
+    labelText.setString(L"");
     labelText.setString(text); 
     return labelText;
 }

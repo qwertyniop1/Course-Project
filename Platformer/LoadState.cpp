@@ -25,6 +25,8 @@ bool LoadState::onInit()
     playerAnimation.loadFromXML("res/aladdin.xml", playerTexture); 
     playerAnimation.set("walk");
 
+    timer.restart();
+
     return true;
 }
 
@@ -44,13 +46,15 @@ void LoadState::onLoop()
     playerAnimation.tick(time);
 
     time = timer.getElapsedTime().asSeconds();
-    if (time > 5) {
+    if (time > duration) {
         stateManager->changeState(MenuState::getInstance(stateManager));
     }
 }
 
 void LoadState::onRender(sf::RenderWindow & window)
 {
+    window.setView(window.getDefaultView());
+
     window.draw(background);
 
     window.draw(textLabel.displayText());
@@ -60,4 +64,6 @@ void LoadState::onRender(sf::RenderWindow & window)
 
 void LoadState::onCleanup()
 {
+    background.setPosition(0, 0);
+    textLabel.setText(L"");
 }
