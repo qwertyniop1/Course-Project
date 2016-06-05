@@ -2,9 +2,17 @@
 
 bool GameOverState::onInit()
 {
-    if (!backgroundTexture.loadFromFile("res/background.jpg")) {
-        std::cout << "Can't load texture from file" << std::endl;
-        return false;
+    if (winState) {
+        if (!backgroundTexture.loadFromFile("res/win.jpg")) {
+            std::cout << "Can't load texture from file" << std::endl;
+            return false;
+        }
+    }
+    else {
+        if (!backgroundTexture.loadFromFile("res/background.jpg")) {
+            std::cout << "Can't load texture from file" << std::endl;
+            return false;
+        }
     }
 
     setAndScale(background, backgroundTexture, stateManager->settings.getResolution().x, stateManager->settings.getResolution().y);
@@ -14,7 +22,12 @@ bool GameOverState::onInit()
         return false;
     }
 
-    textLabel.create(stateManager->settings.getLabel(Labels::GAME_OVER), font);
+    std::wstring label;
+    if (winState)
+        label = stateManager->settings.getLabel(Labels::WIN);
+    else
+        label = stateManager->settings.getLabel(Labels::GAME_OVER);
+    textLabel.create(label, font);
     textLabel.setPosition((stateManager->settings.getResolution().x - textLabel.getBounds().width) / 2, stateManager->settings.getResolution().y / 2 - 100);
     scoreLabel.create(std::to_wstring(score), font);
     scoreLabel.setPosition((stateManager->settings.getResolution().x - scoreLabel.getBounds().width) / 2, stateManager->settings.getResolution().y / 2);

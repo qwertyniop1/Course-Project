@@ -27,7 +27,7 @@ public:
 protected:
     const double ACCELERATION = 0.0005;
 
-    double x, y, width, height;
+    double x, y, width, height; 
     AnimationManager animationManager;
     Direction direction;
     std::string name;

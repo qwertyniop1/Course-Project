@@ -15,7 +15,7 @@
 //#include "MenuState.h"
 #include "GameOverState.h"
 
-const size_t LEVELS_QUANTITY = 2;
+const size_t LEVELS_QUANTITY = 4;
 
 class PlayState : public GameState
 {
@@ -41,7 +41,7 @@ public:
 
 private:
     sf::View view;
-    sf::Clock clock;
+    sf::Clock clock, timer;
     
     AnimationManager playerAnimation;
     AnimationManager enemyAnimation;
@@ -68,9 +68,10 @@ private:
     sf::Texture lifeScoreTexture;
     sf::Sprite lifeScore;
 
-    const std::string levelsPath[LEVELS_QUANTITY] = { "res/level2.tmx", "res/level3.tmx" };
+    const std::string levelsPath[LEVELS_QUANTITY] = {"res/level1.tmx", "res/level2.tmx", "res/level3.tmx", "res/level4.tmx" };
     std::vector<std::string> levels;
     bool loadLevel();
+
 };
 
 

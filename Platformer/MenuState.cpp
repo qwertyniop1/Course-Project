@@ -1,4 +1,5 @@
 #include "MenuState.h"
+#include "LoadState.h"
 
 bool MenuState::onInit()
 {    
@@ -56,7 +57,7 @@ void MenuState::onEvent(sf::Event event)
     if (event.type == sf::Event::MouseButtonPressed) {
         if (event.mouseButton.button == sf::Mouse::Left) {
             if (playButton.select(mouse)) {
-                stateManager->changeState(PlayState::getInstance(stateManager));
+                stateManager->changeState(LoadState::getInstance(stateManager, 3, true));
             }
             if (highscoresButton.select(mouse)) {
                 stateManager->changeState(HighscoresState::getInstance(stateManager));
@@ -73,7 +74,30 @@ void MenuState::onEvent(sf::Event event)
 
 void MenuState::onLoop()
 {
-    
+    if (playButton.select(mouse)) {
+        playButton.setFontColor(sf::Color::Blue);
+    }
+    else {
+        playButton.setFontColor(sf::Color::White);
+    }
+    if (highscoresButton.select(mouse)) {
+        highscoresButton.setFontColor(sf::Color::Blue);
+    }
+    else {
+        highscoresButton.setFontColor(sf::Color::White);
+    }
+    if (settingsButton.select(mouse)) {
+        settingsButton.setFontColor(sf::Color::Blue);
+    }
+    else {
+        settingsButton.setFontColor(sf::Color::White);
+    }
+    if (exitButton.select(mouse)) {
+        exitButton.setFontColor(sf::Color::Blue);
+    }
+    else {
+        exitButton.setFontColor(sf::Color::White);
+    }
 }
 
 void MenuState::onRender(sf::RenderWindow & window)

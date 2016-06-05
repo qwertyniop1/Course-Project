@@ -77,7 +77,7 @@ void PlayState::onEvent(sf::Event event)
 }
 
 void PlayState::onLoop()
-{
+{   
     double time = clock.getElapsedTime().asMicroseconds();
     clock.restart();
     time /= 800;
@@ -111,16 +111,12 @@ void PlayState::onLoop()
         }
         if (levels.size() == 0) {
             levels.assign(levelsPath, levelsPath + LEVELS_QUANTITY);
-            stateManager->changeState(GameOverState::getInstance(stateManager, score));
+            stateManager->changeState(GameOverState::getInstance(stateManager, score, true));
             score = 0;
         }
         else {
             stateManager->changeState(LoadState::getInstance(stateManager, 3, true));
         }
-
-        /*if (player->getHealth() <= 0 || !loadLevel()) {
-            stateManager->changeState(GameOverState::getInstance(stateManager, score));
-        }*/
     }
 
     for (std::list<Entity*>::iterator it = entities.begin(); it != entities.end(); ) {
@@ -155,6 +151,11 @@ void PlayState::onLoop()
                 else if (!player->isHit()){
                     player->changeHealth(-10); // animation hit
                     player->setHit(true);
+
+                   /* if (player->getRect().left > enemy->getRect().left)
+                        player->x += 50;
+                    else
+                        player->x -= 50;*/
                 }
             }
 

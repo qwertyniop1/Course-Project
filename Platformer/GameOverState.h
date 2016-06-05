@@ -6,19 +6,20 @@
 
 #include <fstream>
 
-//
-// TODO Поле для ввода имени
-
 class GameOverState : public GameState
 {
 protected:
-    GameOverState(GameStateManager *manager) { stateManager = manager; };
+    GameOverState(GameStateManager *manager) { 
+        stateManager = manager; 
+        winState = false;
+    };
 
 public:
-    static GameOverState* getInstance(GameStateManager *manager, size_t score)
+    static GameOverState* getInstance(GameStateManager *manager, size_t score, bool isWin = false)
     {
         static GameOverState self(manager);
         self.score = score;
+        self.winState = isWin;
         return &self;
     }
 
@@ -39,5 +40,7 @@ private:
     Input nameField;
 
     sf::Vector2i mouse;
+
+    bool winState;
 };
 

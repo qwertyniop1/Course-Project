@@ -31,7 +31,7 @@ void Enemy::collision(CollisionDirection dir)
     std::vector<Object> objects = level.getAllObjects();
     for (size_t i = 0; i < objects.size(); ++i) {
         if (getRect().intersects(objects[i].rect)) {
-            if (objects[i].name == "solid") {
+            if (objects[i].name == "solid" || objects[i].name == "e_solid") {
                 if (dir == CollisionDirection::X) {
                     if (dx > 0) {
                         x = objects[i].rect.left - width;     
