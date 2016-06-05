@@ -8,10 +8,11 @@ protected:
     LoadState(GameStateManager *manager) { stateManager = manager; };
 
 public:
-    static LoadState* getInstance(GameStateManager *manager, double duration)
+    static LoadState* getInstance(GameStateManager *manager, double duration, bool nextLevel = false)
     {
         static LoadState self(manager);
         self.duration = duration;
+        self.nextLevel = nextLevel;
         return &self;
     }
 
@@ -33,4 +34,5 @@ private:
     AnimationManager playerAnimation;
     sf::Clock clock, timer;
     double duration;
+    bool nextLevel;
 };

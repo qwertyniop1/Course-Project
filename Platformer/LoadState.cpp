@@ -47,7 +47,10 @@ void LoadState::onLoop()
 
     time = timer.getElapsedTime().asSeconds();
     if (time > duration) {
-        stateManager->changeState(MenuState::getInstance(stateManager));
+        if (nextLevel) 
+            stateManager->changeState(PlayState::getInstance(stateManager));
+        else
+            stateManager->changeState(MenuState::getInstance(stateManager));
     }
 }
 

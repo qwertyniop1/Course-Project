@@ -67,6 +67,7 @@ void PlayState::onEvent(sf::Event event)
     if (event.type == sf::Event::KeyPressed) {
         if (event.key.code == sf::Keyboard::Escape) {
             levels.assign(levelsPath, levelsPath + LEVELS_QUANTITY);
+            score = 0;
             stateManager->changeState(MenuState::getInstance(stateManager));
         }
         /*if (event.key.code == sf::Keyboard::Space) {
@@ -114,7 +115,7 @@ void PlayState::onLoop()
             score = 0;
         }
         else {
-            stateManager->changeState(LoadState::getInstance(stateManager, 3));
+            stateManager->changeState(LoadState::getInstance(stateManager, 3, true));
         }
 
         /*if (player->getHealth() <= 0 || !loadLevel()) {
