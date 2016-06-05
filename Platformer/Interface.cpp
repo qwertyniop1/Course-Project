@@ -35,6 +35,11 @@ void Label::setText(std::wstring text)
     this->text = text;
 }
 
+void Label::setFontColor(sf::Color color)
+{
+    labelText.setColor(color);
+}
+
 void Button::create(std::wstring text, sf::Font & font, double x, double y, double width, double height)
 {
     this->x = x;
@@ -96,6 +101,16 @@ void Button::setSize(int width, int height)
 void Button::setCharacterSize(int size)
 {
     labelText.setCharacterSize(size);
+}
+
+void Button::setFillColor(sf::Color color)
+{
+    box.setFillColor(color);
+}
+
+void Button::setBoundsColor(sf::Color color)
+{
+    box.setOutlineColor(color);
 }
 
 void Input::create(sf::Font &font, std::wstring _text, double _x, double _y, double _width, double _height)

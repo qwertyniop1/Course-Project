@@ -14,6 +14,7 @@ public:
     sf::FloatRect getBounds();
     void setPosition(int x, int y);
     void setText(std::wstring text);
+    void setFontColor(sf::Color color);
 };
 
 class Button : public Label {
@@ -30,6 +31,8 @@ public:
     void setPosition(int x, int y);
     void setSize(int width, int height);
     void setCharacterSize(int size);
+    void setFillColor(sf::Color color);
+    void setBoundsColor(sf::Color color);
 };
 
 class Input : public Button {

@@ -18,21 +18,29 @@ bool MenuState::onInit()
     playButton.setCharacterSize(70);
     playButton.setSize(playButton.getTextBounds().width + 50, 100);
     playButton.setPosition((stateManager->settings.getResolution().x - playButton.getBounds().width) / 2, 100);
+    playButton.setFillColor(sf::Color::Transparent);
+    playButton.setBoundsColor(sf::Color::Transparent);
 
     highscoresButton.create(stateManager->settings.getLabel(Labels::HIGHSCORES), font);
     highscoresButton.setCharacterSize(70);
     highscoresButton.setSize(highscoresButton.getTextBounds().width + 50, 100);
     highscoresButton.setPosition((stateManager->settings.getResolution().x - highscoresButton.getBounds().width) / 2, 200);
-    
+    highscoresButton.setFillColor(sf::Color::Transparent);
+    highscoresButton.setBoundsColor(sf::Color::Transparent);
+
     settingsButton.create(stateManager->settings.getLabel(Labels::SETTINGS), font);
     settingsButton.setCharacterSize(70);
     settingsButton.setSize(settingsButton.getTextBounds().width + 50, 100);
     settingsButton.setPosition((stateManager->settings.getResolution().x - settingsButton.getBounds().width) / 2, 300);
+    settingsButton.setFillColor(sf::Color::Transparent);
+    settingsButton.setBoundsColor(sf::Color::Transparent);
 
     exitButton.create(stateManager->settings.getLabel(Labels::EXIT), font);
     exitButton.setCharacterSize(70);
     exitButton.setSize(exitButton.getTextBounds().width + 50, 100);
     exitButton.setPosition((stateManager->settings.getResolution().x - exitButton.getBounds().width) / 2, 400);
+    exitButton.setFillColor(sf::Color::Transparent);
+    exitButton.setBoundsColor(sf::Color::Transparent);
 
     return true;
 }
