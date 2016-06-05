@@ -4,7 +4,7 @@
 #include "Global.h"
 #include "GameStateManager.h"
 
-#include "MenuState.h"
+#include "LoadState.h"
 
 class Application
 {
