@@ -7,6 +7,9 @@ Settings::Settings()
     loadLanguages("res/lang.xml");
     currentLanguage = languages.begin();
 
+    loadSounds();
+
+    playingMusic = nullptr;
 }
 
 sf::Vector2i Settings::getResolution()
@@ -78,4 +81,53 @@ void Settings::changeLanguage()
 std::wstring Settings::getLanguage()
 {
     return *currentLanguage;
+}
+
+void Settings::playSound(Sounds sound)
+{
+    sounds.at(sound).play();
+}
+
+void Settings::playSound(Music music)
+{
+    sf::Music *oldMusic = playingMusic;
+    playingMusic = this->music.at(music);
+        
+    if (playingMusic == oldMusic)
+        return;
+
+    if (oldMusic) {
+        oldMusic->stop();
+    }
+
+    playingMusic->play();
+
+}
+
+void Settings::stopMusic()
+{
+    if (playingMusic != nullptr) {
+        playingMusic->stop();
+        playingMusic = nullptr;
+    }
+}
+
+bool Settings::loadSounds()
+{
+    for each (std::string file in soundPaths) {
+        sf::SoundBuffer *buffer = new sf::SoundBuffer();
+        buffer->loadFromFile(file);
+        soundBuffers.push_back(buffer);
+        sf::Sound sound;
+        sound.setBuffer(*buffer);
+        sounds.push_back(sound);
+    }
+
+    for each (std::string file in musicPaths) {
+        sf::Music *currentMusic = new sf::Music();
+        currentMusic->openFromFile(file);
+        music.push_back(currentMusic);
+    }
+
+    return true;
 }

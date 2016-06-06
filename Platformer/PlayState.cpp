@@ -59,6 +59,8 @@ bool PlayState::onInit()
 
     loadLevel();
 
+    stateManager->settings.stopMusic(); //tmp
+
     return true;
 }
 
@@ -70,9 +72,9 @@ void PlayState::onEvent(sf::Event event)
             score = 0;
             stateManager->changeState(MenuState::getInstance(stateManager));
         }
-        /*if (event.key.code == sf::Keyboard::Space) {
-            entities.push_back(new Bullet(bulletAnimation, player->getRect().left, player->getRect().top + 10, player->getDirection(), *level));
-        }*/
+        if (event.key.code == sf::Keyboard::Up) {
+            stateManager->settings.playSound(Sounds::JUMP);
+        }
     }
 }
 
@@ -115,6 +117,7 @@ void PlayState::onLoop()
             score = 0;
         }
         else {
+            stateManager->settings.playSound(Sounds::LEVEL_UP);
             stateManager->changeState(LoadState::getInstance(stateManager, 3, true));
         }
     }
@@ -151,7 +154,7 @@ void PlayState::onLoop()
                 else if (!player->isHit()){
                     player->changeHealth(-10); // animation hit
                     player->setHit(true);
-
+                    stateManager->settings.playSound(Sounds::DIE);
                    /* if (player->getRect().left > enemy->getRect().left)
                         player->x += 50;
                     else
@@ -175,6 +178,7 @@ void PlayState::onLoop()
             if (player->getRect().intersects((*it)->getRect())) {
                 score += 20;                
                 (*it)->eliminate();
+                stateManager->settings.playSound(Sounds::COIN);
             }
         }
     }

@@ -49,8 +49,9 @@ void LoadState::onLoop()
     if (time > duration) {
         if (nextLevel) 
             stateManager->changeState(PlayState::getInstance(stateManager));
-        else
+        else {
             stateManager->changeState(MenuState::getInstance(stateManager));
+        }
     }
 }
 

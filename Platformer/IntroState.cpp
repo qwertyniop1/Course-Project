@@ -18,6 +18,8 @@ bool IntroState::onInit()
     background.setColor(sf::Color(color.r, color.g, color.b, alpha));
     change = false;
 
+    stateManager->settings.playSound(Music::INTRO);
+
     return true;
 }
 
@@ -61,4 +63,5 @@ void IntroState::onRender(sf::RenderWindow & window)
 
 void IntroState::onCleanup()
 {
+    stateManager->settings.stopMusic();
 }

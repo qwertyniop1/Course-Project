@@ -43,6 +43,8 @@ bool MenuState::onInit()
     exitButton.setFillColor(sf::Color::Transparent);
     exitButton.setBoundsColor(sf::Color::Transparent);
 
+    stateManager->settings.playSound(Music::MENU);
+    
     return true;
 }
 
