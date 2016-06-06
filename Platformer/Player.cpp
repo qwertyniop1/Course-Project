@@ -6,7 +6,8 @@ Player::Player(AnimationManager &manager, int x, int y, Level &level) : Entity(m
     health = HEALTH;
     isShooting = false;
     isOnLadder = false;
-    hit = jump = false;
+    hit = false;
+    sound = PlayerSounds::NONE;
 }
 
 void Player::handleKeys()
@@ -42,10 +43,8 @@ void Player::handleKeys()
         if (currentState == State::Stay || currentState == State::Walk) {
             dy = -GRAVITY;
             currentState = State::Jump;
-            jump = true;
-            /*
-			if (STATE==climb) if (key["L"] || key["R"]) STATE=stay;
-            */
+            sound = PlayerSounds::JUMP_S;
+			if (currentState == State::Climb) if (keys[Key::Left] || keys[Key::Right]) currentState = State::Stay;
         }
     }
     if (keys[Key::Down]) {
@@ -192,9 +191,16 @@ void Player::collision(CollisionDirection dir)
             if (objects[i].name == "ladder") {
                 isOnLadder = true;
                 if (currentState == State::Climb) {
-                    //x = objects[i].rect.left - 10;
+                    x = objects[i].rect.left - 10;
                 }
 
+            }
+
+            if (objects[i].name == "thorns" && !hit) {
+                dy = -0.27;
+                health -= 10;
+                hit = true;
+                sound = PlayerSounds::HIT_S;
             }
 
             if (objects[i].name == "exit") {
@@ -221,13 +227,13 @@ int Player::getHealth()
     return health;
 }
 
-void Player::setJump(bool flag)
+void Player::setSound(PlayerSounds flag)
 {
-    jump = flag;
+    sound = flag;
 }
 
-bool Player::isJump()
+PlayerSounds Player::getSound()
 {
-    return jump;
+    return sound;
 }
 

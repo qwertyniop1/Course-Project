@@ -3,6 +3,8 @@
 #include "AnimationManager.h"
 #include "Entity.h"
 
+enum PlayerSounds;
+
 class Player : public Entity{
 public:    
     Player(AnimationManager &manager, int x, int y, Level &level);
@@ -19,9 +21,9 @@ public:
 
     int getHealth();
 
-    void setJump(bool flag);
+    void setSound(PlayerSounds flag);
 
-    bool isJump();
+    PlayerSounds getSound();
 
     enum Key {
         Left, Right, Up, Down, Space
@@ -37,10 +39,16 @@ private:
     const double LADDER_GRAVITY = 0.05;
     const double GRAVITY = 0.35; //0.27
 
-    bool isShooting, isOnLadder, hit, jump;   
+    bool isShooting, isOnLadder, hit;   
     State currentState;
+
+    PlayerSounds sound;
 
 public:
     std::map<Key, bool> keys;
 
+};
+
+enum PlayerSounds {
+    NONE, JUMP_S, HIT_S
 };

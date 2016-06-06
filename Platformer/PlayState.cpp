@@ -102,10 +102,19 @@ void PlayState::onLoop()
 
 
     player->update(time);
-    if (player->isJump()) {
-        player->setJump(false);
+    switch (player->getSound()) {
+    case PlayerSounds::JUMP_S:
+        player->setSound(PlayerSounds::NONE);
         stateManager->settings.playSound(Sounds::JUMP);
+        break;
+    case PlayerSounds::HIT_S:
+        player->setSound(PlayerSounds::NONE);
+        stateManager->settings.playSound(Sounds::DIE);
+        break;
+    default:
+        break;
     }
+     
     if (!player->isAlive()) {
         if (player->getHealth() <= 0) {
             levels.assign(levelsPath, levelsPath + LEVELS_QUANTITY);
@@ -149,7 +158,7 @@ void PlayState::onLoop()
             if (player->getRect().intersects(enemy->getRect())) {
                 if (player->dy > 0) {
                     enemy->dx = 0;
-                    player->dy = -0.2;
+                    player->dy = -0.27;
                     enemy->eliminate();
                     score += 50;
                     stateManager->settings.playSound(Sounds::BUMP);
