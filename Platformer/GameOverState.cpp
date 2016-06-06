@@ -34,6 +34,8 @@ bool GameOverState::onInit()
     nameField.create(font, L"Player");
     nameField.setPosition((stateManager->settings.getResolution().x - nameField.getBounds().width) / 2, stateManager->settings.getResolution().y / 2 + 100);
 
+    if (!winState)
+        stateManager->settings.playSound(Sounds::GAME_OVER_S);
         
     return true;
 }

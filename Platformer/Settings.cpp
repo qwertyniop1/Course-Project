@@ -10,6 +10,16 @@ Settings::Settings()
     loadSounds();
 
     playingMusic = nullptr;
+
+    soundEnable = musicEnable = true;
+    fullscreen = false;
+
+    loadSettings(SETTING_PATH);
+}
+
+Settings::~Settings()
+{
+    saveSettings(SETTING_PATH);
 }
 
 sf::Vector2i Settings::getResolution()
@@ -70,6 +80,53 @@ bool Settings::loadLanguages(std::string filename)
     return true;
 }
 
+bool Settings::loadSettings(std::string filename)
+{
+    std::ifstream file;
+    file.open(filename, std::ios::in);
+    if (!file.is_open() || file.eof()) {
+        return false;
+    }
+
+    size_t value;
+
+    file >> value;
+    file.ignore(10, '\n');
+    currentResolution = screenResolutions.begin() + value;
+    file >> value;
+    file.ignore(10, '\n');
+    fullscreen = (bool)value;
+    file >> value;
+    file.ignore(10, '\n');
+    currentLanguage = languages.begin() + value;
+    file >> value;
+    file.ignore(10, '\n');
+    soundEnable = (bool)value;
+    file >> value;
+    file.ignore(10, '\n');
+    musicEnable = (bool)value;
+
+    file.close();
+    
+    return true;
+}
+
+bool Settings::saveSettings(std::string filename)
+{
+    std::ofstream file;
+    file.open(filename, std::ios::out);
+
+    file << currentResolution - screenResolutions.begin() << std::endl;
+    file << (size_t)fullscreen << std::endl;
+    file << currentLanguage - languages.begin() << std::endl;
+    file << (size_t)soundEnable << std::endl;
+    file << (size_t)musicEnable << std::endl;
+
+    file.close();
+    
+    return true;
+}
+
 void Settings::changeLanguage()
 {
     currentLanguage++;
@@ -85,11 +142,14 @@ std::wstring Settings::getLanguage()
 
 void Settings::playSound(Sounds sound)
 {
-    sounds.at(sound).play();
+    if (soundEnable)
+        sounds.at(sound).play();
 }
 
 void Settings::playSound(Music music)
 {
+    if (!musicEnable) //
+        return;
     sf::Music *oldMusic = playingMusic;
     playingMusic = this->music.at(music);
         
@@ -110,6 +170,36 @@ void Settings::stopMusic()
         playingMusic->stop();
         playingMusic = nullptr;
     }
+}
+
+bool Settings::isSound()
+{
+    return soundEnable;
+}
+
+bool Settings::isMusic()
+{
+    return musicEnable;
+}
+
+bool Settings::isFullscreen()
+{
+    return fullscreen;
+}
+
+void Settings::switchSound()
+{
+    soundEnable = !soundEnable;
+}
+
+void Settings::switchMusic()
+{
+    musicEnable = !musicEnable;
+}
+
+void Settings::switchFullscreen()
+{
+    fullscreen = !fullscreen;
 }
 
 bool Settings::loadSounds()

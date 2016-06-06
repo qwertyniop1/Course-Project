@@ -19,6 +19,10 @@ public:
 
     int getHealth();
 
+    void setJump(bool flag);
+
+    bool isJump();
+
     enum Key {
         Left, Right, Up, Down, Space
     };
@@ -33,7 +37,7 @@ private:
     const double LADDER_GRAVITY = 0.05;
     const double GRAVITY = 0.35; //0.27
 
-    bool isShooting, isOnLadder, hit;   
+    bool isShooting, isOnLadder, hit, jump;   
     State currentState;
 
 public:

@@ -7,6 +7,7 @@
 #include "TinyXML\tinyxml.h"
 #include <SFML\Audio.hpp>
 #include <unordered_map>
+#include <fstream>
 
 enum Labels;
 enum Sounds;
@@ -15,16 +16,22 @@ enum Music;
 class Settings {
 public:
     Settings();
+    ~Settings();
 
     sf::Vector2i getResolution();
     void changeResolution();
     std::wstring getLabel(Labels label);
-    bool loadLanguages(std::string filename);
     void changeLanguage();
     std::wstring getLanguage();
     void playSound(Sounds sound);
     void playSound(Music music);
     void stopMusic();
+    bool isSound();
+    bool isMusic();
+    bool isFullscreen();
+    void switchSound();
+    void switchMusic();
+    void switchFullscreen();
 
 private:
     std::vector<sf::Vector2i> screenResolutions{ { 800, 600 },{ 1024, 768 },{ 1280, 720 },{ 1400, 1050 },{ 1600, 900 } };
@@ -39,21 +46,27 @@ private:
     std::vector<sf::Music*> music;
     sf::Music *playingMusic;
 
-    const std::string soundPaths[4] = { "res/audio/Coin.wav", "res/audio/Die.wav", "res/audio/jump.wav", "res/audio/win.ogg" }; // check
+    bool fullscreen, soundEnable, musicEnable;
+
+    const std::string soundPaths[6] = { "res/audio/Coin.wav", "res/audio/Die.wav", "res/audio/jump.wav", "res/audio/win.ogg", "res/audio/bump.wav", "res/audio/game_over.ogg" }; // check
     const std::string musicPaths[2] = { "res/audio/intro.ogg", "res/audio/main.ogg"};
+    const std::string SETTING_PATH = "res/conf.dat";
 
     bool loadSounds();
+    bool loadLanguages(std::string filename);
+    bool loadSettings(std::string filename);
+    bool saveSettings(std::string filename);
 
 };
 
 enum Labels {
-    START_GAME, HIGHSCORES, SETTINGS, EXIT, BACK, TO_MENU, LANGUAGE, RESOLUTION, FULLSCREEN, GAME_OVER, WIN, LOADING
+    START_GAME, HIGHSCORES, SETTINGS, EXIT, BACK, TO_MENU, LANGUAGE, RESOLUTION, FULLSCREEN, GAME_OVER, WIN, LOADING, SOUND, MUSIC
 };
 
 enum Sounds {
-    COIN, DIE, JUMP, LEVEL_UP
+    COIN, DIE, JUMP, LEVEL_UP, BUMP, GAME_OVER_S
 };
 
 enum Music {
-    INTRO, MENU, GAME, WINSTATE, LOSE
+    INTRO, MENU, GAME, WINSTATE
 };

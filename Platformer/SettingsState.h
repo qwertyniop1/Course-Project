@@ -12,7 +12,6 @@ protected:
     SettingsState(GameStateManager *manager) { 
         stateManager = manager; 
         changeFullscreen = changeResolution = false;
-        isFullscreen = false;
     };
 
 public:
@@ -32,7 +31,6 @@ private:
     sf::Texture backgroundTexture;
     sf::Sprite background;
 
-    //bool openFile(std::string path);
     sf::Vector2i mouse;
     
     sf::Font font;
@@ -40,12 +38,15 @@ private:
     Label languageLabel;
     Label resolutionLabel;
     Label fullscreenLabel;
+    Label soundLabel;
+    Label musicLabel;
 
     Button languageButton;
     Button resolutionButton;
     Button fullscreenButton;
+    Button soundButton;
+    Button musicButton;
 
     bool changeResolution, changeFullscreen;
-    bool isFullscreen;
     
 };

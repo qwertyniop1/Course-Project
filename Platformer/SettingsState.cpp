@@ -22,6 +22,10 @@ bool SettingsState::onInit()
     resolutionLabel.setPosition(100, 100 + 150);
     fullscreenLabel.create(stateManager->settings.getLabel(Labels::FULLSCREEN), font);
     fullscreenLabel.setPosition(100, 100 + 200);
+    soundLabel.create(stateManager->settings.getLabel(Labels::SOUND), font);
+    soundLabel.setPosition(100, 100 + 250);
+    musicLabel.create(stateManager->settings.getLabel(Labels::MUSIC), font);
+    musicLabel.setPosition(100, 100 + 300);
 
     std::wstring label = L" " + stateManager->settings.getLanguage(); // UPPER CASE
     languageButton.create(label, font);
@@ -29,12 +33,24 @@ bool SettingsState::onInit()
     label = std::to_wstring(stateManager->settings.getResolution().x) + L" x " + std::to_wstring(stateManager->settings.getResolution().y);
     resolutionButton.create(label, font);
     resolutionButton.setPosition(stateManager->settings.getResolution().x - 100 - resolutionButton.getBounds().width, 270);
-    if (isFullscreen)
+    if (stateManager->settings.isFullscreen())
         label = L" X ";
     else
         label = L" ";
     fullscreenButton.create(label, font, 0, 0, 30);
     fullscreenButton.setPosition(stateManager->settings.getResolution().x - 100 - fullscreenButton.getBounds().width, 320);
+    if (stateManager->settings.isSound())
+        label = L" X ";
+    else
+        label = L" ";
+    soundButton.create(label, font, 0, 0, 30);
+    soundButton.setPosition(stateManager->settings.getResolution().x - 100 - fullscreenButton.getBounds().width, 370);
+    if (stateManager->settings.isMusic())
+        label = L" X ";
+    else
+        label = L" ";
+    musicButton.create(label, font, 0, 0, 30);
+    musicButton.setPosition(stateManager->settings.getResolution().x - 100 - fullscreenButton.getBounds().width, 420);
 
     return true;
 }
@@ -62,11 +78,29 @@ void SettingsState::onEvent(sf::Event event)
             }
             if (fullscreenButton.select(mouse)) { 
                 changeFullscreen = true;
-                isFullscreen = !isFullscreen;
-                if (isFullscreen) 
+                stateManager->settings.switchFullscreen();
+                if (stateManager->settings.isFullscreen())
                     fullscreenButton.setText(L" X ");
                 else
                     fullscreenButton.setText(L" ");
+            }
+            if (soundButton.select(mouse)) {
+                stateManager->settings.switchSound();
+                if (stateManager->settings.isSound())
+                    soundButton.setText(L" X ");
+                else
+                    soundButton.setText(L" ");
+            }
+            if (musicButton.select(mouse)) {
+                stateManager->settings.switchMusic();
+                if (stateManager->settings.isMusic()) {
+                    musicButton.setText(L" X ");
+                    stateManager->settings.playSound(Music::MENU);
+                }
+                else {
+                    musicButton.setText(L" ");
+                    stateManager->settings.stopMusic();
+                }
             }
         }
     }
@@ -81,7 +115,7 @@ void SettingsState::onRender(sf::RenderWindow & window)
     if (changeResolution) {
         changeResolution = false;
         unsigned int style;
-        if (isFullscreen)
+        if (stateManager->settings.isFullscreen())
             style = sf::Style::Fullscreen;
         else
             style = sf::Style::Close;
@@ -90,7 +124,7 @@ void SettingsState::onRender(sf::RenderWindow & window)
     if (changeFullscreen) {
         changeFullscreen = false;
         unsigned int style;
-        if (isFullscreen) 
+        if (stateManager->settings.isFullscreen())
             style = sf::Style::Fullscreen;
         else
             style = sf::Style::Close;
@@ -105,6 +139,8 @@ void SettingsState::onRender(sf::RenderWindow & window)
     window.draw(languageLabel.displayText());
     window.draw(resolutionLabel.displayText());
     window.draw(fullscreenLabel.displayText());
+    window.draw(soundLabel.displayText());
+    window.draw(musicLabel.displayText());
 
     window.draw(languageButton.displayButton());
     window.draw(languageButton.displayText());
@@ -115,6 +151,11 @@ void SettingsState::onRender(sf::RenderWindow & window)
     window.draw(resolutionButton.displayButton());
     window.draw(resolutionButton.displayText());
 
+    window.draw(soundButton.displayButton());
+    window.draw(soundButton.displayText());
+
+    window.draw(musicButton.displayButton());
+    window.draw(musicButton.displayText());
 }
 
 void SettingsState::onCleanup()

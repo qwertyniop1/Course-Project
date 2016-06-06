@@ -6,7 +6,7 @@ Player::Player(AnimationManager &manager, int x, int y, Level &level) : Entity(m
     health = HEALTH;
     isShooting = false;
     isOnLadder = false;
-    hit = false;
+    hit = jump = false;
 }
 
 void Player::handleKeys()
@@ -42,6 +42,7 @@ void Player::handleKeys()
         if (currentState == State::Stay || currentState == State::Walk) {
             dy = -GRAVITY;
             currentState = State::Jump;
+            jump = true;
             /*
 			if (STATE==climb) if (key["L"] || key["R"]) STATE=stay;
             */
@@ -198,6 +199,7 @@ void Player::collision(CollisionDirection dir)
 
             if (objects[i].name == "exit") {
                 alive = false;
+                animationManager.set("stay");
             }
 
         }
@@ -217,5 +219,15 @@ bool Player::isHit()
 int Player::getHealth()
 {
     return health;
+}
+
+void Player::setJump(bool flag)
+{
+    jump = flag;
+}
+
+bool Player::isJump()
+{
+    return jump;
 }
 

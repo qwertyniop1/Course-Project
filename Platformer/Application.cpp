@@ -6,8 +6,8 @@ int Application::onExecute()
         return -1;
     }
 
-    //stateManager.changeState(IntroState::getInstance(&stateManager, 15));
-    stateManager.changeState(PlayState::getInstance(&stateManager));
+    stateManager.changeState(IntroState::getInstance(&stateManager, 15));
+    //stateManager.changeState(PlayState::getInstance(&stateManager));
 
     while (window.isOpen()) {
         sf::Event event;       
@@ -37,7 +37,12 @@ int Application::onExecute()
 bool Application::onInit()
 {
     std::locale::global(std::locale("Russian_Russia"));
-    window.create(sf::VideoMode(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT), APPLICATION_TITLE, sf::Style::Close);  
+    unsigned int style;
+    if (stateManager.settings.isFullscreen())
+        style = sf::Style::Fullscreen;
+    else
+        style = sf::Style::Close;
+    window.create(sf::VideoMode(stateManager.settings.getResolution().x, stateManager.settings.getResolution().y), APPLICATION_TITLE, style);
     window.setFramerateLimit(60);
     //window.setVerticalSyncEnabled(true);
 

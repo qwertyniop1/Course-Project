@@ -72,9 +72,6 @@ void PlayState::onEvent(sf::Event event)
             score = 0;
             stateManager->changeState(MenuState::getInstance(stateManager));
         }
-        if (event.key.code == sf::Keyboard::Up) {
-            stateManager->settings.playSound(Sounds::JUMP);
-        }
     }
 }
 
@@ -103,7 +100,12 @@ void PlayState::onLoop()
         player->keys[Player::Key::Space] = true;
     }
 
+
     player->update(time);
+    if (player->isJump()) {
+        player->setJump(false);
+        stateManager->settings.playSound(Sounds::JUMP);
+    }
     if (!player->isAlive()) {
         if (player->getHealth() <= 0) {
             levels.assign(levelsPath, levelsPath + LEVELS_QUANTITY);
@@ -150,6 +152,7 @@ void PlayState::onLoop()
                     player->dy = -0.2;
                     enemy->eliminate();
                     score += 50;
+                    stateManager->settings.playSound(Sounds::BUMP);
                 }
                 else if (!player->isHit()){
                     player->changeHealth(-10); // animation hit
@@ -205,7 +208,7 @@ void PlayState::onRender(sf::RenderWindow &window)
     window.draw(scoreText);
 
     for (size_t i = 0; i < player->getHealth() / 10; ++i) {
-        lifeScore.setPosition(view.getCenter().x + stateManager->settings.getResolution().x / 2 - 70 - i * 50, view.getCenter().y - stateManager->settings.getResolution().y / 2 + 20);
+        lifeScore.setPosition(view.getCenter().x + stateManager->settings.getResolution().x / 2 - 70 - i * 50, view.getCenter().y - stateManager->settings.getResolution().y / 2 + 30);
         window.draw(lifeScore); 
     }   
 }
