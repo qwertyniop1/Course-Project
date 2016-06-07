@@ -1,4 +1,5 @@
-#pragma once
+#ifndef GAME_OVER_STATE_H
+#define GAME_OVER_STATE_H 
 
 #include "GameState.h"
 #include "HighscoresState.h" 
@@ -43,4 +44,8 @@ private:
 
     bool winState;
 };
+
+#endif
+
+
 

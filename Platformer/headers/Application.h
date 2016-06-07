@@ -1,4 +1,6 @@
-#pragma once
+#ifndef APPLICATION_H
+#define APPLICATION_H 
+
 #include <iostream>
 
 #include "Global.h"
@@ -23,4 +25,7 @@ private:
     GameStateManager stateManager;
 
 };
+
+#endif
+
 

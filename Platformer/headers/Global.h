@@ -1,7 +1,8 @@
-#pragma once
+#ifndef GLOBAL_H
+#define GLOBAL_H 
 
-#include <SFML\Graphics.hpp>
-#include <vld.h>
+#include <SFML/Graphics.hpp>
+//#include <vld.h>
 #include <iostream>
 
 const int DEFAULT_WINDOW_HEIGHT = 600; //600
@@ -20,5 +21,6 @@ enum Direction {
 
 void setAndScale(sf::Sprite &sprite, sf::Texture &texture, int width, int height);
 
+#endif
 
 

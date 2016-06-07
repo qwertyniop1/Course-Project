@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LOAD_STATE_H
+#define LOAD_STATE_H 
 
 #include "MenuState.h" 
 
@@ -36,3 +37,6 @@ private:
     double duration;
     bool nextLevel;
 };
+
+
+#endif

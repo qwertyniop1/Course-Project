@@ -7,7 +7,6 @@ int Application::onExecute()
     }
 
     stateManager.changeState(IntroState::getInstance(&stateManager, 15));
-    //stateManager.changeState(PlayState::getInstance(&stateManager));
 
     while (window.isOpen()) {
         sf::Event event;       
@@ -36,7 +35,8 @@ int Application::onExecute()
 
 bool Application::onInit()
 {
-    std::locale::global(std::locale("Russian_Russia"));
+    //std::locale::global(std::locale("Russian_Russia"));
+    std::locale::global(std::locale(""));
     unsigned int style;
     if (stateManager.settings.isFullscreen())
         style = sf::Style::Fullscreen;

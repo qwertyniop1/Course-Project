@@ -1,9 +1,13 @@
-#pragma once
+#ifndef PLAYER_H
+#define PLAYER_H 
+
 #include "Global.h"
 #include "AnimationManager.h"
 #include "Entity.h"
 
-enum PlayerSounds;
+enum PlayerSounds {
+    NONE, JUMP_S, HIT_S
+};
 
 class Player : public Entity{
 public:    
@@ -49,6 +53,4 @@ public:
 
 };
 
-enum PlayerSounds {
-    NONE, JUMP_S, HIT_S
-};
+#endif

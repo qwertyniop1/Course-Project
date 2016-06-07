@@ -1,4 +1,5 @@
-#pragma once
+#ifndef MENU_STATE_H
+#define MENU_STATE_H 
 
 #include "GameState.h"
 #include "PlayState.h"
@@ -34,3 +35,6 @@ private:
     Button playButton, highscoresButton, settingsButton, exitButton;
 
 };
+
+
+#endif

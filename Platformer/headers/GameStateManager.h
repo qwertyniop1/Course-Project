@@ -1,4 +1,6 @@
-#pragma once
+#ifndef GAME_STATE_MANAGER_H
+#define GAME_STATE_MANAGER_H 
+
 
 #include <stack>
 #include "Global.h"
@@ -25,5 +27,8 @@ public:
 
 private:
     std::stack<GameState*> states;   
-   
-};
+};   
+
+#endif
+
+

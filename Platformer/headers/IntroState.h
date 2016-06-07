@@ -1,4 +1,5 @@
-#pragma once
+#ifndef INTRO_STATE_H
+#define INTRO_STATE_H 
 
 #include "LoadState.h"
 
@@ -31,3 +32,9 @@ private:
     bool change;
     sf::Uint8 alpha;
 };
+
+
+#endif
+
+
+

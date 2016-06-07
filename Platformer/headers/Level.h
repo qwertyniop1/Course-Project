@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LEVEL_H
+#define LEVEL_H 
 
 #include "TinyXML/tinyxml.h"
 
@@ -41,3 +42,5 @@ private:
     std::vector<Object> objects;
     std::vector<Layer> layers;
 };
+
+#endif

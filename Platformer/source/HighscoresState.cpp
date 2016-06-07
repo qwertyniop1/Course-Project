@@ -52,14 +52,14 @@ void HighscoresState::onRender(sf::RenderWindow & window)
     window.draw(background);
 
     window.draw(textLabel.displayText());
-    for each (Label *label in nodes) {
+    for (auto label : nodes) {
         window.draw(label->displayText());
     }
 }
 
 void HighscoresState::onCleanup() 
 {
-    for each (Label *label in nodes) {
+    for (auto label : nodes) {
         delete label;
     }
     nodes.clear();

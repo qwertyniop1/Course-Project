@@ -20,7 +20,7 @@ void Animation::tick(double time)
         currentFrame = 0;
     }
 
-    int frame = currentFrame;
+    int frame = (int)currentFrame;
     if (isFlip) {
         sprite.setTextureRect(framesFlip[frame]);
     } 

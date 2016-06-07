@@ -1,4 +1,6 @@
-#pragma once
+#ifndef ENTITY_H
+#define ENTITY_H 
+
 #include "AnimationManager.h"
 #include "Level.h"
 
@@ -39,3 +41,6 @@ protected:
 public:
     double dx, dy; /* tmp */
 };
+
+
+#endif

@@ -20,6 +20,13 @@ Settings::Settings()
 Settings::~Settings()
 {
     saveSettings(SETTING_PATH);
+
+    for (auto buffer : soundBuffers) {
+        delete buffer;
+    }
+    for (auto mus : music) {
+        delete mus;
+    }
 }
 
 sf::Vector2i Settings::getResolution()
@@ -55,19 +62,32 @@ bool Settings::loadLanguages(std::string filename)
     languageElement = head->FirstChildElement("language");
 
     std::wstring currentLanguage;
-    std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
 
-    while (languageElement)
-    {
+#ifdef _WIN32
+    std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+#endif
+
+    while (languageElement) {
+#ifdef __linux__ 
+        currentLanguage = s2ws(languageElement->Attribute("name"));
+#elif _WIN32
         currentLanguage = converter.from_bytes(languageElement->Attribute("name"));
+#else
+#error "OS not supported!"
+#endif
+       
         std::vector<std::wstring> currentLabels;
 
         TiXmlElement *label;
         label = languageElement->FirstChildElement("label");
-        while (label)
-        {
+        while (label) { 
+#ifdef __linux__ 
+            currentLabels.push_back(s2ws(label->GetText()));
+#elif _WIN32
             currentLabels.push_back(converter.from_bytes(label->GetText()));
-            
+#else
+#error "OS not supported!"
+#endif
             label = label->NextSiblingElement("label");
         }
 
@@ -204,7 +224,7 @@ void Settings::switchFullscreen()
 
 bool Settings::loadSounds()
 {
-    for each (std::string file in soundPaths) {
+    for (auto file : soundPaths) {
         sf::SoundBuffer *buffer = new sf::SoundBuffer();
         buffer->loadFromFile(file);
         soundBuffers.push_back(buffer);
@@ -213,7 +233,7 @@ bool Settings::loadSounds()
         sounds.push_back(sound);
     }
 
-    for each (std::string file in musicPaths) {
+    for (auto file : musicPaths) {
         sf::Music *currentMusic = new sf::Music();
         currentMusic->openFromFile(file);
         music.push_back(currentMusic);
@@ -221,3 +241,19 @@ bool Settings::loadSounds()
 
     return true;
 }
+
+#ifdef __linux__
+
+std::wstring Settings::s2ws(const std::string& s) {
+    std::string curLocale = setlocale(LC_ALL, ""); 
+    const char* _Source = s.c_str();
+    size_t _Dsize = mbstowcs(NULL, _Source, 0) + 1;
+    wchar_t *_Dest = new wchar_t[_Dsize];
+    wmemset(_Dest, 0, _Dsize);
+    mbstowcs(_Dest,_Source,_Dsize);
+    std::wstring result = _Dest;
+    delete []_Dest;
+    setlocale(LC_ALL, curLocale.c_str());
+    return result;
+}
+#endif

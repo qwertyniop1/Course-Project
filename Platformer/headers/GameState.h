@@ -1,4 +1,5 @@
-#pragma once
+#ifndef GAME_STATE_H
+#define GAME_STATE_H 
 
 #include "GameStateManager.h"
 #include "Global.h"
@@ -24,6 +25,8 @@ public:
         manager->changeState(nextState);
     }
 };
+
+#endif
 
 
 

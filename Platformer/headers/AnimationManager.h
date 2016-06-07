@@ -1,9 +1,9 @@
-#pragma once
+#ifndef ANIMATION_MANAGER_H
+#define ANIMATION_MANAGER_H 
 
 #include "Global.h"
 #include "Animation.h"
-#include "TinyXML\tinyxml.h"
-
+#include "TinyXML/tinyxml.h"
 #include <string>
 
 class AnimationManager
@@ -37,3 +37,7 @@ private:
     std::map<sf::String, Animation> animationsList;
 
 };
+
+#endif
+
+

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef SETTINGS_STATE_H
+#define SETTINGS_STATE_H 
 
 #include "GameState.h"
 #include "MenuState.h" 
@@ -50,3 +51,6 @@ private:
     bool changeResolution, changeFullscreen;
     
 };
+
+#endif
+

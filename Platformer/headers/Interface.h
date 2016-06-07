@@ -1,4 +1,5 @@
-#pragma once
+#ifndef INTERFACE_H
+#define INTERFACE_H 
 
 #include "Global.h"
 
@@ -48,8 +49,11 @@ public:
     // Установка Фокуса Input
     bool select(sf::Vector2i _mouse);
 
-    //Для того, что бы считать текст с поля Ipnut необходимо пременить  readText() который возвращает string
+    //Для того, что бы считать текст с поля Ipnut необходимо пременить  readText() который возвращает wstring
     std::wstring readText();
     sf::FloatRect getBounds();
     void setPosition(int x, int y);
 };
+
+#endif
+

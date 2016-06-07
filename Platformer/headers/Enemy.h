@@ -1,4 +1,5 @@
-#pragma once
+#ifndef ENEMY_H
+#define ENEMY_H 
 
 #include "Global.h"
 #include "AnimationManager.h"
@@ -15,3 +16,6 @@ public:
 private:
     const double ENEMY_SPEED = 0.05;
 };
+
+#endif
+

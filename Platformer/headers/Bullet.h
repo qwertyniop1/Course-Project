@@ -1,4 +1,5 @@
-#pragma once
+#ifndef BULLET_H
+#define BULLET_H 
 
 #include "AnimationManager.h"
 #include "Entity.h"
@@ -15,3 +16,7 @@ private:
     const double BULLET_SPEED = 0.3;
     const int BULLET_SIZE = 5;
 };
+
+#endif
+
+

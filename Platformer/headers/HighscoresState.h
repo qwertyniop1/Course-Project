@@ -1,4 +1,5 @@
-#pragma once
+#ifndef HIGHSCORES_STATE_H
+#define HIGHSCORES_STATE_H 
 
 #include "GameState.h"
 #include "MenuState.h" 
@@ -6,7 +7,14 @@
 
 #include <fstream>
 
-struct HighscoreNode;
+struct HighscoreNode {
+    std::wstring name;
+    size_t score;
+    
+    inline bool operator() (const HighscoreNode &first, const HighscoreNode &second) {
+        return (first.score > second.score);
+    }
+};
 
 class HighscoresState : public GameState
 {
@@ -42,13 +50,8 @@ private:
 
 };
 
-struct HighscoreNode {
-    std::wstring name;
-    size_t score;
-    
-    inline bool operator() (const HighscoreNode &first, const HighscoreNode &second) {
-        return (first.score > second.score);
-    }
-};
-
 const unsigned int SIDE_OFFSET = 100;
+
+
+#endif
+

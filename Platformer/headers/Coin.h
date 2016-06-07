@@ -1,4 +1,6 @@
-#pragma once
+#ifndef COIN_H
+#define COIN_H 
+
 
 #include "AnimationManager.h"
 #include "Entity.h"
@@ -13,3 +15,5 @@ private:
     const int COIN_SIZE = 32;
 
 };
+
+#endif

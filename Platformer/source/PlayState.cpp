@@ -49,7 +49,7 @@ bool PlayState::onInit()
     scoreText.setFont(font);
     scoreText.setCharacterSize(48);
     scoreText.setColor(sf::Color::Black);
-    scoreText.setString(score);
+    //scoreText.setString(score);
 
     if (!lifeScoreTexture.loadFromFile("res/life.png")) {
         std::cout << "Can't load texture from file" << std::endl;

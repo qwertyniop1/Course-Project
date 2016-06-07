@@ -54,10 +54,10 @@ void Button::create(std::wstring text, sf::Font & font, double x, double y, doub
     labelText.setPosition(x, y);
     labelText.setString(text);
 
-    box.setSize(sf::Vector2f(width, height));		// размер кнопки
-    box.setPosition(x, y);						// координаты кнопки
-    box.setFillColor(sf::Color(133, 133, 133));	// цвет кнопки
-    box.setOutlineThickness(2);					// Контур X пикселей
+    box.setSize(sf::Vector2f(width, height));		// Г°Г Г§Г¬ГҐГ° ГЄГ­Г®ГЇГЄГЁ
+    box.setPosition(x, y);						// ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ» ГЄГ­Г®ГЇГЄГЁ
+    box.setFillColor(sf::Color(133, 133, 133));	// Г¶ГўГҐГІ ГЄГ­Г®ГЇГЄГЁ
+    box.setOutlineThickness(2);					// ГЉГ®Г­ГІГіГ° X ГЇГЁГЄГ±ГҐГ«ГҐГ©
     box.setOutlineColor(sf::Color(66, 66, 66));
 }
 
@@ -120,18 +120,18 @@ void Input::create(sf::Font &font, std::wstring _text, double _x, double _y, dou
     y = _y;
     width = _width;
     height = _height;
-    text = _text;								// загружает текст
-    focus = false;								// фокус поля ввода
+    text = _text;								// Г§Г ГЈГ°ГіГ¦Г ГҐГІ ГІГҐГЄГ±ГІ
+    focus = false;								// ГґГ®ГЄГіГ± ГЇГ®Г«Гї ГўГўГ®Г¤Г 
 
-    labelText.setFont(font);							// загружаем фрифт
-    labelText.setCharacterSize(20); 					// в пикселях, а не точках!
-    labelText.setColor(sf::Color::Black);					// устанавливаем цвет выводимого текста
-    labelText.setPosition(x, y);						// позиция текста
+    labelText.setFont(font);							// Г§Г ГЈГ°ГіГ¦Г ГҐГ¬ ГґГ°ГЁГґГІ
+    labelText.setCharacterSize(20); 					// Гў ГЇГЁГЄГ±ГҐГ«ГїГµ, Г  Г­ГҐ ГІГ®Г·ГЄГ Гµ!
+    labelText.setColor(sf::Color::Black);					// ГіГ±ГІГ Г­Г ГўГ«ГЁГўГ ГҐГ¬ Г¶ГўГҐГІ ГўГ»ГўГ®Г¤ГЁГ¬Г®ГЈГ® ГІГҐГЄГ±ГІГ 
+    labelText.setPosition(x, y);						// ГЇГ®Г§ГЁГ¶ГЁГї ГІГҐГЄГ±ГІГ 
     labelText.setString(text);
 
-    box.setSize(sf::Vector2f(width, height));		// размер поля ввода
-    box.setPosition(x, y);						// координаты поля ввода
-    box.setFillColor(sf::Color::White);	// цвет кнопки
+    box.setSize(sf::Vector2f(width, height));		// Г°Г Г§Г¬ГҐГ° ГЇГ®Г«Гї ГўГўГ®Г¤Г 
+    box.setPosition(x, y);						// ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ» ГЇГ®Г«Гї ГўГўГ®Г¤Г 
+    box.setFillColor(sf::Color::White);	// Г¶ГўГҐГІ ГЄГ­Г®ГЇГЄГЁ
 }
 
 void Input::reText(wchar_t _tmp)
@@ -159,24 +159,24 @@ bool Input::select()
 
 bool Input::select(sf::Vector2i _mouse)
 {
-    if ((_mouse.x > x && _mouse.x < x + width) && (_mouse.y > y && _mouse.y < y + height)) { 	//Если нажат клаиша над объектом Input...
-        focus = true;																	   	// Фокус true
-        text += L"|";																		// В конец строки добаляем | (что бы понимать что input в фокусе)
+    if ((_mouse.x > x && _mouse.x < x + width) && (_mouse.y > y && _mouse.y < y + height)) { 	//Г…Г±Г«ГЁ Г­Г Г¦Г ГІ ГЄГ«Г ГЁГёГ  Г­Г Г¤ Г®ГЎГєГҐГЄГІГ®Г¬ Input...
+        focus = true;																	   	// Г”Г®ГЄГіГ± true
+        text += L"|";																		// Г‚ ГЄГ®Г­ГҐГ¶ Г±ГІГ°Г®ГЄГЁ Г¤Г®ГЎГ Г«ГїГҐГ¬ | (Г·ГІГ® ГЎГ» ГЇГ®Г­ГЁГ¬Г ГІГј Г·ГІГ® input Гў ГґГ®ГЄГіГ±ГҐ)
     }
-    else {																				//...Иначе если нажатие произошло не над объектом, то...
-        if (text.size() > 0) {																// проверка последнего символа(иначе вылетает)
-            if (text[text.size() - 1] == 124) {													// если символ | ...
-                text.erase(text.size() - 1);														// ... то удаляем его
+    else {																				//...Г€Г­Г Г·ГҐ ГҐГ±Г«ГЁ Г­Г Г¦Г ГІГЁГҐ ГЇГ°Г®ГЁГ§Г®ГёГ«Г® Г­ГҐ Г­Г Г¤ Г®ГЎГєГҐГЄГІГ®Г¬, ГІГ®...
+        if (text.size() > 0) {																// ГЇГ°Г®ГўГҐГ°ГЄГ  ГЇГ®Г±Г«ГҐГ¤Г­ГҐГЈГ® Г±ГЁГ¬ГўГ®Г«Г (ГЁГ­Г Г·ГҐ ГўГ»Г«ГҐГІГ ГҐГІ)
+            if (text[text.size() - 1] == 124) {													// ГҐГ±Г«ГЁ Г±ГЁГ¬ГўГ®Г« | ...
+                text.erase(text.size() - 1);														// ... ГІГ® ГіГ¤Г Г«ГїГҐГ¬ ГҐГЈГ®
             }
         }
-        focus = false;																		// устанавливаем фокус false
+        focus = false;																		// ГіГ±ГІГ Г­Г ГўГ«ГЁГўГ ГҐГ¬ ГґГ®ГЄГіГ± false
     }
     return focus;
 }
 
 std::wstring Input::readText()
 {    
-    if (text.size() != 0 && text[text.size() - 1] == 124) { 	// удаляем (если есть) символ |
+    if (text.size() != 0 && text[text.size() - 1] == 124) { 	// ГіГ¤Г Г«ГїГҐГ¬ (ГҐГ±Г«ГЁ ГҐГ±ГІГј) Г±ГЁГ¬ГўГ®Г« |
         text.erase(text.size() - 1);
     }
     return text;   
