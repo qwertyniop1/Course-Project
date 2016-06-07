@@ -4,6 +4,7 @@
 *.vcxproj
 *.filters
 *.ttf
+*.vk
 
 SFML-2.3.2/
 res/
