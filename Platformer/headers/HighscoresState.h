@@ -2,10 +2,7 @@
 #define HIGHSCORES_STATE_H 
 
 #include "GameState.h"
-#include "MenuState.h" 
 #include "Interface.h"
-
-#include <fstream>
 
 struct HighscoreNode {
     std::wstring name;

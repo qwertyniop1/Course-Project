@@ -1,7 +1,6 @@
 #ifndef GAME_STATE_MANAGER_H
 #define GAME_STATE_MANAGER_H 
 
-
 #include <stack>
 #include "Global.h"
 #include "Settings.h"

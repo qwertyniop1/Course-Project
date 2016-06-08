@@ -2,8 +2,8 @@
 #define GLOBAL_H 
 
 #include <SFML/Graphics.hpp>
-//#include <vld.h>
 #include <iostream>
+//#include <vld.h>
 
 #define TRY_CHANGE_STATE(state) { \
             try { \

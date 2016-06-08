@@ -1,7 +1,6 @@
 #ifndef BULLET_H
 #define BULLET_H 
 
-#include "AnimationManager.h"
 #include "Entity.h"
 
 class Bullet : public Entity {

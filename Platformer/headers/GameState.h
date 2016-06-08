@@ -2,9 +2,6 @@
 #define GAME_STATE_H 
 
 #include "GameStateManager.h"
-#include "Global.h"
-
-//class GameStateManager;
 
 class GameState
 {

@@ -1,20 +1,13 @@
 #ifndef PLAY_STATE_H
 #define PLAY_STATE_H 
 
-#include <iostream>
 #include <list>
 
 #include "GameState.h"
 #include "AnimationManager.h"
-#include "Entity.h"
-
 #include "Enemy.h"
 #include "Player.h"
-#include "Bullet.h"
 #include "Coin.h"
-
-//#include "MenuState.h"
-#include "GameOverState.h"
 
 const size_t LEVELS_QUANTITY = 4;
 

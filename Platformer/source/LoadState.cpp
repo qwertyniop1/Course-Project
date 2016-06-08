@@ -1,4 +1,6 @@
 #include "LoadState.h"
+#include "PlayState.h"
+#include "MenuState.h"
 
 bool LoadState::onInit()
 {

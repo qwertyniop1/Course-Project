@@ -1,5 +1,7 @@
 #include "MenuState.h"
 #include "LoadState.h"
+#include "HighscoresState.h"
+#include "SettingsState.h"
 
 bool MenuState::onInit()
 {    

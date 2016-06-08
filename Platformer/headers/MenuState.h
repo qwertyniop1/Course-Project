@@ -2,9 +2,7 @@
 #define MENU_STATE_H 
 
 #include "GameState.h"
-#include "PlayState.h"
-#include "HighscoresState.h"
-#include "SettingsState.h"
+#include "Interface.h"
 
 class MenuState : public GameState
 {

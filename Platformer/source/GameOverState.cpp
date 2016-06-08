@@ -1,4 +1,5 @@
 #include "GameOverState.h"
+#include "HighscoresState.h" 
 
 bool GameOverState::onInit()
 {

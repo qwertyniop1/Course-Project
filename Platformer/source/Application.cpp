@@ -51,6 +51,11 @@ bool Application::onInit()
     window.setFramerateLimit(60);
     //window.setVerticalSyncEnabled(true);
 
+    sf::Image icon;
+    if (icon.loadFromFile("res/icon.jpg")) {
+        window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
+    }
+
     return true;
 }
 

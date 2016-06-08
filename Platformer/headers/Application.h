@@ -1,9 +1,6 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H 
 
-#include <iostream>
-
-#include "Global.h"
 #include "GameStateManager.h"
 
 #include "IntroState.h"

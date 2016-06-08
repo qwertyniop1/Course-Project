@@ -1,7 +1,9 @@
 #ifndef LOAD_STATE_H
 #define LOAD_STATE_H 
 
-#include "MenuState.h" 
+#include "GameState.h" 
+#include "AnimationManager.h"
+#include "Interface.h"
 
 class LoadState : public GameState
 {

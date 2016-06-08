@@ -1,10 +1,8 @@
 #ifndef ANIMATION_MANAGER_H
 #define ANIMATION_MANAGER_H 
 
-#include "Global.h"
 #include "Animation.h"
 #include "TinyXML/tinyxml.h"
-#include <string>
 
 class AnimationManager
 {

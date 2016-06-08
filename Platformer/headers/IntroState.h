@@ -1,7 +1,7 @@
 #ifndef INTRO_STATE_H
 #define INTRO_STATE_H 
 
-#include "LoadState.h"
+#include "GameState.h"
 
 class IntroState : public GameState
 {

@@ -1,4 +1,5 @@
 #include "IntroState.h"
+#include "LoadState.h"
 
 bool IntroState::onInit()
 {

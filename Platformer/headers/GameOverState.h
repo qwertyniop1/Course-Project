@@ -2,10 +2,7 @@
 #define GAME_OVER_STATE_H 
 
 #include "GameState.h"
-#include "HighscoresState.h" 
 #include "Interface.h"
-
-#include <fstream>
 
 class GameOverState : public GameState
 {

@@ -1,8 +1,6 @@
 #ifndef ENEMY_H
 #define ENEMY_H 
 
-#include "Global.h"
-#include "AnimationManager.h"
 #include "Entity.h"
 
 class Enemy : public Entity {

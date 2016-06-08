@@ -2,10 +2,7 @@
 #define SETTINGS_STATE_H 
 
 #include "GameState.h"
-#include "MenuState.h" 
 #include "Interface.h"
-
-//#include <fstream>
 
 class SettingsState : public GameState
 {

@@ -1,4 +1,5 @@
 #include "SettingsState.h"
+#include "MenuState.h"
 
 bool SettingsState::onInit()
 {

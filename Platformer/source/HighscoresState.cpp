@@ -1,4 +1,5 @@
 #include "HighscoresState.h"
+#include "MenuState.h" 
 
 bool HighscoresState::onInit()
 {

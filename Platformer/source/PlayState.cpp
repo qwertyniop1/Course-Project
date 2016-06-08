@@ -1,5 +1,7 @@
 #include "PlayState.h"
 #include "LoadState.h"
+#include "GameOverState.h"
+#include "MenuState.h"
 
 bool PlayState::onInit()
 {
@@ -111,6 +113,7 @@ void PlayState::onLoop()
         }
         else {
             stateManager->settings.playSound(Sounds::LEVEL_UP);
+            score += 100 + player->getHealth();
             TRY_CHANGE_STATE(LoadState::getInstance(stateManager, 3, true));
         }
     }
