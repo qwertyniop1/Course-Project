@@ -8,56 +8,38 @@ bool PlayState::onInit()
 
     view.reset(sf::FloatRect(0, 0, stateManager->settings.getResolution().x, stateManager->settings.getResolution().y));
 
-    if (!backgroundTexture.loadFromFile("res/background_g.jpg")) {
-        std::cout << "Can't load texture from file" << std::endl;
-        return false;
-    }
+    LOAD_TEXTURE(backgroundTexture.loadFromFile("res/background_g.jpg"));
 
-    if (!playerTexture.loadFromFile("res/aladdin.png")) {
-        std::cout << "Can't load texture from file" << std::endl;
-        return false;
-    }
+    LOAD_TEXTURE(playerTexture.loadFromFile("res/aladdin.png"));
 
-    if (!enemyTexture.loadFromFile("res/enemy.png")) {
-        std::cout << "Can't load texture from file" << std::endl;
-        return false;
-    }
+    LOAD_TEXTURE(enemyTexture.loadFromFile("res/enemy.png"));
 
-    if (!bulletTexture.loadFromFile("res/bullet.png")) {
-        std::cout << "Can't load texture from file" << std::endl;
-        return false;
-    }
+    LOAD_TEXTURE(bulletTexture.loadFromFile("res/bullet.png"));
 
-    if (!coinTexture.loadFromFile("res/coins.png")) {
-        std::cout << "Can't load texture from file" << std::endl;
-        return false;
-    }
+    LOAD_TEXTURE(coinTexture.loadFromFile("res/coins.png"));
 
-    playerAnimation.loadFromXML("res/aladdin.xml", playerTexture); // check
-    enemyAnimation.loadFromXML("res/enemy.xml", enemyTexture);
-    bulletAnimation.loadFromXML("res/bullet.xml", bulletTexture);
-    coinAnimation.loadFromXML("res/coin.xml", coinTexture);
+    LOAD_ANIMATION(playerAnimation.loadFromXML("res/aladdin.xml", playerTexture)); 
+    LOAD_ANIMATION(enemyAnimation.loadFromXML("res/enemy.xml", enemyTexture));
+    LOAD_ANIMATION(bulletAnimation.loadFromXML("res/bullet.xml", bulletTexture));
+    LOAD_ANIMATION(coinAnimation.loadFromXML("res/coin.xml", coinTexture));
 
     background.setTexture(backgroundTexture);
     background.setOrigin(backgroundTexture.getSize().x / 2, backgroundTexture.getSize().y / 2);
 
-    if (!font.loadFromFile("res/font.ttf")) {
-        std::cout << "Can't load fonts" << std::endl;
-        return false;
-    }
+    LOAD_FONT(font.loadFromFile("res/font.ttf"));
 
     scoreText.setFont(font);
     scoreText.setCharacterSize(48);
     scoreText.setColor(sf::Color::Black);
-    //scoreText.setString(score);
+    scoreText.setString(score);
 
-    if (!lifeScoreTexture.loadFromFile("res/life.png")) {
-        std::cout << "Can't load texture from file" << std::endl;
-        return false;
-    }
+    LOAD_TEXTURE(lifeScoreTexture.loadFromFile("res/life.png"));
     lifeScore.setTexture(lifeScoreTexture);
 
-    loadLevel();
+    if (!loadLevel()) {
+        std::cout << "Can't load level data" << std::endl;
+        return false;
+    }
 
     stateManager->settings.stopMusic(); //tmp
 
@@ -70,7 +52,7 @@ void PlayState::onEvent(sf::Event event)
         if (event.key.code == sf::Keyboard::Escape) {
             levels.assign(levelsPath, levelsPath + LEVELS_QUANTITY);
             score = 0;
-            stateManager->changeState(MenuState::getInstance(stateManager));
+            TRY_CHANGE_STATE(MenuState::getInstance(stateManager));
         }
     }
 }
@@ -118,18 +100,18 @@ void PlayState::onLoop()
     if (!player->isAlive()) {
         if (player->getHealth() <= 0) {
             levels.assign(levelsPath, levelsPath + LEVELS_QUANTITY);
-            stateManager->changeState(GameOverState::getInstance(stateManager, score));
+            TRY_CHANGE_STATE(GameOverState::getInstance(stateManager, score));
             score = 0;
             return;
         }
         if (levels.size() == 0) {
             levels.assign(levelsPath, levelsPath + LEVELS_QUANTITY);
-            stateManager->changeState(GameOverState::getInstance(stateManager, score, true));
+            TRY_CHANGE_STATE(GameOverState::getInstance(stateManager, score, true));
             score = 0;
         }
         else {
             stateManager->settings.playSound(Sounds::LEVEL_UP);
-            stateManager->changeState(LoadState::getInstance(stateManager, 3, true));
+            TRY_CHANGE_STATE(LoadState::getInstance(stateManager, 3, true));
         }
     }
 
@@ -246,7 +228,6 @@ bool PlayState::loadLevel()
     //}
     level = new Level();
     if (!level->loadFromFile(path)) {
-        std::cout << "Can't load level data" << std::endl;
         return false;
     }
 

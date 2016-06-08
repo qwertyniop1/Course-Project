@@ -52,11 +52,13 @@ double AnimationManager::getWidth()
     return animationsList[currentAnimation].frames[animationsList[currentAnimation].currentFrame].width;
 }
 
-void AnimationManager::loadFromXML(std::string fileName, sf::Texture &texture)
+bool AnimationManager::loadFromXML(std::string fileName, sf::Texture &texture)
 {
     TiXmlDocument animFile(fileName.c_str());
 
-    animFile.LoadFile();
+    if (!animFile.LoadFile()) {
+        return false;
+    }
 
     TiXmlElement *head;
     head = animFile.FirstChildElement("sprites");
@@ -102,4 +104,6 @@ void AnimationManager::loadFromXML(std::string fileName, sf::Texture &texture)
         animationsList[currentAnimation] = anim;
         animElement = animElement->NextSiblingElement("animation");
     }
+
+    return true;
 }

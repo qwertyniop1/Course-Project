@@ -2,27 +2,18 @@
 
 bool LoadState::onInit()
 {
-    if (!backgroundTexture.loadFromFile("res/loading.jpg")) {
-        std::cout << "Can't load texture from file" << std::endl;
-        return false;
-    }
+    LOAD_TEXTURE(backgroundTexture.loadFromFile("res/loading.jpg"));
 
     setAndScale(background, backgroundTexture, stateManager->settings.getResolution().x, stateManager->settings.getResolution().y);
 
-    if (!font.loadFromFile("res/comic.ttf")) {
-        std::cout << "Can't load fonts" << std::endl;
-        return false;
-    }
+    LOAD_FONT(font.loadFromFile("res/comic.ttf"));
 
     textLabel.create(stateManager->settings.getLabel(Labels::LOADING), font);
     textLabel.setPosition((stateManager->settings.getResolution().x - textLabel.getBounds().width) / 2, stateManager->settings.getResolution().y - 150);
     textLabel.setFontColor(sf::Color::Blue);
 
-    if (!playerTexture.loadFromFile("res/aladdin.png")) {
-        std::cout << "Can't load texture from file" << std::endl;
-        return false;
-    }
-    playerAnimation.loadFromXML("res/aladdin.xml", playerTexture); 
+    LOAD_TEXTURE(playerTexture.loadFromFile("res/aladdin.png"));
+    LOAD_ANIMATION(playerAnimation.loadFromXML("res/aladdin.xml", playerTexture));
     playerAnimation.set("walk");
 
     timer.restart();
@@ -47,10 +38,11 @@ void LoadState::onLoop()
 
     time = timer.getElapsedTime().asSeconds();
     if (time > duration) {
-        if (nextLevel) 
-            stateManager->changeState(PlayState::getInstance(stateManager));
+        if (nextLevel) {
+            TRY_CHANGE_STATE(PlayState::getInstance(stateManager));
+        }
         else {
-            stateManager->changeState(MenuState::getInstance(stateManager));
+            TRY_CHANGE_STATE(MenuState::getInstance(stateManager));
         }
     }
 }

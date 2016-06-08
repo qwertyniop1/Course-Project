@@ -3,24 +3,15 @@
 bool GameOverState::onInit()
 {
     if (winState) {
-        if (!backgroundTexture.loadFromFile("res/win.jpg")) {
-            std::cout << "Can't load texture from file" << std::endl;
-            return false;
-        }
+        LOAD_TEXTURE(backgroundTexture.loadFromFile("res/win.jpg"));
     }
     else {
-        if (!backgroundTexture.loadFromFile("res/background.jpg")) {
-            std::cout << "Can't load texture from file" << std::endl;
-            return false;
-        }
+        LOAD_TEXTURE(backgroundTexture.loadFromFile("res/background.jpg"));
     }
 
     setAndScale(background, backgroundTexture, stateManager->settings.getResolution().x, stateManager->settings.getResolution().y);
 
-    if (!font.loadFromFile("res/comic.ttf")) {
-        std::cout << "Can't load fonts" << std::endl;
-        return false;
-    }
+    LOAD_FONT(font.loadFromFile("res/comic.ttf"));
 
     std::wstring label;
     if (winState)
@@ -44,7 +35,7 @@ void GameOverState::onEvent(sf::Event event)
 {
     if (event.type == sf::Event::KeyPressed) {
         if (event.key.code == sf::Keyboard::Return || event.key.code == sf::Keyboard::Escape) {
-            stateManager->changeState(HighscoresState::getInstance(stateManager));
+            TRY_CHANGE_STATE(HighscoresState::getInstance(stateManager));
         }
     }
 

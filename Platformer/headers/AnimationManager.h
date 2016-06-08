@@ -30,7 +30,7 @@ public:
 
     double getWidth();
 
-    void loadFromXML(std::string fileName, sf::Texture &texture);
+    bool loadFromXML(std::string fileName, sf::Texture &texture);
 
 private:
     sf::String currentAnimation;

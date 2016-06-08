@@ -2,14 +2,8 @@
 
 bool IntroState::onInit()
 {
-    if (!logo1.loadFromFile("res/bsuir.jpg")) {
-        std::cout << "Can't load texture from file" << std::endl;
-        return false;
-    }
-    if (!logo2.loadFromFile("res/logo.png")) {
-        std::cout << "Can't load texture from file" << std::endl;
-        return false;
-    }
+    LOAD_TEXTURE(logo1.loadFromFile("res/bsuir.jpg"));
+    LOAD_TEXTURE(logo2.loadFromFile("res/logo.png"));
 
     setAndScale(background, logo1, stateManager->settings.getResolution().x, stateManager->settings.getResolution().y);
 
@@ -27,7 +21,7 @@ void IntroState::onEvent(sf::Event event)
 {
     if (event.type == sf::Event::KeyPressed) {
         if (event.key.code == sf::Keyboard::Space || event.key.code == sf::Keyboard::Return || event.key.code == sf::Keyboard::Escape) {
-            stateManager->changeState(LoadState::getInstance(stateManager, 5));
+            TRY_CHANGE_STATE(LoadState::getInstance(stateManager, 5));
         }
     }
 }
@@ -36,7 +30,7 @@ void IntroState::onLoop()
 {
     double time = timer.getElapsedTime().asSeconds();
     if (time > duration) {
-            stateManager->changeState(LoadState::getInstance(stateManager, 5));
+        TRY_CHANGE_STATE(LoadState::getInstance(stateManager, 5));
     }
 
     if (time > 2) {

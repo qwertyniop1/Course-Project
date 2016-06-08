@@ -3,10 +3,15 @@
 int Application::onExecute()
 {
     if (!onInit()) {
-        return -1;
+        return EXIT_FAILURE;
     }
 
-    stateManager.changeState(IntroState::getInstance(&stateManager, 15));
+    try {
+        stateManager.changeState(IntroState::getInstance(&stateManager, 15));
+    }
+    catch (std::runtime_error &err) {
+        return EXIT_FAILURE;
+    }
 
     while (window.isOpen()) {
         sf::Event event;       
@@ -30,7 +35,7 @@ int Application::onExecute()
 
     onCleanup();
 
-    return 0;
+    return EXIT_SUCCESS;
 }
 
 bool Application::onInit()
