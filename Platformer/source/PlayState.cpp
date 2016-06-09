@@ -33,7 +33,7 @@ bool PlayState::onInit()
     scoreText.setFont(font);
     scoreText.setCharacterSize(48);
     scoreText.setColor(sf::Color::Black);
-    scoreText.setString(score);
+    scoreText.setString(std::to_string(score));
 
     LOAD_TEXTURE(lifeScoreTexture.loadFromFile("res/life.png"));
     lifeScore.setTexture(lifeScoreTexture);
@@ -43,7 +43,7 @@ bool PlayState::onInit()
         return false;
     }
 
-    stateManager->settings.playSound(Music::GAME); //tmp
+    stateManager->settings.playSound(Music::GAME); 
 
     return true;
 }

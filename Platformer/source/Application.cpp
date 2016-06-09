@@ -40,7 +40,6 @@ int Application::onExecute()
 
 bool Application::onInit()
 {
-    //std::locale::global(std::locale("Russian_Russia"));
     std::locale::global(std::locale(""));
     unsigned int style;
     if (stateManager.settings.isFullscreen())
