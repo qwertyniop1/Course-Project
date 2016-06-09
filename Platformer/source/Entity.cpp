@@ -11,7 +11,8 @@ Entity::Entity(AnimationManager & manager, int x, int y, Level &level)
     alive = true;
     dx = dy = 0;
     this->level = level;
-
+    health = 0;
+    timer = 0;
 }
 
 void Entity::draw(sf::RenderWindow & window)

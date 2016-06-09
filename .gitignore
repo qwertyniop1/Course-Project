@@ -5,6 +5,7 @@
 *.filters
 *.ttf
 *.vk
+*.plog
 
 SFML-2.3.2/
 res/

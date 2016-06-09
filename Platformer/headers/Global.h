@@ -33,8 +33,8 @@
             TRY_LOAD(expression, "Can't load font"); \
 }
 
-const int DEFAULT_WINDOW_HEIGHT = 600; //600
-const int DEFAULT_WINDOW_WIDTH = 800; //800
+const int DEFAULT_WINDOW_HEIGHT = 600; 
+const int DEFAULT_WINDOW_WIDTH = 800; 
 
 const std::string APPLICATION_TITLE = "Aladdin beta";
 

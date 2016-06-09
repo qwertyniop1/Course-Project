@@ -58,7 +58,7 @@ private:
     bool fullscreen, soundEnable, musicEnable;
 
     const std::string soundPaths[6] = { "res/audio/Coin.wav", "res/audio/Die.wav", "res/audio/jump.wav", "res/audio/win.ogg", "res/audio/bump.wav", "res/audio/game_over.ogg" }; // check
-    const std::string musicPaths[2] = { "res/audio/intro.ogg", "res/audio/main.ogg"};
+    const std::string musicPaths[4] = { "res/audio/intro.ogg", "res/audio/main.ogg", "res/audio/game.ogg", "res/audio/winner.ogg" };
     const std::string SETTING_PATH = "res/conf.dat";
 
     bool loadSounds();

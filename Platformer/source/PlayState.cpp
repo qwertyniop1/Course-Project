@@ -43,7 +43,7 @@ bool PlayState::onInit()
         return false;
     }
 
-    stateManager->settings.stopMusic(); //tmp
+    stateManager->settings.playSound(Music::GAME); //tmp
 
     return true;
 }
@@ -209,6 +209,8 @@ void PlayState::onRender(sf::RenderWindow &window)
 
 void PlayState::onCleanup()
 {
+    stateManager->settings.stopMusic();
+
     enemies.clear();
     for (std::list<Entity*>::iterator it = entities.begin(); it != entities.end(); ++it) {
         delete *it;

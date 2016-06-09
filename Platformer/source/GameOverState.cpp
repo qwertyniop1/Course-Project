@@ -28,6 +28,8 @@ bool GameOverState::onInit()
 
     if (!winState)
         stateManager->settings.playSound(Sounds::GAME_OVER_S);
+    else
+        stateManager->settings.playSound(Music::WINSTATE);
         
     return true;
 }

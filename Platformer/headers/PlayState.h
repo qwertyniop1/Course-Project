@@ -18,6 +18,8 @@ protected:
         stateManager = manager;
         levels.assign(levelsPath, levelsPath + LEVELS_QUANTITY);
         score = 0;
+        level = nullptr;
+        player = nullptr;
     };
 
 public:

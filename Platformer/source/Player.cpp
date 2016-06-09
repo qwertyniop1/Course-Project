@@ -193,6 +193,7 @@ void Player::collision(CollisionDirection dir)
                 if (currentState == State::Climb) {
                     x = objects[i].rect.left - 10;
                 }
+                sound = PlayerSounds::NONE;
 
             }
 
