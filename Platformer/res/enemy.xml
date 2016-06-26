@@ -1,0 +1,11 @@
+<!DOCTYPE SpriteDecomposer>
+<sprites image="enemy.png" transparentColor="7078BF">
+ <animation title="walk" delay="150">
+  <cut w="31" x="138" y="372" h="54" row="1" col="1"/>
+  <cut w="38" x="170" y="376" h="50" row="1" col="1"/>
+  <cut w="33" x="209" y="373" h="53" row="1" col="1"/>
+  <cut w="39" x="243" y="372" h="54" row="1" col="1"/>
+  <cut w="48" x="283" y="376" h="50" row="1" col="1"/>
+  <cut w="39" x="332" y="373" h="53" row="1" col="1"/>
+ </animation>
+</sprites>

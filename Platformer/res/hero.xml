@@ -1,0 +1,39 @@
+<!DOCTYPE SpriteDecomposer>
+<sprites image="fang.png" transparentColor="">
+ <animation title="stay" delay="150">
+  <cut w="35" x="3" y="191" h="47" row="1" col="1"/>
+  <cut w="37" x="46" y="192" h="46" row="1" col="1"/>
+  <cut w="38" x="91" y="193" h="45" row="1" col="1"/>
+ </animation>
+ <animation title="walk" delay="150">
+  <cut w="22" x="8" y="246" h="47" row="1" col="1"/>
+  <cut w="27" x="42" y="248" h="46" row="1" col="1"/>
+  <cut w="38" x="80" y="249" h="45" row="1" col="1"/>
+  <cut w="26" x="130" y="247" h="46" row="1" col="1"/>
+  <cut w="28" x="167" y="246" h="47" row="1" col="1"/>
+  <cut w="40" x="205" y="247" h="46" row="1" col="1"/>
+ </animation>
+ <animation title="shoot" delay="150">
+  <cut w="36" x="3" y="575" h="47" row="1" col="1"/>
+  <cut w="38" x="46" y="575" h="47" row="1" col="1"/>
+  <cut w="42" x="90" y="575" h="47" row="1" col="1"/>
+  <cut w="44" x="137" y="575" h="47" row="1" col="1"/>
+  <cut w="44" x="189" y="575" h="47" row="1" col="1"/>
+ </animation>
+ <animation title="duck" delay="150">
+  <cut w="59" x="7" y="438" h="18" row="1" col="1"/>
+ </animation>
+ <animation title="jump" delay="150">
+  <cut w="30" x="4" y="1021" h="24" row="1" col="1"/>
+  <cut w="27" x="41" y="1016" h="30" row="1" col="1"/>
+  <cut w="33" x="76" y="1020" h="24" row="1" col="1"/>
+  <cut w="28" x="120" y="1017" h="30" row="1" col="1"/>
+ </animation>
+ <animation title="shootandwalk" delay="150">
+  <cut w="50" x="198" y="901" h="46" row="1" col="1"/>
+  <cut w="45" x="147" y="900" h="47" row="1" col="1"/>
+  <cut w="43" x="97" y="902" h="46" row="1" col="1"/>
+  <cut w="44" x="46" y="902" h="47" row="1" col="1"/>
+  <cut w="36" x="4" y="901" h="47" row="1" col="1"/>
+ </animation>
+</sprites>

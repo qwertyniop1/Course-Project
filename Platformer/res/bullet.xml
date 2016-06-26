@@ -1,0 +1,12 @@
+<!DOCTYPE SpriteDecomposer>
+<sprites image="bullet.png" transparentColor="">
+ <animation title="blow" delay="150">
+  <cut w="6" x="8" y="10" h="6" row="1" col="1"/>
+  <cut w="7" x="32" y="9" h="8" row="1" col="1"/>
+  <cut w="13" x="58" y="6" h="13" row="1" col="1"/>
+  <cut w="16" x="85" y="5" h="16" row="1" col="1"/>
+ </animation>
+ <animation title="shoot" delay="150">
+  <cut w="6" x="8" y="10" h="6" row="1" col="1"/>
+ </animation>
+</sprites>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<languages>
+	<language name="english">
+		<label>Play</label>
+		<label>Highscores</label>
+		<label>Settings</label>
+		<label>Exit</label>
+		<label>Back</label>
+		<label>To menu</label>
+		<label>Language</label>
+		<label>Screen resolution</label>
+		<label>Fullscreen</label>
+		<label>Game over</label>
+		<label>Congratulation! You win!!!</label>
+		<label>Loading ...</label>
+		<label>Sound</label>
+		<label>Music</label>
+	</language>
+	<language name="russian">
+		<label>Играть</label>
+		<label>Рекорды</label>
+		<label>Настройки</label>
+		<label>Выход</label>
+		<label>Назад</label>
+		<label>В меню</label>
+		<label>Язык</label>
+		<label>Разрешение экрана</label>
+		<label>Полный экран</label>
+		<label>Игра закончена</label>
+		<label>Поздравляем! Вы победили!!!</label>
+		<label>Загрузка ...</label>
+		<label>Звук</label>
+		<label>Музыка</label>
+	</language>
+	<language name="belarusian">
+		<label> Гуляць </label>
+		<label> Рэкорды </label>
+		<label> Налады </label>
+		<label> Выхад </label>
+		<label> Назад </label>
+		<label> У меню </label>
+		<label> Мова </label>
+		<label> Дазвол экрана </label>
+		<label> Поўны экран </label>
+		<label> Гульня скончана </label>
+		<label> Віншуем! Вы перамаглі !!! </label>
+		<label> Загрузка ... </label>
+		<label> Гук </label>
+		<label> Музыка </label>
+	</language>
+		<language name="ukrainian">
+		<label> Грати </label>
+		<label> Рекорди </label>
+		<label> Налаштування </label>
+		<label> Вихід </label>
+		<label> Назад </label>
+		<label> У меню </label>
+		<label> Мова </label>
+		<label> Розширення екрану </label>
+		<label> Повний екран </label>
+		<label> Гра закінчена </label>
+		<label> Вітаємо! Ви перемогли !!! </label>
+		<label> Завантаження ... </label>
+		<label> Звук </label>
+		<label> Музика </label>
+	</language>
+	<language name="german">
+		<label> Wiedergabe </label>
+		<label> Aufzeichnungen </label>
+		<label> Einstellungen </label>
+		<label> Beenden </label>
+		<label> Zurück </label>
+		<label> im Menü </label>
+		<label> Sprache </label>
+		<label> Bildschirmauflösung </label>
+		<label> Vollbild </label>
+		<label> Game Over </label>
+		<label> Herzlichen Glückwunsch ! Sie haben gewonnen !!! </label>
+		<label> Loading ... </label>
+		<label> Ton </label>
+		<label> Musik </label>
+	</language>
+	<language name="french">
+		<label> Lecture </label>
+		<label> Dossiers </label>
+		<label> Paramètres </label>
+		<label> Quitter </label>
+		<label> Retour </label>
+		<label> dans le menu </label>
+		<label> Langue </label>
+		<label> Résolution de l'écran </label>
+		<label> Plein écran </label>
+		<label> Game Over </label>
+		<label> Félicitations! Vous avez gagné !!! </label>		
+		<label> Chargement ... </label>
+		<label> Son </label>
+		<label> Musique </label>
+	</language>
+	<language name="spanish">
+		<label> Reproducir </label>
+		<label> Registros </label>
+		<label> Configuración </label>
+		<label> Salir </label>
+		<label> Volver </label>
+		<label> en el menú </label>
+		<label> Idioma </label>
+		<label> Resolución de la pantalla </label>
+		<label> Pantalla completa </label>
+		<label> Juego encima </label>
+		<label> Enhorabuena! Te has ganado !!! </label>
+		<label> Cargando ... </label>
+		<label> Sonido </label>
+		<label> Música </label>
+	</language>
+	<language name="polish">
+		<label> Odtwórz </label>
+		<label> Records </label>
+		<label> Ustawienia </label>
+		<label> Zakończ </label>
+		<label> Powrót </label>
+		<label> w menu </label>
+		<label> Język </label>
+		<label> Rozdzielczość ekranu </label>
+		<label> Pełny ekran </label>
+		<label> Game Over </label>
+		<label> Gratulacje! You won !!! </label>
+		<label> Ładowanie ... </label>
+		<label> Dźwięk </label>
+		<label> Muzyka </label>
+	</language>
+	<language name="italian">
+		<label> Gioca </label>
+		<label> Dati </label>
+		<label> Impostazioni </label>
+		<label> Esci </label>
+		<label> Indietro </label>
+		<label> nel menu </label>
+		<label> Lingua </label>
+		<label> Risoluzione dello schermo </label>
+		<label> Schermo intero </label>
+		<label> Game Over </label>
+		<label> Complimenti! Hai vinto !!! </label>
+		<label> Caricamento ... </label>
+		<label> Audio </label>
+		<label> Musica </label>
+	</language>
+	<language name="romanian">
+		<label> Redare </label>
+		<label> Records </label>
+		<label> Setări </label>
+		<label> Ieșire </label>
+		<label> Înapoi </label>
+		<label> din meniul </label>
+		<label> Limbă </label>
+		<label> Rezoluție ecran </label>
+		<label> Ecran complet </label>
+		<label> Game Over </label>
+		<label> Felicitări! Ai câștigat !!! </label>
+		<label> Se încarcă ... </label>
+		<label> Sunet </label>
+		<label> Muzică </label>
+	</language>
+</languages>

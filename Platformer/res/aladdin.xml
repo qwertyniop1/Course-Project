@@ -1,0 +1,57 @@
+<!DOCTYPE SpriteDecomposer>
+<sprites image="aladdin.png" transparentColor="FF00FF">
+<animation title="shoot" delay="150">
+  <cut w="43" x="7" y="235" h="56" row="1" col="1"/>
+  <cut w="41" x="57" y="232" h="59" row="1" col="1"/>
+  <cut w="38" x="109" y="233" h="58" row="1" col="1"/>
+  <cut w="46" x="163" y="231" h="60" row="1" col="1"/>
+  <cut w="37" x="221" y="233" h="58" row="1" col="1"/>
+  <cut w="39" x="268" y="239" h="52" row="1" col="1"/>
+ </animation>
+ <animation title="stay" delay="150">
+  <cut w="53" x="644" y="415" h="57" row="1" col="1"/>
+ </animation>
+ <animation title="climb" delay="150">
+  <cut w="29" x="11" y="1362" h="86" row="1" col="1"/>
+  <cut w="28" x="53" y="1361" h="89" row="1" col="1"/>
+  <cut w="28" x="94" y="1374" h="74" row="1" col="1"/>
+  <cut w="42" x="133" y="1377" h="62" row="1" col="1"/>
+  <cut w="31" x="186" y="1363" h="76" row="1" col="1"/>
+  <cut w="29" x="231" y="1358" h="86" row="1" col="1"/>
+  <cut w="28" x="274" y="1367" h="79" row="1" col="1"/>
+  <cut w="32" x="314" y="1377" h="63" row="1" col="1"/>
+  <cut w="42" x="356" y="1377" h="62" row="1" col="1"/>
+  <cut w="28" x="406" y="1362" h="81" row="1" col="1"/>
+ </animation>
+ <animation title="walk" delay="150">
+  <cut w="40" x="14" y="1225" h="48" row="1" col="1"/>
+  <cut w="43" x="66" y="1222" h="51" row="1" col="1"/>
+  <cut w="41" x="120" y="1220" h="53" row="1" col="1"/>
+  <cut w="41" x="171" y="1216" h="57" row="1" col="1"/>
+  <cut w="52" x="220" y="1216" h="57" row="1" col="1"/>
+  <cut w="46" x="279" y="1219" h="54" row="1" col="1"/>
+  <cut w="42" x="334" y="1215" h="58" row="1" col="1"/>
+  <cut w="41" x="386" y="1221" h="52" row="1" col="1"/>
+  <cut w="35" x="440" y="1219" h="54" row="1" col="1"/>
+  <cut w="49" x="488" y="1216" h="57" row="1" col="1"/>
+  <cut w="55" x="547" y="1215" h="58" row="1" col="1"/>
+ </animation>
+ <animation title="jump" delay="150">
+  <cut w="37" x="76" y="1162" h="32" row="1" col="1"/>
+  <cut w="35" x="135" y="1160" h="34" row="1" col="1"/>
+  <cut w="38" x="190" y="1160" h="40" row="1" col="1"/>
+  <cut w="38" x="252" y="1165" h="31" row="1" col="1"/>
+  <cut w="37" x="306" y="1158" h="38" row="1" col="1"/>
+  <cut w="39" x="362" y="1161" h="35" row="1" col="1"/>
+ </animation>
+ <animation title="duck" delay="150">
+  <cut w="48" x="258" y="509" h="40" row="1" col="1"/>
+ </animation>
+<animation title="die" delay="150">
+  <cut w="61" x="282" y="2160" h="51" row="1" col="1"/>
+  <cut w="55" x="58" y="2161" h="52" row="1" col="1"/>
+  <cut w="59" x="351" y="2161" h="49" row="1" col="1"/>
+  <cut w="59" x="122" y="2162" h="50" row="1" col="1"/>
+  <cut w="80" x="189" y="2163" h="48" row="1" col="1"/>
+ </animation>
+</sprites>
