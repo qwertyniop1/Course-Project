@@ -1,5 +1,5 @@
 #include "GameOverState.h"
-#include "HighscoresState.h" 
+#include "HighscoresState.h"
 
 bool GameOverState::onInit()
 {
@@ -30,7 +30,7 @@ bool GameOverState::onInit()
         stateManager->settings.playSound(Sounds::GAME_OVER_S);
     else
         stateManager->settings.playSound(Music::WINSTATE);
-        
+
     return true;
 }
 
@@ -81,8 +81,14 @@ void GameOverState::onCleanup()
     outputFile << nameField.readText() << std::endl;
     outputFile << score << std::endl;
 
-    outputFile.close(); 
-    
+    outputFile.close();
+
+    std::wstring space = L" ";
+    std::wstring str = nameField.readText() + space + std::to_wstring(score);
+    char *res = new char[255];
+    wcstombs(res, str.c_str(), 254);
+    saveOnServer("localhost", 8080, res);
+
     background.setPosition(0, 0);
     textLabel.create(L"", font);
     scoreLabel.create(L"", font);

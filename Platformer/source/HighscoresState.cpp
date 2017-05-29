@@ -1,5 +1,5 @@
 #include "HighscoresState.h"
-#include "MenuState.h" 
+#include "MenuState.h"
 
 bool HighscoresState::onInit()
 {
@@ -23,7 +23,7 @@ bool HighscoresState::onInit()
 
     textLabel.create(stateManager->settings.getLabel(Labels::HIGHSCORES), font);
     textLabel.setPosition((stateManager->settings.getResolution().x - textLabel.getBounds().width) / 2, 100);
-    
+
     return true;
 }
 
@@ -38,7 +38,7 @@ void HighscoresState::onEvent(sf::Event event)
 
 void HighscoresState::onLoop()
 {
-    
+
 }
 
 void HighscoresState::onRender(sf::RenderWindow & window)
@@ -52,7 +52,7 @@ void HighscoresState::onRender(sf::RenderWindow & window)
     }
 }
 
-void HighscoresState::onCleanup() 
+void HighscoresState::onCleanup()
 {
     for (auto label : nodes) {
         delete label;

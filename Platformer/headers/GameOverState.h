@@ -1,14 +1,15 @@
 #ifndef GAME_OVER_STATE_H
-#define GAME_OVER_STATE_H 
+#define GAME_OVER_STATE_H
 
 #include "GameState.h"
 #include "Interface.h"
+#include "Client.h"
 
 class GameOverState : public GameState
 {
 protected:
-    GameOverState(GameStateManager *manager) { 
-        stateManager = manager; 
+    GameOverState(GameStateManager *manager) {
+        stateManager = manager;
         winState = false;
     };
 
