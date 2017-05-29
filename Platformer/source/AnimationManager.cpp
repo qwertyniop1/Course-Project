@@ -99,8 +99,9 @@ bool AnimationManager::loadFromXML(std::string fileName, sf::Texture &texture)
             cut = cut->NextSiblingElement("cut");
         }
 
-        anim.sprite.setOrigin(0, anim.frames[0].height);
-        
+        anim.sprite.setOrigin(0, anim.frames[anim.frames.size()-1].height);
+        // anim.sprite.setOrigin(0, anim.frames[0].height);
+
         animationsList[currentAnimation] = anim;
         animElement = animElement->NextSiblingElement("animation");
     }

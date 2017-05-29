@@ -24,7 +24,7 @@
   <cut w="28" x="406" y="1362" h="81" row="1" col="1"/>
  </animation>
  <animation title="walk" delay="150">
-  <cut w="40" x="14" y="1225" h="48" row="1" col="1"/>
+  <!-- <cut w="40" x="14" y="1225" h="48" row="1" col="1"/> -->
   <cut w="43" x="66" y="1222" h="51" row="1" col="1"/>
   <cut w="41" x="120" y="1220" h="53" row="1" col="1"/>
   <cut w="41" x="171" y="1216" h="57" row="1" col="1"/>
