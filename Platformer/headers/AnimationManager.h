@@ -1,16 +1,24 @@
 #ifndef ANIMATION_MANAGER_H
-#define ANIMATION_MANAGER_H 
+#define ANIMATION_MANAGER_H
 
 #include "Animation.h"
 #include "TinyXML/tinyxml.h"
 
-class AnimationManager
-{
+class AnimationManager {
 public:
     AnimationManager() {};
+
     ~AnimationManager();
 
-    void create(sf::String name, sf::Texture &texture, int x, int y, int width, int height, int count, double speed, int step);
+    void create(sf::String name,
+                sf::Texture &texture,
+                int x,
+                int y,
+                int width,
+                int height,
+                int count,
+                double speed,
+                int step);
 
     void draw(sf::RenderWindow &window, int x = 0, int y = 0);
 
@@ -33,9 +41,6 @@ public:
 private:
     sf::String currentAnimation;
     std::map<sf::String, Animation> animationsList;
-
 };
 
 #endif
-
-

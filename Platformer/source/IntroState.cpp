@@ -1,8 +1,7 @@
 #include "IntroState.h"
 #include "LoadState.h"
 
-bool IntroState::onInit()
-{
+bool IntroState::onInit() {
     LOAD_TEXTURE(logo1.loadFromFile("res/bsuir.jpg"));
     LOAD_TEXTURE(logo2.loadFromFile("res/logo.png"));
 
@@ -18,8 +17,7 @@ bool IntroState::onInit()
     return true;
 }
 
-void IntroState::onEvent(sf::Event event)
-{
+void IntroState::onEvent(sf::Event event) {
     if (event.type == sf::Event::KeyPressed) {
         if (event.key.code == sf::Keyboard::Space || event.key.code == sf::Keyboard::Return || event.key.code == sf::Keyboard::Escape) {
             TRY_CHANGE_STATE(LoadState::getInstance(stateManager, 5));
@@ -27,8 +25,7 @@ void IntroState::onEvent(sf::Event event)
     }
 }
 
-void IntroState::onLoop()
-{
+void IntroState::onLoop() {
     double time = timer.getElapsedTime().asSeconds();
     if (time > duration) {
         TRY_CHANGE_STATE(LoadState::getInstance(stateManager, 5));
@@ -51,12 +48,10 @@ void IntroState::onLoop()
     }
 }
 
-void IntroState::onRender(sf::RenderWindow & window)
-{
+void IntroState::onRender(sf::RenderWindow & window) {
     window.draw(background);
 }
 
-void IntroState::onCleanup()
-{
+void IntroState::onCleanup() {
     stateManager->settings.stopMusic();
 }

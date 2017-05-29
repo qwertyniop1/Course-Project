@@ -1,36 +1,36 @@
 #ifndef SETTINGS_STATE_H
-#define SETTINGS_STATE_H 
+#define SETTINGS_STATE_H
 
 #include "GameState.h"
 #include "Interface.h"
 
-class SettingsState : public GameState
-{
+class SettingsState : public GameState {
 protected:
-    SettingsState(GameStateManager *manager) { 
-        stateManager = manager; 
+    SettingsState(GameStateManager *manager) {
+        stateManager = manager;
         changeFullscreen = changeResolution = false;
     };
 
 public:
-    static SettingsState* getInstance(GameStateManager *manager)
-    {
+    static SettingsState* getInstance(GameStateManager *manager) {
         static SettingsState self(manager);
         return &self;
     }
 
     bool onInit();
+
     void onEvent(sf::Event event);
+
     void onLoop();
+
     void onRender(sf::RenderWindow &window);
+
     void onCleanup();
 
 private:
     sf::Texture backgroundTexture;
     sf::Sprite background;
-
     sf::Vector2i mouse;
-    
     sf::Font font;
     Label textLabel;
     Label languageLabel;
@@ -46,8 +46,7 @@ private:
     Button musicButton;
 
     bool changeResolution, changeFullscreen;
-    
+
 };
 
 #endif
-

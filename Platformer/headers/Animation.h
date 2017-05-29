@@ -1,14 +1,14 @@
 #ifndef ANIMATION_H
-#define ANIMATION_H 
+#define ANIMATION_H
 
 #include "Global.h"
 
-class Animation
-{
+class Animation {
     friend class AnimationManager;
 
 public:
     Animation() {};
+
     Animation(sf::Texture & texture, double speed);
 
     void tick(double time);
@@ -18,8 +18,6 @@ private:
     double currentFrame, speed;
     bool isFlip, isPlaying;
     sf::Sprite sprite;
-
 };
 
 #endif
-

@@ -1,5 +1,5 @@
 #ifndef GLOBAL_H
-#define GLOBAL_H 
+#define GLOBAL_H
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
@@ -33,13 +33,11 @@
             TRY_LOAD(expression, "Can't load font"); \
 }
 
-const int DEFAULT_WINDOW_HEIGHT = 600; 
-const int DEFAULT_WINDOW_WIDTH = 800; 
-
+const int DEFAULT_WINDOW_HEIGHT = 600;
+const int DEFAULT_WINDOW_WIDTH = 800;
 const std::string APPLICATION_TITLE = "Aladdin beta";
 
-enum CollisionDirection
-{
+enum CollisionDirection {
     X, Y
 };
 
@@ -50,5 +48,3 @@ enum Direction {
 void setAndScale(sf::Sprite &sprite, sf::Texture &texture, int width, int height);
 
 #endif
-
-

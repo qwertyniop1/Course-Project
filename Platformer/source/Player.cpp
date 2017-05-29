@@ -1,7 +1,9 @@
 #include "Player.h"
 
-Player::Player(AnimationManager &manager, int x, int y, Level &level) : Entity(manager, x, y, level)
-{    
+Player::Player(AnimationManager &manager,
+               int x,
+               int y,
+               Level &level) : Entity(manager, x, y, level) {
     currentState = State::Stay;
     health = HEALTH;
     isShooting = false;
@@ -10,8 +12,7 @@ Player::Player(AnimationManager &manager, int x, int y, Level &level) : Entity(m
     sound = PlayerSounds::NONE;
 }
 
-void Player::handleKeys()
-{
+void Player::handleKeys() {
     if (keys[Key::Left]) {
         direction = Direction::Flip;
         if (currentState != State::Duck) {
@@ -34,7 +35,7 @@ void Player::handleKeys()
         if (isOnLadder) {
             currentState = State::Climb;
         }
-        if (currentState == State::Climb /*|| currentState == State::Swim*/) {
+        if (currentState == State::Climb) {
             dy = -LADDER_GRAVITY;
             if (keys[Key::Left] || keys[Key::Right]) {
                 currentState = State::Stay;
@@ -82,8 +83,7 @@ void Player::handleKeys()
 
 }
 
-void Player::update(double time)
-{
+void Player::update(double time) {
     handleKeys();
 
     switch (currentState) {
@@ -100,11 +100,10 @@ void Player::update(double time)
         animationManager.set("duck");
         break;
     case State::Climb:
-        animationManager.set("climb");        
+        animationManager.set("climb");
         if (dy != 0) {
             animationManager.play();
-        }
-        else {
+        } else {
             animationManager.pause();
         }
         if (!isOnLadder) {
@@ -117,7 +116,6 @@ void Player::update(double time)
 
     if (isShooting) {
         animationManager.set("shoot");
-        //if (currentState == State::Walk) animationManager.set("shootandwalk");
     }
 
     if (hit) {
@@ -135,16 +133,14 @@ void Player::update(double time)
 
     if (direction == Direction::Flip) {
         animationManager.flip(true);
-    }
-    else {
+    } else {
         animationManager.flip(false);
     }
 
     if (currentState == State::Climb) {
         if (!isOnLadder) currentState = State::Stay;
-    }
-    else { 
-        dy += ACCELERATION * time; 
+    } else {
+        dy += ACCELERATION * time;
     }
     isOnLadder = false;
 
@@ -152,7 +148,7 @@ void Player::update(double time)
     collision(X);
 
     y += dy * time;
-    collision(Y);   
+    collision(Y);
 
     animationManager.tick(time);
 
@@ -161,8 +157,7 @@ void Player::update(double time)
     }
 }
 
-void Player::collision(CollisionDirection dir)
-{
+void Player::collision(CollisionDirection dir) {
     std::vector<Object> objects = level.getAllObjects();
     for (size_t i = 0; i < objects.size(); ++i) {
         if (getRect().intersects(objects[i].rect)) {
@@ -177,16 +172,16 @@ void Player::collision(CollisionDirection dir)
                 }
                 if (dir == CollisionDirection::Y) {
                     if (dy > 0) {
-                        y = objects[i].rect.top - height;  
-                        dy = 0;   
+                        y = objects[i].rect.top - height;
+                        dy = 0;
                         currentState = State::Stay;
                     }
                     if (dy < 0) {
-                        y = objects[i].rect.top + objects[i].rect.height; 
+                        y = objects[i].rect.top + objects[i].rect.height;
                         dy = 0;
                     }
-                }                   
-            }       
+                }
+            }
 
             if (objects[i].name == "ladder") {
                 isOnLadder = true;
@@ -213,28 +208,22 @@ void Player::collision(CollisionDirection dir)
     }
 }
 
-void Player::setHit(bool flag)
-{
+void Player::setHit(bool flag) {
     hit = flag;
 }
 
-bool Player::isHit()
-{
+bool Player::isHit() {
     return hit;
 }
 
-int Player::getHealth()
-{
+int Player::getHealth() {
     return health;
 }
 
-void Player::setSound(PlayerSounds flag)
-{
+void Player::setSound(PlayerSounds flag) {
     sound = flag;
 }
 
-PlayerSounds Player::getSound()
-{
+PlayerSounds Player::getSound() {
     return sound;
 }
-

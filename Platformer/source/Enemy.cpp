@@ -1,18 +1,18 @@
 #include "Enemy.h"
 
-Enemy::Enemy(AnimationManager &manager, int x, int y, Level &level) : Entity(manager, x, y, level)
-{
+Enemy::Enemy(AnimationManager &manager,
+             int x,
+             int y,
+             Level &level) : Entity(manager, x, y, level) {
     name = "Enemy";
     animationManager.set("walk");
     dx = ENEMY_SPEED;
 }
 
-void Enemy::update(double time)
-{
+void Enemy::update(double time) {
     if (direction == Direction::Flip) {
         animationManager.flip(true);
-    }
-    else {
+    } else {
         animationManager.flip(false);
     }
 
@@ -22,19 +22,18 @@ void Enemy::update(double time)
     dy += ACCELERATION * time;
     y += dy * time;
     collision(Y);
-    
+
     animationManager.tick(time);
 }
 
-void Enemy::collision(CollisionDirection dir)
-{
+void Enemy::collision(CollisionDirection dir) {
     std::vector<Object> objects = level.getAllObjects();
     for (size_t i = 0; i < objects.size(); ++i) {
         if (getRect().intersects(objects[i].rect)) {
             if (objects[i].name == "solid" || objects[i].name == "e_solid") {
                 if (dir == CollisionDirection::X) {
                     if (dx > 0) {
-                        x = objects[i].rect.left - width;     
+                        x = objects[i].rect.left - width;
                         direction = Direction::Flip;
                     }
                     if (dx < 0) {
@@ -46,7 +45,7 @@ void Enemy::collision(CollisionDirection dir)
                 if (dir == CollisionDirection::Y) {
                     if (dy > 0) {
                         y = objects[i].rect.top - height;
-                        dy = 0;                        
+                        dy = 0;
                     }
                     if (dy < 0) {
                         y = objects[i].rect.top + objects[i].rect.height;

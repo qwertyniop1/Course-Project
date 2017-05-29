@@ -1,5 +1,5 @@
 #ifndef COIN_H
-#define COIN_H 
+#define COIN_H
 
 #include "Entity.h"
 
@@ -11,7 +11,6 @@ public:
 
 private:
     const int COIN_SIZE = 32;
-
 };
 
 #endif

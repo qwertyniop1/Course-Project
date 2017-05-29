@@ -1,5 +1,5 @@
 #ifndef ENTITY_H
-#define ENTITY_H 
+#define ENTITY_H
 
 #include "AnimationManager.h"
 #include "Level.h"
@@ -29,18 +29,16 @@ public:
 protected:
     const double ACCELERATION = 0.0005;
 
-    double x, y, width, height; 
+    double x, y, width, height;
     AnimationManager animationManager;
     Direction direction;
     std::string name;
     bool alive;
-
     int health;
     double timer;
 
 public:
-    double dx, dy; /* tmp */
+    double dx, dy;
 };
-
 
 #endif

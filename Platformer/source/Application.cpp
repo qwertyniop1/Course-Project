@@ -1,7 +1,6 @@
 #include "Application.h"
 
-int Application::onExecute()
-{
+int Application::onExecute() {
     if (!onInit()) {
         return EXIT_FAILURE;
     }
@@ -14,16 +13,16 @@ int Application::onExecute()
     }
 
     while (window.isOpen()) {
-        sf::Event event;       
+        sf::Event event;
 
-        while (window.pollEvent(event)) {            
+        while (window.pollEvent(event)) {
             stateManager.onEvent(event);
 
             if (event.type == sf::Event::Closed) {
                 window.close();
             }
         }
-        
+
         stateManager.onLoop();
 
         window.clear(sf::Color::White);
@@ -42,14 +41,13 @@ bool Application::onInit()
 {
     std::locale::global(std::locale(""));
     unsigned int style;
-    if (stateManager.settings.isFullscreen())
+    if (stateManager.settings.isFullscreen()) {
         style = sf::Style::Fullscreen;
-    else
+    } else {
         style = sf::Style::Close;
+    }
     window.create(sf::VideoMode(stateManager.settings.getResolution().x, stateManager.settings.getResolution().y), APPLICATION_TITLE, style);
     window.setFramerateLimit(60);
-    //window.setVerticalSyncEnabled(true);
-
     /*sf::Image icon;
     if (icon.loadFromFile("res/icon.jpg")) {
         window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
@@ -58,7 +56,6 @@ bool Application::onInit()
     return true;
 }
 
-void Application::onCleanup()
-{
-    
+void Application::onCleanup() {
+
 }

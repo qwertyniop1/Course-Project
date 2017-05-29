@@ -1,8 +1,7 @@
 #include "HighscoresState.h"
 #include "MenuState.h"
 
-bool HighscoresState::onInit()
-{
+bool HighscoresState::onInit() {
     LOAD_TEXTURE(backgroundTexture.loadFromFile("res/background.jpg"));
 
     setAndScale(background, backgroundTexture, stateManager->settings.getResolution().x, stateManager->settings.getResolution().y);
@@ -27,8 +26,7 @@ bool HighscoresState::onInit()
     return true;
 }
 
-void HighscoresState::onEvent(sf::Event event)
-{
+void HighscoresState::onEvent(sf::Event event) {
    if (event.type == sf::Event::KeyPressed) {
         if (event.key.code == sf::Keyboard::Space || event.key.code == sf::Keyboard::Return || event.key.code == sf::Keyboard::Escape) {
             TRY_CHANGE_STATE(MenuState::getInstance(stateManager));
@@ -36,13 +34,11 @@ void HighscoresState::onEvent(sf::Event event)
     }
 }
 
-void HighscoresState::onLoop()
-{
+void HighscoresState::onLoop() {
 
 }
 
-void HighscoresState::onRender(sf::RenderWindow & window)
-{
+void HighscoresState::onRender(sf::RenderWindow & window) {
     window.setView(window.getDefaultView());
     window.draw(background);
 
@@ -52,8 +48,7 @@ void HighscoresState::onRender(sf::RenderWindow & window)
     }
 }
 
-void HighscoresState::onCleanup()
-{
+void HighscoresState::onCleanup() {
     for (auto label : nodes) {
         delete label;
     }
@@ -65,11 +60,10 @@ void HighscoresState::onCleanup()
 
 }
 
-bool HighscoresState::openFile(std::string path)
-{
+bool HighscoresState::openFile(std::string path) {
     std::wifstream inputFile;
     inputFile.open(path, std::ios::in);
-    if (!inputFile.is_open() || inputFile.eof()) { //check
+    if (!inputFile.is_open() || inputFile.eof()) {
         return false;
     }
 
@@ -89,8 +83,7 @@ bool HighscoresState::openFile(std::string path)
     return true;
 }
 
-std::wstring HighscoresState::createNode(std::wstring name, std::wstring score)
-{
+std::wstring HighscoresState::createNode(std::wstring name, std::wstring score) {
     std::wstring result;
 
     Label tmp;

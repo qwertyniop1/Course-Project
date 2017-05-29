@@ -3,10 +3,9 @@
 #include "HighscoresState.h"
 #include "SettingsState.h"
 
-bool MenuState::onInit()
-{    
+bool MenuState::onInit() {
     LOAD_TEXTURE(backgroundTexture.loadFromFile("res/background.jpg"));
-   
+
     setAndScale(background, backgroundTexture, stateManager->settings.getResolution().x, stateManager->settings.getResolution().y);
 
     LOAD_FONT(font.loadFromFile("res/comic.ttf"));
@@ -40,18 +39,11 @@ bool MenuState::onInit()
     exitButton.setBoundsColor(sf::Color::Transparent);
 
     stateManager->settings.playSound(Music::MENU);
-    
+
     return true;
 }
 
-void MenuState::onEvent(sf::Event event)
-{
-    if (event.type == sf::Event::KeyPressed) {
-        if (event.key.code == sf::Keyboard::Space) {
-            //stateManager->changeState(PlayState::getInstance(stateManager));
-        }
-    }
-
+void MenuState::onEvent(sf::Event event) {
     if (event.type == sf::Event::MouseButtonPressed) {
         if (event.mouseButton.button == sf::Mouse::Left) {
             if (playButton.select(mouse)) {
@@ -70,36 +62,30 @@ void MenuState::onEvent(sf::Event event)
     }
 }
 
-void MenuState::onLoop()
-{
+void MenuState::onLoop() {
     if (playButton.select(mouse)) {
         playButton.setFontColor(sf::Color::Blue);
-    }
-    else {
+    } else {
         playButton.setFontColor(sf::Color::White);
     }
     if (highscoresButton.select(mouse)) {
         highscoresButton.setFontColor(sf::Color::Blue);
-    }
-    else {
+    } else {
         highscoresButton.setFontColor(sf::Color::White);
     }
     if (settingsButton.select(mouse)) {
         settingsButton.setFontColor(sf::Color::Blue);
-    }
-    else {
+    } else {
         settingsButton.setFontColor(sf::Color::White);
     }
     if (exitButton.select(mouse)) {
         exitButton.setFontColor(sf::Color::Blue);
-    }
-    else {
+    } else {
         exitButton.setFontColor(sf::Color::White);
     }
 }
 
-void MenuState::onRender(sf::RenderWindow & window)
-{
+void MenuState::onRender(sf::RenderWindow & window) {
     mouse = sf::Mouse::getPosition(window);
 
     window.setView(window.getDefaultView());
@@ -107,7 +93,7 @@ void MenuState::onRender(sf::RenderWindow & window)
 
     window.draw(playButton.displayButton());
     window.draw(playButton.displayText());
-    
+
     window.draw(highscoresButton.displayButton());
     window.draw(highscoresButton.displayText());
 
@@ -118,8 +104,6 @@ void MenuState::onRender(sf::RenderWindow & window)
     window.draw(exitButton.displayText());
 }
 
-void MenuState::onCleanup()
-{
-
+void MenuState::onCleanup() {
     background.setPosition(0, 0);
 }

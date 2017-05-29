@@ -3,23 +3,19 @@
 #include <iostream>
 
 
-int Object::getPropertyInt(std::string name)
-{
+int Object::getPropertyInt(std::string name) {
     return atoi(properties[name].c_str());
 }
 
-double Object::getPropertyFloat(std::string name)
-{
+double Object::getPropertyFloat(std::string name) {
     return strtod(properties[name].c_str(), NULL);
 }
 
-std::string Object::getPropertyString(std::string name)
-{
+std::string Object::getPropertyString(std::string name) {
     return properties[name];
 }
 
-bool Level::loadFromFile(std::string filename)
-{
+bool Level::loadFromFile(std::string filename) {
     TiXmlDocument levelFile(filename.c_str());
 
     // Загружаем XML-карту
@@ -185,8 +181,7 @@ bool Level::loadFromFile(std::string filename)
                 if (objectElement->Attribute("width") != NULL) {
                     width = atoi(objectElement->Attribute("width"));
                     height = atoi(objectElement->Attribute("height"));
-                }
-                else {
+                } else {
                     width = subRects[atoi(objectElement->Attribute("gid")) - firstTileID].width;
                     height = subRects[atoi(objectElement->Attribute("gid")) - firstTileID].height;
                     sprite.setTextureRect(subRects[atoi(objectElement->Attribute("gid")) - firstTileID]);
@@ -230,16 +225,14 @@ bool Level::loadFromFile(std::string filename)
             }
             objectGroupElement = objectGroupElement->NextSiblingElement("objectgroup");
         }
-    }
-    else {
+    } else {
         std::cout << "No object layers found..." << std::endl;
     }
 
     return true;
 }
 
-Object Level::getObject(std::string name)
-{
+Object Level::getObject(std::string name) {
     for (int i = 0; i < objects.size(); ++i) {
         if (objects[i].name == name) {
             return objects[i];
@@ -249,8 +242,7 @@ Object Level::getObject(std::string name)
     throw new std::runtime_error("Objects not found");
 }
 
-std::vector<Object> Level::getObjects(std::string name)
-{
+std::vector<Object> Level::getObjects(std::string name) {
     std::vector<Object> result;
     for (int i = 0; i < objects.size(); ++i) {
         if (objects[i].name == name) {
@@ -260,13 +252,11 @@ std::vector<Object> Level::getObjects(std::string name)
     return result;
 }
 
-std::vector<Object> Level::getAllObjects()
-{
+std::vector<Object> Level::getAllObjects() {
     return objects;
 };
 
-void Level::draw(sf::RenderWindow & window)
-{
+void Level::draw(sf::RenderWindow & window) {
     for (int i = 0; i < layers.size(); ++i) {
         for (int j = 0; j < layers[i].tiles.size(); ++j) {
             window.draw(layers[i].tiles[j]);
@@ -274,7 +264,6 @@ void Level::draw(sf::RenderWindow & window)
     }
 }
 
-sf::Vector2i Level::getTileSize()
-{
+sf::Vector2i Level::getTileSize() {
     return sf::Vector2i(tileWidth, tileHeight);
 }

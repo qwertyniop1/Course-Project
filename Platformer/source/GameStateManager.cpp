@@ -1,12 +1,11 @@
 #include "GameStateManager.h"
 #include "GameState.h"
 
-GameStateManager::GameStateManager()
-{   
+GameStateManager::GameStateManager() {
+
 }
 
-void GameStateManager::changeState(GameState *state)
-{
+void GameStateManager::changeState(GameState *state) {
     if (!states.empty()) {
         states.top()->onCleanup();
         states.pop();
@@ -17,8 +16,7 @@ void GameStateManager::changeState(GameState *state)
     }
 }
 
-void GameStateManager::onEvent(sf::Event event)
-{
+void GameStateManager::onEvent(sf::Event event) {
     if (event.type == sf::Event::Closed) {
         quit();
     }
@@ -27,15 +25,13 @@ void GameStateManager::onEvent(sf::Event event)
     }
 }
 
-void GameStateManager::onLoop()
-{
+void GameStateManager::onLoop() {
     if (!states.empty()) {
         states.top()->onLoop();
     }
 }
 
-void GameStateManager::onRender(sf::RenderWindow &window)
-{
+void GameStateManager::onRender(sf::RenderWindow &window) {
     if (!states.empty()) {
         states.top()->onRender(window);
     }
@@ -44,10 +40,8 @@ void GameStateManager::onRender(sf::RenderWindow &window)
     }
 }
 
-void GameStateManager::quit() 
-{
-    while (!states.empty())
-    {
+void GameStateManager::quit() {
+    while (!states.empty()) {
         states.top()->onCleanup();
         states.pop();
     }

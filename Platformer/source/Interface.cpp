@@ -1,7 +1,6 @@
 #include "Interface.h"
 
-void Label::create(std::wstring text, sf::Font &font, double x, double y)
-{
+void Label::create(std::wstring text, sf::Font &font, double x, double y) {
     this->x = x;
     this->y = y;
     this->text = text;
@@ -12,37 +11,36 @@ void Label::create(std::wstring text, sf::Font &font, double x, double y)
     labelText.setString(text);
 }
 
-sf::Text Label::displayText()
-{
+sf::Text Label::displayText() {
     labelText.setString(L"");
-    labelText.setString(text); 
+    labelText.setString(text);
     return labelText;
 }
 
-sf::FloatRect Label::getBounds()
-{
+sf::FloatRect Label::getBounds() {
     return labelText.getGlobalBounds();
 }
 
-void Label::setPosition(int x, int y)
-{
+void Label::setPosition(int x, int y) {
     this->x = x;
     this->y = y;
     labelText.setPosition(x, y);
 }
 
-void Label::setText(std::wstring text)
-{
+void Label::setText(std::wstring text) {
     this->text = text;
 }
 
-void Label::setFontColor(sf::Color color)
-{
+void Label::setFontColor(sf::Color color) {
     labelText.setColor(color);
 }
 
-void Button::create(std::wstring text, sf::Font & font, double x, double y, double width, double height)
-{
+void Button::create(std::wstring text,
+                    sf::Font &font,
+                    double x,
+                    double y,
+                    double width,
+                    double height) {
     this->x = x;
     this->y = y;
     this->width = width;
@@ -54,88 +52,79 @@ void Button::create(std::wstring text, sf::Font & font, double x, double y, doub
     labelText.setPosition(x, y);
     labelText.setString(text);
 
-    box.setSize(sf::Vector2f(width, height));		// ðàçìåð êíîïêè
-    box.setPosition(x, y);						// êîîðäèíàòû êíîïêè
-    box.setFillColor(sf::Color(133, 133, 133));	// öâåò êíîïêè
-    box.setOutlineThickness(2);					// Êîíòóð X ïèêñåëåé
+    box.setSize(sf::Vector2f(width, height));
+    box.setPosition(x, y);
+    box.setFillColor(sf::Color(133, 133, 133));
+    box.setOutlineThickness(2);
     box.setOutlineColor(sf::Color(66, 66, 66));
 }
 
-sf::RectangleShape Button::displayButton()
-{
+sf::RectangleShape Button::displayButton() {
     return box;
 }
 
-bool Button::select(sf::Vector2i mouse)
-{
-    if ((mouse.x > x && mouse.x < x + width) && (mouse.y > y && mouse.y < y + height)) {
-        return  true;
-    }
-    return false;
+bool Button::select(sf::Vector2i mouse) {
+    return (mouse.x > x && mouse.x < x + width) && (mouse.y > y && mouse.y < y + height);
 }
 
-sf::FloatRect Button::getBounds()
-{
+sf::FloatRect Button::getBounds() {
     return box.getGlobalBounds();
 }
 
-sf::FloatRect Button::getTextBounds()
-{
+sf::FloatRect Button::getTextBounds() {
     return labelText.getGlobalBounds();
 }
 
-void Button::setPosition(int x, int y)
-{
+void Button::setPosition(int x, int y) {
     this->x = x;
     this->y = y;
     labelText.setPosition(x, y);
     box.setPosition(x, y);
 }
 
-void Button::setSize(int width, int height)
-{
+void Button::setSize(int width, int height) {
     this->width = width;
     this->height = height;
     box.setSize(sf::Vector2f(width, height));
 }
 
-void Button::setCharacterSize(int size)
-{
+void Button::setCharacterSize(int size) {
     labelText.setCharacterSize(size);
 }
 
-void Button::setFillColor(sf::Color color)
-{
+void Button::setFillColor(sf::Color color) {
     box.setFillColor(color);
 }
 
-void Button::setBoundsColor(sf::Color color)
-{
+void Button::setBoundsColor(sf::Color color) {
     box.setOutlineColor(color);
 }
 
-void Input::create(sf::Font &font, std::wstring _text, double _x, double _y, double _width, double _height)
-{
+void Input::create(sf::Font &font,
+                   std::wstring _text,
+                   double _x,
+                   double _y,
+                   double _width,
+                   double _height) {
     x = _x;
     y = _y;
     width = _width;
     height = _height;
-    text = _text;								// çàãðóæàåò òåêñò
-    focus = false;								// ôîêóñ ïîëÿ ââîäà
+    text = _text;
+    focus = false;
 
-    labelText.setFont(font);							// çàãðóæàåì ôðèôò
-    labelText.setCharacterSize(20); 					// â ïèêñåëÿõ, à íå òî÷êàõ!
-    labelText.setColor(sf::Color::Black);					// óñòàíàâëèâàåì öâåò âûâîäèìîãî òåêñòà
-    labelText.setPosition(x, y);						// ïîçèöèÿ òåêñòà
+    labelText.setFont(font);
+    labelText.setCharacterSize(20);
+    labelText.setColor(sf::Color::Black);
+    labelText.setPosition(x, y);
     labelText.setString(text);
 
-    box.setSize(sf::Vector2f(width, height));		// ðàçìåð ïîëÿ ââîäà
-    box.setPosition(x, y);						// êîîðäèíàòû ïîëÿ ââîäà
-    box.setFillColor(sf::Color::White);	// öâåò êíîïêè
+    box.setSize(sf::Vector2f(width, height));
+    box.setPosition(x, y);
+    box.setFillColor(sf::Color::White);
 }
 
-void Input::reText(wchar_t _tmp)
-{
+void Input::reText(wchar_t _tmp) {
     text.erase(text.size() - 1);
 
     if (_tmp != 8) {
@@ -152,43 +141,37 @@ void Input::reText(wchar_t _tmp)
     labelText.setString(text);
 }
 
-bool Input::select()
-{
+bool Input::select() {
     return focus;
 }
 
-bool Input::select(sf::Vector2i _mouse)
-{
-    if ((_mouse.x > x && _mouse.x < x + width) && (_mouse.y > y && _mouse.y < y + height)) { 	//Åñëè íàæàò êëàèøà íàä îáúåêòîì Input...
-        focus = true;																	   	// Ôîêóñ true
-        text += L"|";																		// Â êîíåö ñòðîêè äîáàëÿåì | (÷òî áû ïîíèìàòü ÷òî input â ôîêóñå)
-    }
-    else {																				//...Èíà÷å åñëè íàæàòèå ïðîèçîøëî íå íàä îáúåêòîì, òî...
-        if (text.size() > 0) {																// ïðîâåðêà ïîñëåäíåãî ñèìâîëà(èíà÷å âûëåòàåò)
-            if (text[text.size() - 1] == 124) {													// åñëè ñèìâîë | ...
-                text.erase(text.size() - 1);														// ... òî óäàëÿåì åãî
+bool Input::select(sf::Vector2i _mouse) {
+    if ((_mouse.x > x && _mouse.x < x + width) && (_mouse.y > y && _mouse.y < y + height)) {
+        focus = true;
+        text += L"|";
+    } else {
+        if (text.size() > 0) {
+            if (text[text.size() - 1] == 124) {
+                text.erase(text.size() - 1);
             }
         }
-        focus = false;																		// óñòàíàâëèâàåì ôîêóñ false
+        focus = false;
     }
     return focus;
 }
 
-std::wstring Input::readText()
-{    
-    if (text.size() != 0 && text[text.size() - 1] == 124) { 	// óäàëÿåì (åñëè åñòü) ñèìâîë |
+std::wstring Input::readText() {
+    if (text.size() != 0 && text[text.size() - 1] == 124) {
         text.erase(text.size() - 1);
     }
-    return text;   
+    return text;
 }
 
-sf::FloatRect Input::getBounds()
-{
+sf::FloatRect Input::getBounds() {
     return box.getGlobalBounds();
 }
 
-void Input::setPosition(int x, int y)
-{
+void Input::setPosition(int x, int y) {
     this->x = x;
     this->y = y;
     labelText.setPosition(x, y);

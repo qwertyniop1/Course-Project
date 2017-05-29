@@ -1,7 +1,6 @@
 # include "Global.h"
 
-void setAndScale(sf::Sprite &sprite, sf::Texture &texture, int width, int height)
-{
+void setAndScale(sf::Sprite &sprite, sf::Texture &texture, int width, int height) {
     sprite.setTexture(texture);
 
     double coef = (double)height / texture.getSize().y;

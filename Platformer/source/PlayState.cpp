@@ -3,8 +3,7 @@
 #include "GameOverState.h"
 #include "MenuState.h"
 
-bool PlayState::onInit()
-{
+bool PlayState::onInit() {
     player = nullptr;
     level = nullptr;
 
@@ -20,7 +19,7 @@ bool PlayState::onInit()
 
     LOAD_TEXTURE(coinTexture.loadFromFile("res/coins.png"));
 
-    LOAD_ANIMATION(playerAnimation.loadFromXML("res/aladdin.xml", playerTexture)); 
+    LOAD_ANIMATION(playerAnimation.loadFromXML("res/aladdin.xml", playerTexture));
     LOAD_ANIMATION(enemyAnimation.loadFromXML("res/enemy.xml", enemyTexture));
     LOAD_ANIMATION(bulletAnimation.loadFromXML("res/bullet.xml", bulletTexture));
     LOAD_ANIMATION(coinAnimation.loadFromXML("res/coin.xml", coinTexture));
@@ -43,13 +42,12 @@ bool PlayState::onInit()
         return false;
     }
 
-    stateManager->settings.playSound(Music::GAME); 
+    stateManager->settings.playSound(Music::GAME);
 
     return true;
 }
 
-void PlayState::onEvent(sf::Event event)
-{
+void PlayState::onEvent(sf::Event event) {
     if (event.type == sf::Event::KeyPressed) {
         if (event.key.code == sf::Keyboard::Escape) {
             levels.assign(levelsPath, levelsPath + LEVELS_QUANTITY);
@@ -59,8 +57,7 @@ void PlayState::onEvent(sf::Event event)
     }
 }
 
-void PlayState::onLoop()
-{   
+void PlayState::onLoop() {
     double time = clock.getElapsedTime().asMicroseconds();
     clock.restart();
     time /= 800;
@@ -84,7 +81,6 @@ void PlayState::onLoop()
         player->keys[Player::Key::Space] = true;
     }
 
-
     player->update(time);
     switch (player->getSound()) {
     case PlayerSounds::JUMP_S:
@@ -98,7 +94,7 @@ void PlayState::onLoop()
     default:
         break;
     }
-     
+
     if (!player->isAlive()) {
         if (player->getHealth() <= 0) {
             levels.assign(levelsPath, levelsPath + LEVELS_QUANTITY);
@@ -149,7 +145,7 @@ void PlayState::onLoop()
                     stateManager->settings.playSound(Sounds::BUMP);
                 }
                 else if (!player->isHit()){
-                    player->changeHealth(-10); // animation hit
+                    player->changeHealth(-10);
                     player->setHit(true);
                     stateManager->settings.playSound(Sounds::DIE);
                    /* if (player->getRect().left > enemy->getRect().left)
@@ -173,7 +169,7 @@ void PlayState::onLoop()
         }
         if ((*it)->getName() == "Coin") {
             if (player->getRect().intersects((*it)->getRect())) {
-                score += 20;                
+                score += 20;
                 (*it)->eliminate();
                 stateManager->settings.playSound(Sounds::COIN);
             }
@@ -181,8 +177,7 @@ void PlayState::onLoop()
     }
 }
 
-void PlayState::onRender(sf::RenderWindow &window)
-{ 
+void PlayState::onRender(sf::RenderWindow &window) {
     view.setCenter(player->getRect().left, player->getRect().top - stateManager->settings.getResolution().y / 5);
     window.setView(view);
 
@@ -198,17 +193,18 @@ void PlayState::onRender(sf::RenderWindow &window)
     player->draw(window);
 
     scoreText.setString(std::to_string(score));
-    scoreText.setPosition(view.getCenter().x - stateManager->settings.getResolution().x / 2 + 50, view.getCenter().y - stateManager->settings.getResolution().y / 2 + 10);
+    scoreText.setPosition(view.getCenter().x - stateManager->settings.getResolution().x / 2 + 50,
+                          view.getCenter().y - stateManager->settings.getResolution().y / 2 + 10);
     window.draw(scoreText);
 
     for (size_t i = 0; i < player->getHealth() / 10; ++i) {
-        lifeScore.setPosition(view.getCenter().x + stateManager->settings.getResolution().x / 2 - 70 - i * 50, view.getCenter().y - stateManager->settings.getResolution().y / 2 + 30);
-        window.draw(lifeScore); 
-    }   
+        lifeScore.setPosition(view.getCenter().x + stateManager->settings.getResolution().x / 2 - 70 - i * 50,
+                              view.getCenter().y - stateManager->settings.getResolution().y / 2 + 30);
+        window.draw(lifeScore);
+    }
 }
 
-void PlayState::onCleanup()
-{
+void PlayState::onCleanup() {
     stateManager->settings.stopMusic();
 
     enemies.clear();
@@ -220,14 +216,13 @@ void PlayState::onCleanup()
     delete level;
 }
 
-bool PlayState::loadLevel()
-{
+bool PlayState::loadLevel() {
     if (levels.size() == 0) {
         return false;
     }
     std::string path = *levels.begin();
     levels.erase(levels.begin());
-    
+
     //if (level != nullptr) {
     //    delete level;
     //}
@@ -241,13 +236,13 @@ bool PlayState::loadLevel()
     //}
     //entities.clear();
 
-    enemies = level->getObjects("enemy"); // check if necessary
+    enemies = level->getObjects("enemy");
 
     for (size_t i = 0; i < enemies.size(); ++i) {
         entities.push_back(new Enemy(enemyAnimation, enemies[i].rect.left, enemies[i].rect.top, *level));
     }
 
-    enemies = level->getObjects("coin"); // check if necessary
+    enemies = level->getObjects("coin");
 
     for (size_t i = 0; i < enemies.size(); ++i) {
         entities.push_back(new Coin(coinAnimation, enemies[i].rect.left, enemies[i].rect.top, *level));
@@ -261,11 +256,11 @@ bool PlayState::loadLevel()
         std::cout << "Incorrect level data" << std::endl;
         return false;
     }
-    
+
     //if (player != nullptr) {
     //    delete player;
     //}
     player = new Player(playerAnimation, playerObject.rect.left, playerObject.rect.top, *level);
-    
+
     return true;
 }

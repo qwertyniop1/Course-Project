@@ -1,12 +1,10 @@
 #ifndef APPLICATION_H
-#define APPLICATION_H 
+#define APPLICATION_H
 
 #include "GameStateManager.h"
-
 #include "IntroState.h"
 
-class Application
-{
+class Application {
 public:
     Application() {};
 
@@ -18,11 +16,7 @@ public:
 
 private:
     sf::RenderWindow window;
-
     GameStateManager stateManager;
-
 };
 
 #endif
-
-

@@ -1,5 +1,5 @@
 #ifndef PLAY_STATE_H
-#define PLAY_STATE_H 
+#define PLAY_STATE_H
 
 #include <list>
 
@@ -14,7 +14,7 @@ const size_t LEVELS_QUANTITY = 4;
 class PlayState : public GameState
 {
 protected:
-    PlayState(GameStateManager *manager) { 
+    PlayState(GameStateManager *manager) {
         stateManager = manager;
         levels.assign(levelsPath, levelsPath + LEVELS_QUANTITY);
         score = 0;
@@ -23,22 +23,25 @@ protected:
     };
 
 public:
-    static PlayState* getInstance(GameStateManager *manager)
-    {
+    static PlayState* getInstance(GameStateManager *manager) {
         static PlayState self(manager);
         return &self;
     }
 
     bool onInit();
+
     void onEvent(sf::Event event);
+
     void onLoop();
+
     void onRender(sf::RenderWindow &window);
+
     void onCleanup();
 
 private:
     sf::View view;
     sf::Clock clock, timer;
-    
+
     AnimationManager playerAnimation;
     AnimationManager enemyAnimation;
     AnimationManager bulletAnimation;
@@ -64,16 +67,15 @@ private:
     sf::Texture lifeScoreTexture;
     sf::Sprite lifeScore;
 
-    const std::string levelsPath[LEVELS_QUANTITY] = {"res/level1.tmx", "res/level2.tmx", "res/level3.tmx", "res/level4.tmx" };
+    const std::string levelsPath[LEVELS_QUANTITY] = {
+        "res/level1.tmx",
+        "res/level2.tmx",
+        "res/level3.tmx",
+        "res/level4.tmx"
+    };
     std::vector<std::string> levels;
+
     bool loadLevel();
-
-
 };
 
-
-
-
 #endif
-
-

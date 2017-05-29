@@ -1,5 +1,5 @@
 #ifndef LEVEL_H
-#define LEVEL_H 
+#define LEVEL_H
 
 #include "TinyXML/tinyxml.h"
 
@@ -10,7 +10,9 @@
 
 struct Object {
     int getPropertyInt(std::string name);
+
     double getPropertyFloat(std::string name);
+
     std::string getPropertyString(std::string name);
 
     std::string name;
@@ -28,10 +30,15 @@ struct Layer {
 class Level {
 public:
     bool loadFromFile(std::string filename);
+
     Object getObject(std::string name);
+
     std::vector<Object> getObjects(std::string name);
+
     std::vector<Object> getAllObjects();
+
     void draw(sf::RenderWindow &window);
+
     sf::Vector2i getTileSize();
 
 private:

@@ -1,7 +1,6 @@
 #include "Application.h"
 
-int main()
-{
+int main() {
     Application application;
 
     return application.onExecute();

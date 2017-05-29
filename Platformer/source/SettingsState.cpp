@@ -1,11 +1,13 @@
 #include "SettingsState.h"
 #include "MenuState.h"
 
-bool SettingsState::onInit()
-{
+bool SettingsState::onInit() {
     LOAD_TEXTURE(backgroundTexture.loadFromFile("res/background.jpg"));
 
-    setAndScale(background, backgroundTexture, stateManager->settings.getResolution().x, stateManager->settings.getResolution().y);
+    setAndScale(background,
+                backgroundTexture,
+                stateManager->settings.getResolution().x,
+                stateManager->settings.getResolution().y);
 
     LOAD_FONT(font.loadFromFile("res/comic.ttf"));
 
@@ -22,7 +24,7 @@ bool SettingsState::onInit()
     musicLabel.create(stateManager->settings.getLabel(Labels::MUSIC), font);
     musicLabel.setPosition(100, 100 + 300);
 
-    std::wstring label = L" " + stateManager->settings.getLanguage(); // UPPER CASE
+    std::wstring label = L" " + stateManager->settings.getLanguage();
     languageButton.create(label, font);
     languageButton.setPosition(stateManager->settings.getResolution().x - 100 - languageButton.getBounds().width, 220);
     label = std::to_wstring(stateManager->settings.getResolution().x) + L" x " + std::to_wstring(stateManager->settings.getResolution().y);
@@ -50,28 +52,31 @@ bool SettingsState::onInit()
     return true;
 }
 
-void SettingsState::onEvent(sf::Event event)
-{
+void SettingsState::onEvent(sf::Event event) {
     if (event.type == sf::Event::KeyPressed) {
-        if (event.key.code == sf::Keyboard::Space || event.key.code == sf::Keyboard::Return || event.key.code == sf::Keyboard::Escape) {
+        if (event.key.code == sf::Keyboard::Space
+            || event.key.code == sf::Keyboard::Return
+            || event.key.code == sf::Keyboard::Escape) {
             TRY_CHANGE_STATE(MenuState::getInstance(stateManager));
         }
     }
 
     if (event.type == sf::Event::MouseButtonPressed) {
         if (event.mouseButton.button == sf::Mouse::Left) {
-            if (languageButton.select(mouse)) { 
+            if (languageButton.select(mouse)) {
                 stateManager->settings.changeLanguage();
                 languageButton.setText(stateManager->settings.getLanguage());
                 stateManager->changeState(this);
             }
-            if (resolutionButton.select(mouse)) { 
+            if (resolutionButton.select(mouse)) {
                 changeResolution = true;
                 stateManager->settings.changeResolution();
-                resolutionButton.setText(std::to_wstring(stateManager->settings.getResolution().x) + L" x " + std::to_wstring(stateManager->settings.getResolution().y));
+                resolutionButton.setText(std::to_wstring(stateManager->settings.getResolution().x)
+                    + L" x "
+                    + std::to_wstring(stateManager->settings.getResolution().y));
                 stateManager->changeState(this);
             }
-            if (fullscreenButton.select(mouse)) { 
+            if (fullscreenButton.select(mouse)) {
                 changeFullscreen = true;
                 stateManager->settings.switchFullscreen();
                 if (stateManager->settings.isFullscreen())
@@ -101,32 +106,37 @@ void SettingsState::onEvent(sf::Event event)
     }
 }
 
-void SettingsState::onLoop()
-{
+void SettingsState::onLoop() {
+
 }
 
-void SettingsState::onRender(sf::RenderWindow & window)
-{
+void SettingsState::onRender(sf::RenderWindow & window) {
     if (changeResolution) {
         changeResolution = false;
         unsigned int style;
-        if (stateManager->settings.isFullscreen())
+        if (stateManager->settings.isFullscreen()) {
             style = sf::Style::Fullscreen;
-        else
+        } else {
             style = sf::Style::Close;
-        window.create(sf::VideoMode(stateManager->settings.getResolution().x, stateManager->settings.getResolution().y), APPLICATION_TITLE, style);
+        }
+        window.create(sf::VideoMode(stateManager->settings.getResolution().x,
+                                    stateManager->settings.getResolution().y),
+                      APPLICATION_TITLE, style);
     }
     if (changeFullscreen) {
         changeFullscreen = false;
         unsigned int style;
-        if (stateManager->settings.isFullscreen())
+        if (stateManager->settings.isFullscreen()) {
             style = sf::Style::Fullscreen;
-        else
+        } else {
             style = sf::Style::Close;
-        window.create(sf::VideoMode(stateManager->settings.getResolution().x, stateManager->settings.getResolution().y), APPLICATION_TITLE, style);
+        }
+        window.create(sf::VideoMode(stateManager->settings.getResolution().x,
+                                    stateManager->settings.getResolution().y),
+                      APPLICATION_TITLE, style);
     }
-    mouse = sf::Mouse::getPosition(window); 
-    
+    mouse = sf::Mouse::getPosition(window);
+
     window.setView(window.getDefaultView());
     window.draw(background);
 
@@ -139,7 +149,7 @@ void SettingsState::onRender(sf::RenderWindow & window)
 
     window.draw(languageButton.displayButton());
     window.draw(languageButton.displayText());
-    
+
     window.draw(fullscreenButton.displayButton());
     window.draw(fullscreenButton.displayText());
 
@@ -153,8 +163,7 @@ void SettingsState::onRender(sf::RenderWindow & window)
     window.draw(musicButton.displayText());
 }
 
-void SettingsState::onCleanup()
-{
+void SettingsState::onCleanup() {
     background.setPosition(0, 0);
     textLabel.create(L"", font);
     languageLabel.create(L"", font);

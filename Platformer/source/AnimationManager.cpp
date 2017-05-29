@@ -1,59 +1,60 @@
 #include "AnimationManager.h"
 
-AnimationManager::~AnimationManager()
-{
-    //animationsList.clear();
+AnimationManager::~AnimationManager() {
+
 }
 
-void AnimationManager::create(sf::String name, sf::Texture &texture, int x, int y, int width, int height, int count, double speed, int step)
-{
+void AnimationManager::create(sf::String name,
+                              sf::Texture &texture,
+                              int x,
+                              int y,
+                              int width,
+                              int height,
+                              int count,
+                              double speed,
+                              int step) {
     animationsList[name] = Animation(texture, speed);
     currentAnimation = name;
 }
 
-void AnimationManager::draw(sf::RenderWindow & window, int x, int y)
-{
+void AnimationManager::draw(sf::RenderWindow & window, int x, int y) {
     animationsList[currentAnimation].sprite.setPosition(x, y);
     window.draw(animationsList[currentAnimation].sprite);
 }
 
-void AnimationManager::set(sf::String name)
-{
+void AnimationManager::set(sf::String name) {
     currentAnimation = name;
 }
 
-void AnimationManager::flip(bool flag)
-{
+void AnimationManager::flip(bool flag) {
     animationsList[currentAnimation].isFlip = flag;
 }
 
-void AnimationManager::tick(double time)
-{
+void AnimationManager::tick(double time) {
     animationsList[currentAnimation].tick(time);
 }
 
-void AnimationManager::play()
-{
+void AnimationManager::play() {
     animationsList[currentAnimation].isPlaying = true;
 }
 
-void AnimationManager::pause()
-{
+void AnimationManager::pause() {
     animationsList[currentAnimation].isPlaying = false;
 }
 
-double AnimationManager::getHeight()
-{
-    return animationsList[currentAnimation].frames[animationsList[currentAnimation].currentFrame].height;
+double AnimationManager::getHeight() {
+    return animationsList[currentAnimation]
+        .frames[animationsList[currentAnimation].currentFrame]
+        .height;
 }
 
-double AnimationManager::getWidth()
-{
-    return animationsList[currentAnimation].frames[animationsList[currentAnimation].currentFrame].width;
+double AnimationManager::getWidth() {
+    return animationsList[currentAnimation]
+        .frames[animationsList[currentAnimation].currentFrame]
+        .width;
 }
 
-bool AnimationManager::loadFromXML(std::string fileName, sf::Texture &texture)
-{
+bool AnimationManager::loadFromXML(std::string fileName, sf::Texture &texture) {
     TiXmlDocument animFile(fileName.c_str());
 
     if (!animFile.LoadFile()) {
@@ -77,8 +78,7 @@ bool AnimationManager::loadFromXML(std::string fileName, sf::Texture &texture)
 
     TiXmlElement *animElement;
     animElement = head->FirstChildElement("animation");
-    while (animElement)
-    {
+    while (animElement) {
         currentAnimation = animElement->Attribute("title");
         int delay = atoi(animElement->Attribute("delay"));
         double speed = 1.0 / delay;
@@ -87,8 +87,7 @@ bool AnimationManager::loadFromXML(std::string fileName, sf::Texture &texture)
 
         TiXmlElement *cut;
         cut = animElement->FirstChildElement("cut");
-        while (cut)
-        {
+        while (cut) {
             int x = atoi(cut->Attribute("x"));
             int y = atoi(cut->Attribute("y"));
             int w = atoi(cut->Attribute("w"));
